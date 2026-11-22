@@ -8,7 +8,7 @@ window.STORE = {
 
   /* WhatsApp number for orders: country code + number, digits only.
      Example: '27821234567' for 082 123 4567. Leave the X's until you have it. */
-  whatsapp: '27XXXXXXXXX',
+  whatsapp: '27746592098',
 
   /* Shown on the contact page. Leave '' to hide a line. */
   email: 'nexeracommerce@gmail.com',
