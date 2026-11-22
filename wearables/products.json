@@ -1,0 +1,179 @@
+{
+  "categories": [
+    { "id": "watches", "name": "Watches", "line": "Fitness watches and bands, from R599" },
+    { "id": "rings", "name": "Smart rings", "line": "All-day tracking with nothing on your wrist" },
+    { "id": "cases", "name": "Watch cases", "line": "Travel cases and display boxes" }
+  ],
+  "ringSizes": {
+    "note": "Inside diameters from Colmi R10 and R12 size listings. Size 10 is estimated between sizes 9 and 11.",
+    "sizes": [
+      { "size": "7", "mm": 17.9 },
+      { "size": "8", "mm": 18.3 },
+      { "size": "9", "mm": 19.1 },
+      { "size": "10", "mm": 20.0 },
+      { "size": "11", "mm": 20.8 },
+      { "size": "12", "mm": 21.6 },
+      { "size": "13", "mm": 22.4 }
+    ]
+  },
+  "products": [
+    {
+      "slug": "xiaomi-redmi-watch-5-active",
+      "name": "Xiaomi Redmi Watch 5 Active",
+      "category": "watches",
+      "price": 849,
+      "description": "A big, bright square screen and up to 18 days on a charge. Take calls on your wrist and log more than 140 kinds of workout.",
+      "features": [
+        "2-inch LCD screen, up to 500 nits",
+        "Up to 18 days battery in typical use",
+        "Bluetooth calls from your wrist, with noise-reducing mics",
+        "140+ workout modes",
+        "Heart rate and SpO2 readings for everyday wellness",
+        "Water-resistant (rating varies by region)"
+      ],
+      "image": "images/xiaomi-redmi-watch-5-active.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "xiaomi-smart-band-10",
+      "name": "Xiaomi Smart Band 10",
+      "category": "watches",
+      "price": 1199,
+      "description": "A light band with a sharp AMOLED screen that you forget you are wearing. Rated for swimming, with up to 21 days between charges.",
+      "features": [
+        "1.72-inch AMOLED screen, up to 1 500 nits",
+        "Up to 21 days battery in typical use, 9 with always-on display",
+        "5ATM water rating, with swim tracking",
+        "150+ workout modes",
+        "About 16 g without the strap"
+      ],
+      "image": "images/xiaomi-smart-band-10.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "colmi-p71",
+      "name": "Colmi P71 smartwatch",
+      "category": "watches",
+      "price": 599,
+      "description": "A large screen and calls from the wrist for under R600. A good first smartwatch for steps, sleep and workouts.",
+      "features": [
+        "1.9-inch IPS screen",
+        "Bluetooth calls with built-in speaker and mic",
+        "IP68 dust and water resistance",
+        "Steps, heart rate and sleep tracking",
+        "22 mm silicone strap you can swap"
+      ],
+      "image": "images/colmi-p71.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "spovan-pr3",
+      "name": "Spovan PR3 outdoor sports watch",
+      "category": "watches",
+      "price": 899,
+      "description": "A rugged outdoor watch for trail runs, hikes and site work. Ask us on WhatsApp which version is in stock before you order.",
+      "features": [
+        "50 m water rating",
+        "Steps, distance and calories",
+        "Stopwatch, alarm and backlight",
+        "Bluetooth link for phone notifications",
+        "26 mm strap, fits wrists up to 24 cm"
+      ],
+      "image": "images/spovan-pr3.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "woven-nylon-strap-case-set",
+      "name": "Woven nylon strap + case set",
+      "category": "watches",
+      "addon": true,
+      "price": 249,
+      "description": "A soft woven nylon strap with a matching protective case for the watch face. Tell us which watch you have and we confirm the fit before you pay.",
+      "features": [
+        "Woven nylon strap, light and quick to dry",
+        "Protective case for the watch body",
+        "Fit checked on WhatsApp before payment"
+      ],
+      "image": "images/woven-nylon-strap-case-set.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "colmi-r10",
+      "name": "Colmi R10 smart ring",
+      "category": "rings",
+      "price": 1099,
+      "description": "Sleep, heart rate and activity tracking in a ring that weighs under 5 g. No screen, no buzzing, and you can swim with it.",
+      "features": [
+        "5ATM water rating, wear it in the pool",
+        "Heart rate, sleep, SpO2 and stress readings for wellness",
+        "About 3 to 5 days per charge",
+        "Charging case included",
+        "About 4.5 g, 2.7 mm thick",
+        "Sizes 7 to 13"
+      ],
+      "options": { "label": "Ring size", "values": ["7", "8", "9", "10", "11", "12", "13"] },
+      "image": "images/colmi-r10.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "colmi-r12",
+      "name": "Colmi R12 smart ring (touch display)",
+      "category": "rings",
+      "price": 1499,
+      "description": "A smart ring with its own small touch display. Check the time, your steps and the battery on your finger, without picking up your phone.",
+      "features": [
+        "Touch display shows time, steps and battery",
+        "Heart rate and sleep tracking in the app",
+        "Wireless charging",
+        "IP68 splash rating, take it off to swim",
+        "Sizes 7 to 13"
+      ],
+      "options": { "label": "Ring size", "values": ["7", "8", "9", "10", "11", "12", "13"] },
+      "image": "images/colmi-r12.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "pu-leather-travel-watch-case",
+      "name": "PU leather travel watch case",
+      "category": "cases",
+      "price": 249,
+      "description": "A compact zip case that keeps a watch from getting scratched in a gym bag or carry-on.",
+      "features": [
+        "PU leather outside",
+        "Soft lining inside",
+        "Small enough for a gym bag"
+      ],
+      "image": "images/pu-leather-travel-watch-case.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "glass-top-wooden-display-box",
+      "name": "Glass-top wooden display box",
+      "category": "cases",
+      "price": 449,
+      "description": "A wooden box with a glass lid, so your watches stay dust-free and still on show on a desk or dresser.",
+      "features": [
+        "Wooden body with a glass lid",
+        "Cushioned slots inside",
+        "Keeps dust off between wears"
+      ],
+      "image": "images/glass-top-wooden-display-box.jpg",
+      "inStock": true
+    },
+    {
+      "slug": "aluminium-watch-case",
+      "name": "Aluminium watch case",
+      "category": "cases",
+      "price": 549,
+      "description": "A hard aluminium case with foam slots, for one to three watches. Made for travel where bags get thrown around.",
+      "features": [
+        "Aluminium shell",
+        "Foam slots inside",
+        "Choose 1, 2 or 3 slots"
+      ],
+      "options": { "label": "Slots", "values": ["1 slot", "2 slots", "3 slots"] },
+      "image": "images/aluminium-watch-case.jpg",
+      "inStock": true
+    }
+  ]
+}

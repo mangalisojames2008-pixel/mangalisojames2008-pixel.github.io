@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Product · NEXERA</title>
+<meta name="description" content="Fitness watches, smart rings and watch cases, priced in rand. Order on WhatsApp.">
+<meta name="theme-color" content="#f4f2ed">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
+<script src="config.js"></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages.js" defer></script>
+</head>
+<body data-page="product" data-title="Product">
+<a class="skip" href="#main">Skip to content</a>
+<header id="site-header" class="nav"></header>
+
+<main id="main" class="page">
+  <div class="wrap">
+    <nav class="crumbs small" aria-label="Breadcrumb" data-crumbs><a href="shop.html">Shop</a></nav>
+
+    <!-- product: stage box on one side, text on the other; they never share space -->
+    <article class="pdp" data-pdp hidden>
+      <div class="pdp__media"><div class="stage stage--sq" data-pdp-stage></div></div>
+      <div class="pdp__info">
+        <h1 class="pdp__name" data-pdp-name></h1>
+        <p class="pdp__price price" data-pdp-price></p>
+        <p class="pdp__desc" data-pdp-desc></p>
+        <form class="pdp__buy" data-buy novalidate>
+          <fieldset class="pdp__opt" data-opt-wrap hidden>
+            <legend data-opt-label>Size</legend>
+            <div class="chips" role="radiogroup" data-opt-chips></div>
+            <p class="small muted" data-opt-help></p>
+          </fieldset>
+          <div class="pdp__row">
+            <div class="qty" role="group" aria-label="Quantity">
+              <button type="button" data-q="-1" aria-label="One less">−</button>
+              <output data-qty aria-live="polite">1</output>
+              <button type="button" data-q="1" aria-label="One more">+</button>
+            </div>
+            <button class="btn pdp__add" type="submit" data-add-btn>Add to cart</button>
+          </div>
+          <p class="small pdp__err" data-err role="alert" hidden></p>
+          <a class="btn btn--ghost btn--block" data-ask href="https://wa.me/" target="_blank" rel="noopener">Ask about this on WhatsApp</a>
+        </form>
+        <h2 class="pdp__h">Features</h2>
+        <ul class="pdp__features" data-pdp-features></ul>
+        <p class="small muted" data-wellness hidden>For fitness and general wellness only. Not a medical device.</p>
+      </div>
+    </article>
+
+    <!-- ring size guide (rings only) -->
+    <section class="sizeguide" id="size-guide" data-sizeguide hidden aria-labelledby="sgTitle">
+      <h2 id="sgTitle">Ring size guide</h2>
+      <p class="lede">Measure the finger you will wear the ring on, at the end of the day when fingers are a little bigger. Smart rings are thicker than most rings, so a snug fit reads best.</p>
+      <div class="sizeguide__grid">
+        <div class="table-wrap">
+          <table class="sizes">
+            <caption class="sr-only">Ring sizes with inside diameter and circumference</caption>
+            <thead><tr><th scope="col">Size</th><th scope="col">Inside diameter</th><th scope="col">Finger circumference</th></tr></thead>
+            <tbody data-sizes></tbody>
+          </table>
+          <p class="small muted" data-sizes-note></p>
+        </div>
+        <div class="note">
+          <h3>Three ways to find your size</h3>
+          <ol>
+            <li>Print the <a class="link" href="sizer.html">ring sizer</a> and wrap the paper strip around your finger.</li>
+            <li>Lay a ring you already wear on the printed circles and find the one that matches the inside edge.</li>
+            <li>Wrap a strip of paper around your finger, mark where it meets, and measure the length in millimetres.</li>
+          </ol>
+          <a class="btn btn--ghost" href="sizer.html">Open the printable sizer</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="pdp__missing" data-missing hidden>
+      <h1>That product is not here</h1>
+      <p class="lede">It may have sold out or moved.</p>
+      <a class="btn" href="shop.html">Back to the shop</a>
+    </div>
+
+    <section class="related" data-related-wrap hidden aria-labelledby="relTitle">
+      <h2 id="relTitle" class="related__h">Goes well with</h2>
+      <div class="row" data-related></div>
+    </section>
+  </div>
+</main>
+
+<footer id="site-footer" class="footer"></footer>
+</body>
+</html>

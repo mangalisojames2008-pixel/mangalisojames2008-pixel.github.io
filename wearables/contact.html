@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact · NEXERA</title>
+<meta name="description" content="Message us on WhatsApp or email.">
+<meta name="theme-color" content="#f4f2ed">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
+<script src="config.js"></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages.js" defer></script>
+</head>
+<body data-page="contact" data-title="Contact">
+<a class="skip" href="#main">Skip to content</a>
+<header id="site-header" class="nav"></header>
+
+<main id="main" class="page">
+  <div class="wrap contact">
+    <div class="contact__intro">
+      <h1>Contact</h1>
+      <p class="lede">WhatsApp is the quickest way to reach us. We answer questions about fit, phones and delivery before you buy.</p>
+      <dl class="contact__list">
+        <div><dt>WhatsApp</dt><dd><a class="link" data-wa="Hi, I have a question." data-wa-label href="https://wa.me/" target="_blank" rel="noopener">Send a message</a></dd></div>
+        <div data-show="email"><dt>Email</dt><dd><a class="link" data-mail href="mailto:"></a></dd></div>
+        <div data-show="phone"><dt>Phone</dt><dd data-cfg="phone"></dd></div>
+        <div><dt>Hours</dt><dd data-cfg="hours">[OPENING HOURS]</dd></div>
+        <div><dt>We deliver to</dt><dd data-cfg="area">South Africa</dd></div>
+      </dl>
+    </div>
+
+    <form class="contact__form note" data-contact novalidate aria-labelledby="cfTitle">
+      <h2 id="cfTitle" class="cart__h">Write to us on WhatsApp</h2>
+      <div class="field"><label for="cfName">Your name</label><input id="cfName" name="name" autocomplete="name" maxlength="80" required></div>
+      <div class="field"><label for="cfMsg">Message</label><textarea id="cfMsg" name="msg" maxlength="800" required></textarea></div>
+      <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="small pdp__err" data-err role="alert" hidden></p>
+      <button class="btn btn--wa btn--block" type="submit">Open in WhatsApp</button>
+      <p class="small muted">Your name and message go only into the WhatsApp chat you open. This site does not store them.</p>
+    </form>
+  </div>
+</main>
+
+<footer id="site-footer" class="footer"></footer>
+</body>
+</html>

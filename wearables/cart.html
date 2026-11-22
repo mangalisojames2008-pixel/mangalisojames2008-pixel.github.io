@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cart · NEXERA</title>
+<meta name="description" content="Your cart. Send the order on WhatsApp.">
+<meta name="theme-color" content="#f4f2ed">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
+<script src="config.js"></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages.js" defer></script>
+</head>
+<body data-page="cart" data-title="Cart">
+<a class="skip" href="#main">Skip to content</a>
+<header id="site-header" class="nav"></header>
+
+<main id="main" class="page">
+  <div class="wrap">
+    <h1>Your cart</h1>
+
+    <div class="cart__empty" data-empty hidden>
+      <p class="lede">Your cart is empty.</p>
+      <a class="btn" href="shop.html">Go to the shop</a>
+    </div>
+
+    <div class="cart" data-cart hidden>
+      <ul class="cart__list" data-lines aria-live="polite"></ul>
+
+      <div class="cart__side">
+        <section class="cart__sum" aria-labelledby="sumTitle">
+          <h2 id="sumTitle" class="cart__h">Summary</h2>
+          <dl class="sum">
+            <div><dt>Subtotal</dt><dd class="price" data-subtotal>R0</dd></div>
+            <div data-save-row hidden><dt>Bundle saving</dt><dd class="price" data-save>R0</dd></div>
+            <div><dt>Delivery</dt><dd data-delivery>Confirmed on WhatsApp</dd></div>
+            <div class="sum__total"><dt>Total</dt><dd class="price" data-total>R0</dd></div>
+          </dl>
+        </section>
+
+        <!-- CHECKOUT: the order goes into one WhatsApp message -->
+        <form class="cart__form" data-checkout novalidate aria-labelledby="coTitle">
+          <h2 id="coTitle" class="cart__h">Order on WhatsApp</h2>
+          <div class="field"><label for="coName">Your name</label><input id="coName" name="name" autocomplete="name" maxlength="80" required></div>
+          <div class="field"><label for="coArea">Suburb and town</label><input id="coArea" name="area" autocomplete="address-level2" maxlength="120" placeholder="e.g. Soshanguve, Pretoria" required></div>
+          <div class="field"><label for="coNote">Note (optional)</label><textarea id="coNote" name="note" maxlength="400" placeholder="Phone model, strap fit, delivery times"></textarea></div>
+          <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="small pdp__err" data-err role="alert" hidden></p>
+          <button class="btn btn--wa btn--block" type="submit" data-send>Order on WhatsApp</button>
+          <p class="small muted">This opens WhatsApp with your order written out. Nothing is paid yet. We reply to confirm stock, delivery cost and how to pay. Your name and area go only into that message.</p>
+          <p class="small ph" data-owner-note hidden>Owner note: add your WhatsApp number in config.js. Until then this button opens WhatsApp's chat picker.</p>
+        </form>
+
+        <!-- ===================================================================
+             PAYMENT SLOT: PayFast or Yoco goes here later.
+             Turn it on in config.js (payments.payfast / payments.yoco).
+             See NOTES.md, "Adding online payment", for the exact steps.
+             =================================================================== -->
+        <section class="cart__pay" data-pay-slot hidden aria-label="Pay online">
+          <h2 class="cart__h">Or pay online</h2>
+          <div data-pay-buttons></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer" class="footer"></footer>
+</body>
+</html>

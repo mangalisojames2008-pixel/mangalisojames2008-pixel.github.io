@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shop · NEXERA</title>
+<meta name="description" content="Fitness watches, smart rings and watch cases, priced in rand. Order on WhatsApp.">
+<meta name="theme-color" content="#f4f2ed">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
+<script src="config.js"></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages.js" defer></script>
+</head>
+<body data-page="shop" data-title="Shop">
+<a class="skip" href="#main">Skip to content</a>
+<header id="site-header" class="nav"></header>
+
+<main id="main" class="page">
+  <div class="wrap">
+    <div class="shop__head">
+      <h1 data-shop-title>Shop</h1>
+      <p class="lede" data-shop-line>Every watch, smart ring and watch case we stock, in rand.</p>
+    </div>
+    <div class="shop__bar">
+      <div class="chips" role="group" aria-label="Category" data-filters>
+        <button class="chip" type="button" data-c="" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-c="watches" aria-pressed="false">Watches</button>
+        <button class="chip" type="button" data-c="rings" aria-pressed="false">Smart rings</button>
+        <button class="chip" type="button" data-c="cases" aria-pressed="false">Watch cases</button>
+      </div>
+      <div class="field shop__sort">
+        <label for="sort" class="sr-only">Sort</label>
+        <select id="sort" data-sort>
+          <option value="">Sort: featured</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+        </select>
+      </div>
+    </div>
+    <p class="muted small" data-count aria-live="polite"></p>
+    <div class="grid grid--4" data-grid>
+      <noscript><p>This shop needs JavaScript to list products. You can also order on WhatsApp.</p></noscript>
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer" class="footer"></footer>
+</body>
+</html>

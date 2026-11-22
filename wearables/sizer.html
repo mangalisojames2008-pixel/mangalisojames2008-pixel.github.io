@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Printable ring sizer · NEXERA</title>
+<meta name="description" content="Print this page at actual size to find your smart ring size, 7 to 13.">
+<meta name="theme-color" content="#f4f2ed">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/pages.css">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
+<script src="config.js"></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages.js" defer></script>
+</head>
+<body data-page="sizer" data-title="Ring sizer">
+<a class="skip" href="#main">Skip to content</a>
+<header id="site-header" class="nav"></header>
+
+<main id="main" class="page">
+  <div class="wrap sizer">
+    <div class="sizer__intro no-print">
+      <h1>Printable ring sizer</h1>
+      <p class="lede">For the Colmi R10 and R12, sizes 7 to 13. Print on A4 at actual size, then use the strip or the circles.</p>
+      <ol class="sizer__steps">
+        <li>In the print window, set the scale to <strong>100%</strong> or <strong>Actual size</strong>, not "Fit to page".</li>
+        <li>Measure the 50 mm check line with a ruler. If it is not 50 mm, the sizes will be wrong. Print again.</li>
+        <li>Measure at the end of the day, on the finger you will wear the ring on.</li>
+      </ol>
+      <button class="btn" type="button" data-print>Print the sizer</button>
+      <p class="small muted">On a phone with no printer? Wrap a strip of paper around your finger, mark where it meets, and measure it with a ruler. The table below gives the size.</p>
+    </div>
+
+    <!-- everything below prints -->
+    <section class="sheet" aria-label="Ring sizer sheet">
+      <p class="sheet__title"><strong><span data-store>NEXERA</span> ring sizer</strong>, sizes 7 to 13. Print at 100%.</p>
+
+      <div class="sheet__block">
+        <h2 class="sheet__h">Check line: must measure 50 mm</h2>
+        <svg class="mm" width="50mm" height="6mm" viewBox="0 0 50 6" aria-label="50 millimetre check line"><line x1="0" y1="3" x2="50" y2="3" stroke="#000" stroke-width=".4"/><line x1=".2" y1="0" x2=".2" y2="6" stroke="#000" stroke-width=".4"/><line x1="49.8" y1="0" x2="49.8" y2="6" stroke="#000" stroke-width=".4"/></svg>
+      </div>
+
+      <div class="sheet__block">
+        <h2 class="sheet__h">1. Paper strip</h2>
+        <p class="sheet__p">Cut out the strip. Wrap it around your finger, numbers facing out, so it is snug but slides over the knuckle. The number where the start of the strip meets is your size.</p>
+        <div data-strip></div>
+      </div>
+
+      <div class="sheet__block">
+        <h2 class="sheet__h">2. A ring you already wear</h2>
+        <p class="sheet__p">Lay the ring on the circles. Your size is the circle that lines up with the inside edge of the ring. Between two? Pick the bigger one.</p>
+        <div class="circles" data-circles></div>
+      </div>
+
+      <table class="sizes sheet__table">
+        <caption class="sheet__h">Size table</caption>
+        <thead><tr><th scope="col">Size</th><th scope="col">Inside diameter</th><th scope="col">Finger circumference</th></tr></thead>
+        <tbody data-sizes></tbody>
+      </table>
+      <p class="small muted" data-sizes-note></p>
+    </section>
+  </div>
+</main>
+
+<footer id="site-footer" class="footer"></footer>
+</body>
+</html>
