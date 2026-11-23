@@ -67,14 +67,6 @@
       ],
       "image": "images/xiaomi-redmi-watch-5-active.jpg",
       "inStock": true,
-      "model": {
-        "kind": "watch-square",
-        "w": 3.9,
-        "h": 4.6,
-        "color": "#2a2c31",
-        "strap": "#1c1d21",
-        "accent": "#d8ff3d"
-      },
       "colours": [
         {
           "name": "Black",
@@ -103,16 +95,15 @@
         }
       ],
       "photo": "Xiaomi",
-      "gallery": [
-        {
-          "image": "images/xiaomi-redmi-watch-5-active-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "xiaomi-smart-band-10",
@@ -129,20 +120,11 @@
       ],
       "image": "images/xiaomi-smart-band-10.jpg",
       "inStock": true,
-      "model": {
-        "kind": "band",
-        "color": "#1b1c20",
-        "strap": "#141518"
-      },
       "gallery": [
         {
           "image": "images/xiaomi-smart-band-10-colours.jpg",
           "label": "The colour range",
           "wide": true
-        },
-        {
-          "image": "images/xiaomi-smart-band-10-inside.jpg",
-          "label": "Inside, illustration"
         }
       ],
       "stats": [
@@ -166,7 +148,12 @@
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "colmi-p71",
@@ -183,16 +170,6 @@
       ],
       "image": "images/colmi-p71.jpg",
       "inStock": true,
-      "model": {
-        "kind": "watch-square",
-        "w": 3.79,
-        "h": 4.55,
-        "d": 1.12,
-        "r": 1.0,
-        "color": "#3a3c42",
-        "strap": "#202124",
-        "accent": "#7ad7ff"
-      },
       "stats": [
         {
           "value": "1.9",
@@ -210,17 +187,11 @@
           "label": "swap-in strap"
         }
       ],
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/colmi-p71-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     },
     {
       "slug": "spovan-pr3",
@@ -237,11 +208,6 @@
       ],
       "image": "images/spovan-pr3.jpg",
       "inStock": true,
-      "model": {
-        "kind": "watch-round",
-        "color": "#23252a",
-        "strap": "#1b1c1f"
-      },
       "stats": [
         {
           "value": "50",
@@ -259,17 +225,11 @@
           "label": "largest wrist"
         }
       ],
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/spovan-pr3-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     },
     {
       "slug": "woven-nylon-strap-case-set",
@@ -285,21 +245,11 @@
       ],
       "image": "images/woven-nylon-strap-case-set.jpg",
       "inStock": true,
-      "model": {
-        "kind": "strap-set",
-        "color": "#3c4a5c"
-      },
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/woven-nylon-strap-case-set-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     },
     {
       "slug": "colmi-r10",
@@ -329,10 +279,6 @@
       },
       "image": "images/colmi-r10.jpg",
       "inStock": true,
-      "model": {
-        "kind": "ring",
-        "color": "#2b2c30"
-      },
       "colours": [
         {
           "name": "Black",
@@ -365,16 +311,15 @@
         }
       ],
       "photo": "Colmi",
-      "gallery": [
-        {
-          "image": "images/colmi-r10-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "colmi-r12",
@@ -403,11 +348,6 @@
       },
       "image": "images/colmi-r12.jpg",
       "inStock": true,
-      "model": {
-        "kind": "ring",
-        "color": "#1f2024",
-        "display": true
-      },
       "stats": [
         {
           "value": "Touch",
@@ -425,17 +365,11 @@
           "label": "sizes"
         }
       ],
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/colmi-r12-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     },
     {
       "slug": "pu-leather-travel-watch-case",
@@ -450,21 +384,11 @@
       ],
       "image": "images/pu-leather-travel-watch-case.jpg",
       "inStock": true,
-      "model": {
-        "kind": "case-travel",
-        "color": "#6b4a35"
-      },
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/pu-leather-travel-watch-case-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     },
     {
       "slug": "glass-top-wooden-display-box",
@@ -479,20 +403,11 @@
       ],
       "image": "images/glass-top-wooden-display-box.jpg",
       "inStock": true,
-      "model": {
-        "kind": "case-display"
-      },
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/glass-top-wooden-display-box-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     },
     {
       "slug": "aluminium-watch-case",
@@ -515,21 +430,11 @@
       },
       "image": "images/aluminium-watch-case.jpg",
       "inStock": true,
-      "model": {
-        "kind": "case-alu",
-        "slots": 2
-      },
-      "illustration": true,
-      "gallery": [
-        {
-          "image": "images/aluminium-watch-case-inside.jpg",
-          "label": "Inside, illustration"
-        }
-      ],
       "shopify": {
         "variant": "",
         "variants": {}
-      }
+      },
+      "photoPending": true
     }
   ]
 }

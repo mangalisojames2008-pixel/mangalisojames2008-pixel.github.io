@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const go = () => {
-    const { S, $, $$, esc, fmt, load, cart, card, bezel, url, toast, waLink, waReady, reveals } = window.Shop;
+    const { S, $, $$, esc, fmt, load, cart, card, bezel, url, srcAttrs, toast, waLink, waReady, reveals } = window.Shop;
     const page = document.body.dataset.page;
     const q = new URLSearchParams(location.search);
     const fail = el => { if (el) el.innerHTML = '<p class="muted">Products could not load. Check your connection and refresh.</p>'; };
@@ -54,7 +54,8 @@
         document.title = `${p.name} · ${S.name}`;
         const md = document.querySelector('meta[name="description"]'); if (md) md.content = p.description;
         $('[data-crumbs]').innerHTML = `<a href="shop.html">Shop</a> <span aria-hidden="true">/</span> <a href="shop.html?c=${esc(p.category)}">${esc(c ? c.name : '')}</a>`;
-        $('[data-pdp-stage]').innerHTML = bezel(0) + `<img class="shot" src="${esc(p.image)}" alt="${esc(p.name)}" width="1000" height="1000" fetchpriority="high" decoding="async">`;
+        const PDP_SIZES = '(max-width: 860px) 92vw, (min-width: 3400px) 1400px, (min-width: 2400px) 1000px, 46vw';
+        $('[data-pdp-stage]').innerHTML = (p.photoPending ? '' : bezel(0)) + (p.photoPending ? '' : `<img class="shot" ${srcAttrs(p, p.image, PDP_SIZES)} alt="${esc(p.name)}" width="1000" height="1000" fetchpriority="high" decoding="async">`);
         $('[data-pdp-name]').textContent = p.name;
         $('[data-pdp-price]').textContent = fmt(p.price);
         $('[data-pdp-desc]').textContent = p.description;
@@ -66,16 +67,20 @@
         /* pictures: main photo (or colour photos), then the extra angles */
         const stageEl = $('[data-pdp-stage]');
         const show = (src, alt) => {
-          const img = stageEl.querySelector('img.shot');
-          img.src = src; img.alt = alt || p.name;
+          const img = stageEl.querySelector('img.shot'); if (!img) return;
+          const hi = pics.find(x => x.image === src);
+          const ws = hi && hi.hi && /\.jpg$/.test(src) ? (p.hires || []) : [];
+          if (ws.length) { img.setAttribute('srcset', ws.map(w => `${src.replace(/\.jpg$/, `-${w}.jpg`)} ${w}w`).join(', ')); img.setAttribute('sizes', PDP_SIZES); }
+          else { img.removeAttribute('srcset'); img.removeAttribute('sizes'); }
+          img.src = src; img.alt = alt || p.name; img.hidden = false;
           $$('[data-thumb]').forEach(t => t.setAttribute('aria-pressed', String(t.dataset.thumb === src)));
         };
-        const pics = [...(p.colours ? p.colours.map(c => ({ image: c.image, label: c.name })) : [{ image: p.image, label: p.name }]), ...(p.gallery || [])];
+        const pics = p.photoPending ? [] : [...(p.colours ? p.colours.map(c => ({ image: c.image, label: c.name, hi: true })) : [{ image: p.image, label: p.name, hi: true }]), ...(p.gallery || [])];
         if (pics.length > 1) {
           $('[data-thumbs]').innerHTML = pics.map(g => `<button type="button" class="pdp__thumb stage" data-thumb="${esc(g.image)}" aria-pressed="${g.image === p.image}" aria-label="${esc(g.label)}"><img class="shot" src="${esc(g.image)}" alt="" width="1000" height="1000" loading="lazy" decoding="async"></button>`).join('');
           $('[data-thumbs]').addEventListener('click', e => { const t = e.target.closest('[data-thumb]'); if (t) show(t.dataset.thumb, `${p.name}, ${t.getAttribute('aria-label')}`); });
         }
-        $('[data-img-note]').textContent = p.illustration ? `Illustration by ${S.name}. Product photo coming soon.` : p.photo ? `Photo: ${p.photo}.` : '';
+        $('[data-img-note]').textContent = p.photoPending ? 'Photo coming soon.' : p.photo ? `Photo: ${p.photo}.` : '';
 
         /* colour */
         let colour = '';
@@ -98,18 +103,6 @@
           st.innerHTML = p.stats.map(x => `<li><span class="glance__v">${esc(x.value)}<small>${esc(x.unit)}</small></span><span class="glance__l">${esc(x.label)}</span></li>`).join('');
         }
 
-        /* 3D view: three.js loads only now, on the first tap */
-        let viewerP = null;
-        const open3d = (inside, btn) => {
-          const label = btn ? btn.textContent : '';
-          if (btn) { btn.disabled = true; btn.textContent = 'Loading 3D…'; }
-          viewerP = viewerP || import('./viewer3d.js');
-          viewerP.then(m => m.open(p, { inside, storeName: S.name, opener: btn || document.activeElement }))
-            .catch(err => { console.error(err); viewerP = null; toast('The 3D view could not start on this device.'); })
-            .finally(() => { if (btn) { btn.disabled = false; btn.textContent = label; } });
-        };
-        $$('[data-3d]').forEach(b => b.addEventListener('click', () => open3d(b.dataset['3d'] === 'inside', b)));
-        if (/^#(3d|inside)$/.test(location.hash)) open3d(location.hash === '#inside', $(location.hash === '#inside' ? '[data-3d="inside"]' : '[data-3d]'));
 
         /* options: ring size or slots */
         let opt = '', qty = 1;

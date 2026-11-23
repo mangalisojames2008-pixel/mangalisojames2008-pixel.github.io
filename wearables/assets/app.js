@@ -79,6 +79,21 @@
 
   const url = p => `product.html?p=${encodeURIComponent(p.slug)}`;
 
+  /* Sharp photos on 1440p and 4K screens: a product's "hires" list (e.g. [960, 1440, 2160])
+     means images/<name>-960.jpg and so on exist next to the photo. */
+  function srcAttrs(p, src, sizes) {
+    const ws = (p && p.hires) || [];
+    if (!ws.length || !/\.jpg$/.test(src)) return `src="${esc(src)}"`;
+    const set = ws.map(w => `${esc(src.replace(/\.jpg$/, `-${w}.jpg`))} ${w}w`).join(', ');
+    return `src="${esc(src)}" srcset="${set}" sizes="${esc(sizes)}"`;
+  }
+
+  /* a photo that has not been uploaded yet: hide the broken image, leave the empty plate */
+  document.addEventListener('error', e => {
+    const t = e.target;
+    if (t && t.tagName === 'IMG' && t.classList.contains('shot')) t.hidden = true;
+  }, true);
+
   function card(p) {
     const needsChoice = !!p.options;
     const btn = !p.inStock
@@ -87,10 +102,10 @@
         ? `<a class="btn btn--ghost card__add" href="${url(p)}">Choose ${esc(p.options.label.toLowerCase())}</a>`
         : `<button class="btn card__add" type="button" data-add="${esc(p.slug)}">Add to cart</button>`;
     return `<article class="card">
-      <div class="stage stage--sq">${bezel()}<img class="shot" src="${esc(p.image)}" alt="${esc(p.name)}" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="stage stage--sq">${p.photoPending ? '' : bezel()}${p.photoPending ? '' : `<img class="shot" ${srcAttrs(p, p.image, '(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw')} alt="${esc(p.name)}" width="1000" height="1000" loading="lazy" decoding="async">`}</div>
       <div class="card__body">
         <h3 class="card__name"><a href="${url(p)}">${esc(p.name)}</a></h3>
-        ${p.illustration ? '<p class="tag">Illustration, photo coming soon</p>' : ''}
+        ${p.photoPending ? '<p class="tag">Photo coming soon</p>' : ''}
         <p class="card__line">${esc(p.description)}</p>
         <div class="card__foot"><span class="price">${fmt(p.price)}</span>${btn}</div>
       </div>
@@ -158,7 +173,7 @@
       </div>
       <div class="footer__fine">
         <p>Watches and rings sold here are for fitness and general wellness. They are not medical devices and do not diagnose or treat any condition.</p>
-        <p>Product photos of the Redmi Watch 5 Active, Smart Band 10 and Colmi R10 are by Xiaomi and Colmi. Other pictures and all 3D views are illustrations by <span data-store>${esc(S.name)}</span>.</p>
+        <p>Product photos by Xiaomi and Colmi. Products marked "Photo coming soon" get their photo shortly.</p>
         <p>Xiaomi, Redmi, Colmi and Spovan are trademarks of their owners. <span data-store>${esc(S.name)}</span> is an independent shop and is not linked to these brands.</p>
         <p>Prices in rand, including VAT where it applies. Your cart stays on this device until you check out. Checkout and payment happen on Shopify.</p>
         <p>&copy; ${new Date().getFullYear()} <span data-store>${esc(S.name)}</span></p>
@@ -211,6 +226,6 @@
   }
   window.addEventListener('storage', badge);
 
-  window.Shop = { S, $, $$, esc, fmt, load, cart, card, bezel, url, toast, icons, waLink, waReady, reveals, badge };
+  window.Shop = { S, $, $$, esc, fmt, load, cart, card, bezel, url, srcAttrs, toast, icons, waLink, waReady, reveals, badge };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

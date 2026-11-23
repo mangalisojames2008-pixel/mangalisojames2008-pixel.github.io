@@ -1,0 +1,103 @@
+/* NEXERA cinema — scroll-scrubbed product film for the home page.
+   Real product photos only (transparent PNG cut-outs). No canvas, no WebGL, no generated models. */
+
+@property --glow { syntax: "<color>"; inherits: true; initial-value: #ff5a1f; }
+
+.cin { --ink:#f5f3ef; --mute:#9a96a3; --deep:#07070a; --glow:#ff5a1f;
+  background: var(--deep); color: var(--ink); position: relative; isolation: isolate; overflow: clip;
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif; transition: --glow 0.9s ease; }
+
+/* fixed ambient glow that changes colour per scene */
+.cin-ambient { position: sticky; top: 0; height: 100vh; margin-bottom: -100vh; pointer-events: none; z-index: 0;
+  background: radial-gradient(60% 45% at 50% 78%, color-mix(in srgb, var(--glow) 28%, transparent), transparent 70%); }
+
+.scene { position: relative; z-index: 1; height: calc(var(--len, 300) * 1vh); }
+/* scenes overlap by one screen so each one cross-fades into the next (no empty frames) */
+.scene + .scene { margin-top: -100vh; }
+.stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid; place-items: center; }
+
+/* the product: always a real photo */
+.prod { position: absolute; left: 50%; top: 50%; width: min(42vw, 460px); max-height: 70vh;
+  translate: -50% -50%; object-fit: contain; will-change: transform, opacity, filter;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .6)); z-index: 3; }
+.prod.plate { background: #f4f2ed; border-radius: 28px; padding: 6%; } /* fallback if no cut-out exists */
+.prod-glow { position: absolute; left: 50%; top: 66%; width: 46vw; height: 14vw; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow), transparent); filter: blur(30px); opacity: .7; z-index: 2; }
+
+/* giant word behind the product */
+.giant { position: absolute; left: 50%; top: 42%; translate: -50% -50%; margin: 0; z-index: 1; white-space: nowrap;
+  font: 900 min(24vw, 340px)/.8 "Inter Tight", system-ui, sans-serif; letter-spacing: -.05em;
+  background: linear-gradient(90deg, #2b2640 0%, #2b2640 38%, var(--glow) 62%, color-mix(in srgb, var(--glow) 60%, #fff) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* copy blocks */
+.copy { position: absolute; z-index: 4; max-width: 30ch; }
+.copy.l { left: 6vw; bottom: 16vh; } .copy.r { right: 6vw; top: 22vh; text-align: left; }
+.copy.c { left: 50%; translate: -50% 0; bottom: 12vh; text-align: center; max-width: 24ch; }
+.copy h2 { font: 800 clamp(30px, 4.6vw, 64px)/.98 "Inter Tight", system-ui, sans-serif; letter-spacing: -.03em; margin: 0 0 .35em; }
+.copy p { color: var(--mute); font-size: clamp(14px, 1.1vw, 16px); line-height: 1.5; margin: 0 0 1.1em; }
+.num { display: block; font: 800 clamp(64px, 9vw, 140px)/.9 "Inter Tight", system-ui, sans-serif; letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums; }
+.num small { font-size: .2em; font-weight: 600; color: var(--mute); margin-left: .3em; letter-spacing: 0; }
+.btn { display: inline-flex; gap: .5em; align-items: center; padding: .8em 1.3em; border-radius: 999px; font-weight: 700;
+  background: var(--glow); color: #0b0b0e; text-decoration: none; transition: transform .2s; }
+.btn:hover { transform: translateY(-2px); }
+.meta { position: absolute; right: 6vw; bottom: 8vh; z-index: 4; color: var(--mute); font-size: 13px; text-align: right; }
+.meta b { color: var(--ink); }
+
+/* blur "ghost" exit like the reference: text smears while blurred */
+.ghost { will-change: transform, opacity, filter; }
+
+/* brief message */
+.message { position: relative; z-index: 1; min-height: 100vh; display: grid; place-items: center; padding: 18vh 6vw; text-align: center; }
+.message h2 { font: 800 clamp(36px, 6vw, 92px)/1 "Inter Tight", system-ui, sans-serif; letter-spacing: -.035em; max-width: 16ch; margin: 0 auto .4em; }
+.message p { color: var(--mute); max-width: 46ch; margin: 0 auto; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.55; }
+.message .ticks { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 2em; }
+.message .ticks span { border: 1px solid #2a2833; border-radius: 999px; padding: .5em 1em; font-size: 14px; color: var(--ink); }
+
+/* load-in for the first scene (wrappers, so scroll transforms on the children don't fight it) */
+.in { opacity: 0; transform: translateY(28px); filter: blur(14px); }
+.cin.is-in .in { animation: cin-in 1.5s cubic-bezier(.2,.7,.1,1) var(--d, 0s) forwards; }
+@keyframes cin-in { to { opacity: 1; transform: none; filter: none; } }
+.cin.is-in .giant-wrap { animation: cin-wipe 1.6s cubic-bezier(.7,0,.2,1) .35s both; }
+@keyframes cin-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.in, .giant-wrap { position: absolute; inset: 0; }
+
+/* mobile: product top, copy bottom, nothing overlaps */
+@media (max-width: 760px) {
+  .prod { width: 70vw; max-height: 46vh; top: 38%; }
+  .prod-glow { width: 90vw; height: 26vw; top: 56%; }
+  .giant { top: 30%; font-size: 30vw; }
+  .copy.l, .copy.r, .copy.c { left: 6vw; right: 6vw; translate: none; top: auto; bottom: 7vh; max-width: none; text-align: left; }
+  .meta { display: none; }
+}
+
+/* ---------- 1440p and 4K screens: scale the whole film up instead of leaving it small in the middle ---------- */
+@media (min-width: 2400px) {            /* 1440p (2560×1440) */
+  .prod { width: min(36vw, 980px); }
+  .prod-glow { filter: blur(50px); }
+  .giant { font-size: min(22vw, 640px); }
+  .copy { max-width: 28vw; }
+  .copy h2 { font-size: clamp(64px, 3.4vw, 110px); }
+  .copy p, .meta { font-size: 22px; }
+  .num { font-size: 210px; }
+  .btn { font-size: 20px; }
+  .message h2 { font-size: 130px; } .message p { font-size: 26px; } .message .ticks span { font-size: 20px; }
+}
+@media (min-width: 3400px) {            /* 4K / 2160p (3840×2160) */
+  .prod { width: min(36vw, 1360px); }
+  .prod-glow { filter: blur(70px); }
+  .giant { font-size: min(22vw, 900px); }
+  .copy h2 { font-size: 150px; }
+  .copy p, .meta { font-size: 30px; }
+  .num { font-size: 300px; }
+  .btn { font-size: 28px; }
+  .message h2 { font-size: 180px; } .message p { font-size: 36px; } .message .ticks span { font-size: 28px; }
+}
+/* crisp image scaling when the zoom scene enlarges a photo */
+.prod { image-rendering: auto; backface-visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { height: auto; } .scene + .scene { margin-top: 0; } .stage { position: relative; height: 100vh; }
+  .in { opacity: 1; transform: none; filter: none; animation: none !important; }
+}

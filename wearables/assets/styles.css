@@ -127,10 +127,33 @@ p { margin: 0 0 1em; }
   .nav__menu, .nav__panel { display: none !important; }
 }
 
+/* header on 1440p and 4K screens: grows with the film instead of staying laptop-sized */
+@media (min-width: 2400px) {
+  :root { --nav-h: 88px; --gutter: 56px; }
+  .nav__in { max-width: 2200px; }
+  .nav__links { flex-wrap: nowrap; }
+  .nav__links a { white-space: nowrap; }
+  .brand { font-size: 1.35rem; gap: 14px; }
+  .brand img { width: 40px; height: 40px; }
+  .nav__links a { font-size: 1.25rem; padding: 12px 18px; }
+  .nav__cart { width: 60px; height: 60px; }
+  .nav__cart svg { width: 30px; height: 30px; }
+}
+@media (min-width: 3400px) {
+  :root { --nav-h: 120px; --gutter: 80px; }
+  .nav__in { max-width: 3300px; }
+  .brand { font-size: 1.8rem; }
+  .brand img { width: 56px; height: 56px; }
+  .nav__links a { font-size: 1.7rem; padding: 16px 24px; }
+  .nav__cart { width: 80px; height: 80px; }
+  .nav__cart svg { width: 40px; height: 40px; }
+}
+
 /* ---------- stage box ---------- */
 .stage {
   position: relative; overflow: hidden; border-radius: var(--r-stage);
   background: var(--stage); isolation: isolate;
+  top: auto; height: auto; display: block; place-items: normal;   /* undo the film's full-screen .stage (cinema.css) outside the film */
 }
 .stage--sq { aspect-ratio: 1 / 1; }
 .stage img.shot {
