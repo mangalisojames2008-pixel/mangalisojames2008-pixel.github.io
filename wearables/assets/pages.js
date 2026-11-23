@@ -63,6 +63,54 @@
         $('[data-ask]').href = waLink(`Hi ${S.name}, I have a question about the ${p.name} (${fmt(p.price)}).`);
         $('[data-ask]').insertAdjacentHTML('afterbegin', window.Shop.icons.wa);
 
+        /* pictures: main photo (or colour photos), then the extra angles */
+        const stageEl = $('[data-pdp-stage]');
+        const show = (src, alt) => {
+          const img = stageEl.querySelector('img.shot');
+          img.src = src; img.alt = alt || p.name;
+          $$('[data-thumb]').forEach(t => t.setAttribute('aria-pressed', String(t.dataset.thumb === src)));
+        };
+        const pics = [...(p.colours ? p.colours.map(c => ({ image: c.image, label: c.name })) : [{ image: p.image, label: p.name }]), ...(p.gallery || [])];
+        if (pics.length > 1) {
+          $('[data-thumbs]').innerHTML = pics.map(g => `<button type="button" class="pdp__thumb stage" data-thumb="${esc(g.image)}" aria-pressed="${g.image === p.image}" aria-label="${esc(g.label)}"><img class="shot" src="${esc(g.image)}" alt="" width="1000" height="1000" loading="lazy" decoding="async"></button>`).join('');
+          $('[data-thumbs]').addEventListener('click', e => { const t = e.target.closest('[data-thumb]'); if (t) show(t.dataset.thumb, `${p.name}, ${t.getAttribute('aria-label')}`); });
+        }
+        $('[data-img-note]').textContent = p.illustration ? `Illustration by ${S.name}. Product photo coming soon.` : p.photo ? `Photo: ${p.photo}.` : '';
+
+        /* colour */
+        let colour = '';
+        if (p.colours && p.colours.length) {
+          $('[data-colour-wrap]').hidden = false;
+          const cc = $('[data-colour-chips]');
+          cc.innerHTML = p.colours.map((c, i) => `<button class="chip" type="button" role="radio" aria-checked="${!i}" data-c="${esc(c.name)}" data-img="${esc(c.image)}">${esc(c.name)}</button>`).join('');
+          colour = p.colours[0].name; $('[data-colour-name]').textContent = colour;
+          cc.addEventListener('click', e => {
+            const b = e.target.closest('[data-c]'); if (!b) return;
+            colour = b.dataset.c; $('[data-colour-name]').textContent = colour;
+            $$('[data-c]', cc).forEach(x => x.setAttribute('aria-checked', String(x === b)));
+            show(b.dataset.img, `${p.name} in ${colour}`);
+          });
+        }
+
+        /* at a glance */
+        if (p.stats && p.stats.length) {
+          const st = $('[data-stats]'); st.hidden = false;
+          st.innerHTML = p.stats.map(x => `<li><span class="glance__v">${esc(x.value)}<small>${esc(x.unit)}</small></span><span class="glance__l">${esc(x.label)}</span></li>`).join('');
+        }
+
+        /* 3D view: three.js loads only now, on the first tap */
+        let viewerP = null;
+        const open3d = (inside, btn) => {
+          const label = btn ? btn.textContent : '';
+          if (btn) { btn.disabled = true; btn.textContent = 'Loading 3D…'; }
+          viewerP = viewerP || import('./viewer3d.js');
+          viewerP.then(m => m.open(p, { inside, storeName: S.name, opener: btn || document.activeElement }))
+            .catch(err => { console.error(err); viewerP = null; toast('The 3D view could not start on this device.'); })
+            .finally(() => { if (btn) { btn.disabled = false; btn.textContent = label; } });
+        };
+        $$('[data-3d]').forEach(b => b.addEventListener('click', () => open3d(b.dataset['3d'] === 'inside', b)));
+        if (/^#(3d|inside)$/.test(location.hash)) open3d(location.hash === '#inside', $(location.hash === '#inside' ? '[data-3d="inside"]' : '[data-3d]'));
+
         /* options: ring size or slots */
         let opt = '', qty = 1;
         const err = $('[data-err]');
@@ -90,8 +138,10 @@
           e.preventDefault();
           if (!p.inStock) return;
           if (p.options && !opt) { err.textContent = `Choose a ${p.options.label.toLowerCase()} first.`; err.hidden = false; $('[data-opt-chips] .chip').focus(); return; }
-          cart.add(p.slug, opt, qty);
-          toast(`${p.name}${opt ? `, ${opt}` : ''} added`, 'View cart', 'cart.html');
+          const optLabel = opt && /^\d+$/.test(opt) ? `${p.options.label.toLowerCase()} ${opt}` : opt;
+          const full = [colour, optLabel].filter(Boolean).join(', ');
+          cart.add(p.slug, full, qty);
+          toast(`${p.name}${full ? `, ${full}` : ''} added`, 'View cart', 'cart.html');
         });
         $('[data-pdp]').hidden = false;
 

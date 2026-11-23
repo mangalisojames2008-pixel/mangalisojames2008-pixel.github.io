@@ -41,7 +41,7 @@
           return `<div class="cap${i ? '' : ' is-on'}">
             <h3>${esc(p.name)}</h3><p class="cap__price price">${fmt(p.price)}</p>
             <p class="cap__desc">${esc(p.description)}</p>
-            <div class="cap__actions">${act}<a class="link" href="${url(p)}">Details</a></div></div>`;
+            <div class="cap__actions">${act}<a class="link" href="${url(p)}">Details</a><a class="link" href="${url(p)}#inside">Look inside in 3D</a></div></div>`;
         }).join('') + (list.length > 1 ? `<ol class="dots" aria-hidden="true">${list.map((_, i) => `<li${i ? '' : ' class="is-on"'}></li>`).join('')}</ol>` : '');
         chapters.push({ sec, stage, n: list.length, imgs: $$('.shot', stage), caps: $$('.cap', caps), dots: $$('.dots li', caps), idx: 0 });
       });

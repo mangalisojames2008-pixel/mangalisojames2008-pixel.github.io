@@ -90,6 +90,7 @@
       <div class="stage stage--sq">${bezel()}<img class="shot" src="${esc(p.image)}" alt="${esc(p.name)}" width="1000" height="1000" loading="lazy" decoding="async"></div>
       <div class="card__body">
         <h3 class="card__name"><a href="${url(p)}">${esc(p.name)}</a></h3>
+        ${p.illustration ? '<p class="tag">Illustration, photo coming soon</p>' : ''}
         <p class="card__line">${esc(p.description)}</p>
         <div class="card__foot"><span class="price">${fmt(p.price)}</span>${btn}</div>
       </div>
@@ -157,6 +158,7 @@
       </div>
       <div class="footer__fine">
         <p>Watches and rings sold here are for fitness and general wellness. They are not medical devices and do not diagnose or treat any condition.</p>
+        <p>Product photos of the Redmi Watch 5 Active, Smart Band 10 and Colmi R10 are by Xiaomi and Colmi. Other pictures and all 3D views are illustrations by <span data-store>${esc(S.name)}</span>.</p>
         <p>Xiaomi, Redmi, Colmi and Spovan are trademarks of their owners. <span data-store>${esc(S.name)}</span> is an independent shop and is not linked to these brands.</p>
         <p>Prices in rand, including VAT where it applies. Your cart stays on this device. Details you type at checkout go only into the WhatsApp message you send.</p>
         <p>&copy; ${new Date().getFullYear()} <span data-store>${esc(S.name)}</span></p>

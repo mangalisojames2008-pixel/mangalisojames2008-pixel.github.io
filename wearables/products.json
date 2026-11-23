@@ -1,19 +1,52 @@
 {
   "categories": [
-    { "id": "watches", "name": "Watches", "line": "Fitness watches and bands, from R599" },
-    { "id": "rings", "name": "Smart rings", "line": "All-day tracking with nothing on your wrist" },
-    { "id": "cases", "name": "Watch cases", "line": "Travel cases and display boxes" }
+    {
+      "id": "watches",
+      "name": "Watches",
+      "line": "Fitness watches and bands, from R599"
+    },
+    {
+      "id": "rings",
+      "name": "Smart rings",
+      "line": "All-day tracking with nothing on your wrist"
+    },
+    {
+      "id": "cases",
+      "name": "Watch cases",
+      "line": "Travel cases and display boxes"
+    }
   ],
   "ringSizes": {
     "note": "Inside diameters from Colmi R10 and R12 size listings. Size 10 is estimated between sizes 9 and 11.",
     "sizes": [
-      { "size": "7", "mm": 17.9 },
-      { "size": "8", "mm": 18.3 },
-      { "size": "9", "mm": 19.1 },
-      { "size": "10", "mm": 20.0 },
-      { "size": "11", "mm": 20.8 },
-      { "size": "12", "mm": 21.6 },
-      { "size": "13", "mm": 22.4 }
+      {
+        "size": "7",
+        "mm": 17.9
+      },
+      {
+        "size": "8",
+        "mm": 18.3
+      },
+      {
+        "size": "9",
+        "mm": 19.1
+      },
+      {
+        "size": "10",
+        "mm": 20.0
+      },
+      {
+        "size": "11",
+        "mm": 20.8
+      },
+      {
+        "size": "12",
+        "mm": 21.6
+      },
+      {
+        "size": "13",
+        "mm": 22.4
+      }
     ]
   },
   "products": [
@@ -32,7 +65,49 @@
         "Water-resistant (rating varies by region)"
       ],
       "image": "images/xiaomi-redmi-watch-5-active.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "watch-square",
+        "w": 3.9,
+        "h": 4.6,
+        "color": "#2a2c31",
+        "strap": "#1c1d21",
+        "accent": "#d8ff3d"
+      },
+      "colours": [
+        {
+          "name": "Black",
+          "image": "images/xiaomi-redmi-watch-5-active.jpg"
+        },
+        {
+          "name": "Silver",
+          "image": "images/xiaomi-redmi-watch-5-active-silver.jpg"
+        }
+      ],
+      "stats": [
+        {
+          "value": "18",
+          "unit": "days",
+          "label": "battery in typical use"
+        },
+        {
+          "value": "2.0",
+          "unit": "in",
+          "label": "LCD screen"
+        },
+        {
+          "value": "140+",
+          "unit": "",
+          "label": "workout modes"
+        }
+      ],
+      "photo": "Xiaomi",
+      "gallery": [
+        {
+          "image": "images/xiaomi-redmi-watch-5-active-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "xiaomi-smart-band-10",
@@ -48,7 +123,41 @@
         "About 16 g without the strap"
       ],
       "image": "images/xiaomi-smart-band-10.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "band",
+        "color": "#1b1c20",
+        "strap": "#141518"
+      },
+      "gallery": [
+        {
+          "image": "images/xiaomi-smart-band-10-colours.jpg",
+          "label": "The colour range",
+          "wide": true
+        },
+        {
+          "image": "images/xiaomi-smart-band-10-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ],
+      "stats": [
+        {
+          "value": "21",
+          "unit": "days",
+          "label": "battery in typical use"
+        },
+        {
+          "value": "1.72",
+          "unit": "in",
+          "label": "AMOLED screen"
+        },
+        {
+          "value": "5",
+          "unit": "ATM",
+          "label": "water rating, swim-proof"
+        }
+      ],
+      "photo": "Xiaomi"
     },
     {
       "slug": "colmi-p71",
@@ -64,7 +173,41 @@
         "22 mm silicone strap you can swap"
       ],
       "image": "images/colmi-p71.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "watch-square",
+        "w": 3.79,
+        "h": 4.55,
+        "d": 1.12,
+        "r": 1.0,
+        "color": "#3a3c42",
+        "strap": "#202124",
+        "accent": "#7ad7ff"
+      },
+      "stats": [
+        {
+          "value": "1.9",
+          "unit": "in",
+          "label": "IPS screen"
+        },
+        {
+          "value": "IP68",
+          "unit": "",
+          "label": "dust and water"
+        },
+        {
+          "value": "22",
+          "unit": "mm",
+          "label": "swap-in strap"
+        }
+      ],
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/colmi-p71-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "spovan-pr3",
@@ -80,7 +223,36 @@
         "26 mm strap, fits wrists up to 24 cm"
       ],
       "image": "images/spovan-pr3.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "watch-round",
+        "color": "#23252a",
+        "strap": "#1b1c1f"
+      },
+      "stats": [
+        {
+          "value": "50",
+          "unit": "m",
+          "label": "water rating"
+        },
+        {
+          "value": "26",
+          "unit": "mm",
+          "label": "strap"
+        },
+        {
+          "value": "24",
+          "unit": "cm",
+          "label": "largest wrist"
+        }
+      ],
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/spovan-pr3-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "woven-nylon-strap-case-set",
@@ -95,7 +267,18 @@
         "Fit checked on WhatsApp before payment"
       ],
       "image": "images/woven-nylon-strap-case-set.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "strap-set",
+        "color": "#3c4a5c"
+      },
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/woven-nylon-strap-case-set-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "colmi-r10",
@@ -111,9 +294,62 @@
         "About 4.5 g, 2.7 mm thick",
         "Sizes 7 to 13"
       ],
-      "options": { "label": "Ring size", "values": ["7", "8", "9", "10", "11", "12", "13"] },
+      "options": {
+        "label": "Ring size",
+        "values": [
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13"
+        ]
+      },
       "image": "images/colmi-r10.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "ring",
+        "color": "#2b2c30"
+      },
+      "colours": [
+        {
+          "name": "Black",
+          "image": "images/colmi-r10.jpg"
+        },
+        {
+          "name": "Silver",
+          "image": "images/colmi-r10-silver.jpg"
+        },
+        {
+          "name": "Gold",
+          "image": "images/colmi-r10-gold.jpg"
+        }
+      ],
+      "stats": [
+        {
+          "value": "5",
+          "unit": "ATM",
+          "label": "swim-proof"
+        },
+        {
+          "value": "3–5",
+          "unit": "days",
+          "label": "per charge"
+        },
+        {
+          "value": "4.5",
+          "unit": "g",
+          "label": "about"
+        }
+      ],
+      "photo": "Colmi",
+      "gallery": [
+        {
+          "image": "images/colmi-r10-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "colmi-r12",
@@ -128,9 +364,49 @@
         "IP68 splash rating, take it off to swim",
         "Sizes 7 to 13"
       ],
-      "options": { "label": "Ring size", "values": ["7", "8", "9", "10", "11", "12", "13"] },
+      "options": {
+        "label": "Ring size",
+        "values": [
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13"
+        ]
+      },
       "image": "images/colmi-r12.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "ring",
+        "color": "#1f2024",
+        "display": true
+      },
+      "stats": [
+        {
+          "value": "Touch",
+          "unit": "",
+          "label": "display on the ring"
+        },
+        {
+          "value": "IP68",
+          "unit": "",
+          "label": "splash rating"
+        },
+        {
+          "value": "7–13",
+          "unit": "",
+          "label": "sizes"
+        }
+      ],
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/colmi-r12-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "pu-leather-travel-watch-case",
@@ -144,7 +420,18 @@
         "Small enough for a gym bag"
       ],
       "image": "images/pu-leather-travel-watch-case.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "case-travel",
+        "color": "#6b4a35"
+      },
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/pu-leather-travel-watch-case-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "glass-top-wooden-display-box",
@@ -158,7 +445,17 @@
         "Keeps dust off between wears"
       ],
       "image": "images/glass-top-wooden-display-box.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "case-display"
+      },
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/glass-top-wooden-display-box-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     },
     {
       "slug": "aluminium-watch-case",
@@ -171,9 +468,27 @@
         "Foam slots inside",
         "Choose 1, 2 or 3 slots"
       ],
-      "options": { "label": "Slots", "values": ["1 slot", "2 slots", "3 slots"] },
+      "options": {
+        "label": "Slots",
+        "values": [
+          "1 slot",
+          "2 slots",
+          "3 slots"
+        ]
+      },
       "image": "images/aluminium-watch-case.jpg",
-      "inStock": true
+      "inStock": true,
+      "model": {
+        "kind": "case-alu",
+        "slots": 2
+      },
+      "illustration": true,
+      "gallery": [
+        {
+          "image": "images/aluminium-watch-case-inside.jpg",
+          "label": "Inside, illustration"
+        }
+      ]
     }
   ]
 }
