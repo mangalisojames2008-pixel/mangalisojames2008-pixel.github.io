@@ -12,8 +12,7 @@ window.NXH = {
   officeBearers:  "[Director name(s)]",
   // ---- shown on the site ----
   physicalAddress:"Rustenburg, North West, South Africa",
-  legalAddress:   "Rustenburg, North West, South Africa",
-  vatNumber:      "[VAT number, or 'Not VAT registered']",
+    vatNumber:      "[VAT number, or 'Not VAT registered']",
   email:          "nexeracommerce@gmail.com",
   phone:          "074 659 2098",
   whatsapp:       "27746592098",                 // digits only, with country code, no + or spaces
