@@ -213,5 +213,70 @@
     }).sort((a, b) => (a.prob + a.push) - (b.prob + b.push)).slice(0, 5);   // closest step up first
   }
 
-  return { scoreGrid, devig, market, evalOnGrid, lambdasFromOdds, lambdasFromForm, blend, analyseSlip, alternativesFor };
+  /* ---------- imported slips: rough estimates when the match's 1X2 odds are unknown ---------- */
+  /** Rough expected goals from the slip's own legs only (a booking code carries the picked prices, not the full market).
+   *  Fits the legs' de-margined prices, pulled gently towards an average match (2.6 goals, small home edge). */
+  function lambdasFromLegs(legs, margin = 0.06) {
+    const targets = legs.map(l => ({ id: l.market, p: Math.min(0.97, 1 / (l.odds * (1 + margin / 2))) }));
+    const err = (lh, la) => {
+      const g = scoreGrid(lh, la);
+      let e = 0.02 * ((lh + la) - 2.6) ** 2 + 0.01 * ((lh - la) - 0.3) ** 2;
+      for (const t of targets) { const r = evalOnGrid(g, [t.id]); e += (r.win / (1 - r.push || 1) - t.p) ** 2; }
+      return e;
+    };
+    let best = null;
+    for (let lh = 0.3; lh <= 3.6; lh += 0.1) for (let la = 0.3; la <= 3.2; la += 0.1) {
+      const e = err(lh, la); if (!best || e < best.e) best = { lh, la, e };
+    }
+    return { home: +best.lh.toFixed(2), away: +best.la.toFixed(2), rough: true };
+  }
+
+  /** What a bookmaker would roughly charge for a market: fair odds shaved by its margin. Always label it an estimate. */
+  const estOdds = (win, push, margin = 0.06) => win > 0 ? +(((1 - push) / win) / (1 + margin)).toFixed(2) : Infinity;
+
+  /** Bigger-odds versions of a pick: markets that only win inside your pick's winning scorelines (so riskier), best chance first. */
+  function upgradesFor(grid, currentId, margin = 0.06) {
+    const pool = ["home","away","dnb-home","dnb-away","over-1.5","over-2.5","over-3.5","under-0.5","under-1.5","under-2.5",
+                  "btts-yes","btts-no","home-over-1.5","away-over-1.5","home-over-2.5","away-over-2.5",
+                  "hcp-home--1.5","hcp-away--1.5","home-wtn","away-wtn","home-cs","away-cs"];
+    const cur = evalOnGrid(grid, [currentId]);
+    return pool.filter(id => id !== currentId).map(id => {
+      const { win, push } = evalOnGrid(grid, [id]);
+      return { market: id, label: market(id).label, prob: win, push, estOdds: estOdds(win, push, margin) };
+    }).filter(o => {
+      if (!(o.prob > 0.05 && o.prob + o.push < cur.win + cur.push - 0.03)) return false;
+      const both = evalOnGrid(grid, [currentId, o.market]);
+      return both.win + both.push >= (o.prob + o.push) * 0.98;          // wins only where your pick wins
+    }).sort((a, b) => b.prob - a.prob).slice(0, 3);
+  }
+
+  /** Whole-slip suggestions: a safer slip, a bigger-odds slip and a value slip (overpriced legs removed). */
+  function suggestSlips({ matches, legs, margins = {} }) {
+    const grids = {}; for (const m of matches) grids[m.id] = scoreGrid(m.lambdas.home, m.lambdas.away, m.rho ?? -0.05);
+    const name = id => nameOf(matches, id);
+    const base = analyseSlip({ matches, legs });
+    const build = swaps => {
+      const nl = legs.map((l, i) => swaps[i] ? { ...l, market: swaps[i].market, odds: swaps[i].estOdds } : l);
+      return { ...analyseSlip({ matches, legs: nl }).slip, changes: swaps.map((s, i) => s && { leg: base.legs[i].label + " (" + name(legs[i].match) + ")", to: s.label, estOdds: s.estOdds }).filter(Boolean) };
+    };
+    // safer: each leg to its safest cover that still pays at least 1.20
+    const safer = build(legs.map(l => {
+      const m = margins[l.match] ?? 0.06;
+      const opts = alternativesFor(grids[l.match], l.market).map(o => ({ ...o, estOdds: estOdds(o.prob, o.push, m) })).filter(o => o.estOdds >= 1.2);
+      return opts.sort((a, b) => (b.prob + b.push) - (a.prob + a.push))[0] || null;
+    }));
+    // bigger: upgrade the single leg that is most likely to survive the upgrade
+    const ups = legs.map(l => upgradesFor(grids[l.match], l.market, margins[l.match] ?? 0.06)[0] || null);
+    const pick = ups.reduce((bi, u, i) => u && (bi < 0 || u.prob > ups[bi].prob) ? i : bi, -1);
+    const bigger = pick < 0 ? null : build(legs.map((_, i) => i === pick ? ups[i] : null));
+    // value: keep only legs the model does not call overpriced
+    const keep = legs.filter((_, i) => base.legs[i].ev > -0.08);   // worse than a normal bookmaker margin
+    const value = keep.length && keep.length < legs.length
+      ? { ...analyseSlip({ matches, legs: keep }).slip, removed: base.legs.filter(l => l.ev <= -0.08).map(l => l.label + " (" + name(l.match) + ")") } : null;
+    return { safer: safer.changes.length ? safer : null, bigger, value,
+             upgrades: legs.map((l, i) => ({ for: base.legs[i].label + " (" + name(l.match) + ")", options: upgradesFor(grids[l.match], l.market, margins[l.match] ?? 0.06) })) };
+  }
+
+  return { scoreGrid, devig, market, evalOnGrid, lambdasFromOdds, lambdasFromForm, blend, analyseSlip, alternativesFor,
+           lambdasFromLegs, estOdds, upgradesFor, suggestSlips };
 });

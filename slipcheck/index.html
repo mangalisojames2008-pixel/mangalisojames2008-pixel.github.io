@@ -8,6 +8,7 @@
 <meta name="description" content="Check the real chance your betting slip lands, find the weak leg, and see safer alternatives.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232ee59d'/%3E%3Cstop offset='1' stop-color='%235aa8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306080d' stroke-width='3.5' stroke-dasharray='33 11'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,10 +16,29 @@
 
 <header class="top">
   <a class="brand" href="#top" aria-label="SlipCheck home"><span class="brand-mark" aria-hidden="true"><i></i></span><b>SLIPCHECK</b></a>
-  <span class="age">18+</span>
+  <div class="top-r">
+    <span class="age">18+</span>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
 </header>
 
+<!-- three-line menu: a circle grows from the button, links rise in one by one -->
+<div class="menu" id="menu" inert>
+  <i class="menu-bg" aria-hidden="true"></i>
+  <nav aria-label="Main">
+    <a href="#load">Check a slip</a>
+    <a href="#track">Track record <small id="menuCount"></small></a>
+    <a href="#how">How it works</a>
+    <a href="#settings">Settings</a>
+  </nav>
+  <div class="menu-foot">
+    <span><b>18+ only.</b> Gamble only what you can afford to lose.</span>
+    <span>Free 24/7 help: <a href="tel:0800006008">0800 006 008</a> · WhatsApp HELP to <a href="https://wa.me/27766750710">076 675 0710</a></span>
+  </div>
+</div>
+
 <main id="main">
+  <div class="limit-slot" data-limit hidden></div>
   <!-- HERO: pitch lines draw in, gauge sweeps, ticker counts -->
   <section class="hero" id="top">
     <svg class="pitch" viewBox="0 0 1200 700" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
@@ -33,7 +53,7 @@
       <h1 class="reveal" style="--d:.1s">Know your odds<br><span class="grad">before you bet.</span></h1>
       <p class="lead reveal" style="--d:.2s">Enter your slip. See the real chance it lands, which leg is dragging it down, and safer picks that still cover you.</p>
       <div class="hero-cta reveal" style="--d:.3s">
-        <a class="btn" href="#matches">Check a slip</a>
+        <a class="btn" href="#load">Paste a Betway code</a>
         <button class="btn ghost" id="loadExample" type="button">Try an example</button>
       </div>
     </div>
@@ -44,25 +64,71 @@
     </div>
   </section>
 
-  <!-- STEP 1: MATCHES -->
+  <!-- STEP 1: LOAD A SLIP (booking code, screenshot or pasted text) -->
+  <section class="step" id="load">
+    <div class="step-head reveal"><span class="num">01</span><div><h2>Load your slip</h2><p>Drop in your Betway slip and we pull out every match, market and price.</p></div></div>
+    <div class="imp reveal">
+      <div class="tabs" role="tablist">
+        <button role="tab" class="tab on" data-tab="code" aria-selected="true">Booking code</button>
+        <button role="tab" class="tab" data-tab="shot" aria-selected="false">Screenshot</button>
+        <button role="tab" class="tab" data-tab="text" aria-selected="false">Paste text</button>
+      </div>
+
+      <div class="pane on" data-pane="code">
+        <div class="code-row"><input class="in code-in" id="codeIn" placeholder="e.g. BW7K3QX" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="14"><button class="btn" id="codeGo" type="button">Load code</button></div>
+        <ol class="how" id="codeHow" hidden>
+          <li><b>Copy &amp; open Betway.</b> <button class="btn ghost sm" id="codeOpen" type="button">Copy code + open Betway</button></li>
+          <li><b>Paste the code</b> at the top of the bet slip and tap the magnifying glass.</li>
+          <li><b>Screenshot the slip</b> (all legs showing), come back and drop it in the Screenshot tab.</li>
+        </ol>
+        <p class="note" id="codeNote">Betway doesn't let other sites read booking codes, so the code opens your slip in Betway and a screenshot brings it here. No login, nothing is stored.</p>
+      </div>
+
+      <div class="pane" data-pane="shot">
+        <label class="drop" id="drop"><input type="file" id="shotIn" accept="image/*" multiple hidden>
+          <span class="drop-ic" aria-hidden="true"></span><b>Drop or choose slip screenshots</b><small>Read on your phone. The image never leaves it.</small>
+          <i class="ocr-bar" id="ocrBar"><i></i></i>
+        </label>
+      </div>
+
+      <div class="pane" data-pane="text">
+        <textarea class="in ta" id="pasteIn" rows="7" placeholder="Paste a shared slip, e.g.&#10;Kaizer Chiefs v Orlando Pirates&#10;1X2 · Kaizer Chiefs 2.00&#10;Sundowns v Stellenbosch - Over 2.5 @1.80"></textarea>
+        <button class="btn" id="pasteGo" type="button">Read slip</button>
+      </div>
+
+      <div class="review" id="review" hidden>
+        <h3 class="sub">Found on your slip <span id="reviewMeta"></span></h3>
+        <div id="reviewRows" class="rows"></div>
+        <button class="btn big" id="reviewGo" type="button"><span>Analyse this slip</span><i class="scan" aria-hidden="true"></i></button>
+      </div>
+      <p class="err" id="impErr" role="alert"></p>
+
+      <details class="keyset"><summary>Sharper results (optional)</summary>
+        <p>A slip only carries the prices you picked. Add a free key from <a href="https://the-odds-api.com" target="_blank" rel="noopener">the-odds-api.com</a> and SlipCheck fills each match's full 1X2 and goals prices (Betway's where available). The key stays on this device.</p>
+        <div class="code-row"><input class="in" id="keyIn" placeholder="Odds API key" autocomplete="off" spellcheck="false"><button class="btn ghost" id="keySave" type="button">Save</button></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- STEP 2: MATCHES -->
   <section class="step" id="matches">
-    <div class="step-head reveal"><span class="num">01</span><div><h2>Matches</h2><p>Add each game on your slip with its 1X2 odds. Over/under 2.5 makes the estimate sharper.</p></div></div>
+    <div class="step-head reveal"><span class="num">02</span><div><h2>Matches</h2><p>Loaded from your slip, or add each game by hand with its 1X2 odds. Over/under 2.5 makes the estimate sharper.</p></div></div>
     <div id="matchList" class="cards"></div>
     <button class="btn ghost add" id="addMatch" type="button">+ Add match</button>
   </section>
 
-  <!-- STEP 2: SLIP -->
+  <!-- STEP 3: SLIP -->
   <section class="step" id="slip">
-    <div class="step-head reveal"><span class="num">02</span><div><h2>Your slip</h2><p>Pick the match, the market and the odds you were offered.</p></div></div>
+    <div class="step-head reveal"><span class="num">03</span><div><h2>Your slip</h2><p>Pick the match, the market and the odds you were offered.</p></div></div>
     <div id="legList" class="cards"></div>
     <button class="btn ghost add" id="addLeg" type="button">+ Add selection</button>
     <button class="btn big" id="analyse" type="button"><span>Analyse slip</span><i class="scan" aria-hidden="true"></i></button>
     <p class="err" id="err" role="alert"></p>
   </section>
 
-  <!-- STEP 3: ANALYSIS -->
+  <!-- STEP 4: ANALYSIS -->
   <section class="step" id="analysis" hidden>
-    <div class="step-head"><span class="num">03</span><div><h2>Analysis</h2><p id="summary"></p></div></div>
+    <div class="step-head"><span class="num">04</span><div><h2>Analysis</h2><p id="summary"></p></div></div>
 
     <div class="result">
       <div class="gauge big-g">
@@ -73,7 +139,13 @@
         <div><span class="k">Lands about</span><b id="oneIn">1 in –</b></div>
         <div><span class="k">Total odds</span><b id="totOdds">–</b></div>
         <div><span class="k">Expected return per R100</span><b id="evR">–</b></div>
+        <div class="actions">
+          <button class="btn ghost sm" id="share" type="button"><span>Copy summary</span></button>
+          <a class="saved" id="savedNote" href="#track"></a>
+          <span class="sr" id="shareMsg" role="status"></span>
+        </div>
       </div>
+      <p class="fine rough" id="roughNote" hidden></p>
       <p class="fine">These are statistical estimates from the odds and form you entered. They don't know about injuries, line-ups or weather. Bookmakers build a margin into every price, so most bets lose money over time.</p>
     </div>
 
@@ -83,8 +155,69 @@
     <h3 class="sub">Drop one leg <span>how your chance changes</span></h3>
     <div id="dropRows" class="rows"></div>
 
+    <h3 class="sub">Suggested slips <span>same matches, rebuilt three ways</span></h3>
+    <div id="sugRows" class="sugs"></div>
+
+    <h3 class="sub">Bigger odds <span>riskier picks that only win when yours does</span></h3>
+    <div id="upRows"></div>
+
     <h3 class="sub">Safer alternatives <span>still cover your pick, take them only at these odds or better</span></h3>
     <div id="altRows"></div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section class="step" id="track">
+    <div class="step-head reveal"><span class="num">05</span><div><h2>Track record</h2><p>Every slip you analyse is saved on this device. After the games, mark each leg Won, Lost or Void to see how well the estimates hold up.</p></div></div>
+    <div class="limit-slot" data-limit hidden></div>
+
+    <div class="kpis reveal">
+      <div class="kpi"><span class="k">Legs marked</span><b id="kLegs">0</b><small id="kLegsSub">Won or lost</small></div>
+      <div class="kpi"><span class="k">Brier score</span><b id="kBrier">–</b><small id="kBrierSub">0 is perfect. Always saying 50% scores 0.25. Lower is better.</small></div>
+      <div class="kpi"><span class="k">Profit / loss</span><b id="kPL">R0</b><small id="kPLSub">Settled slips with a stake</small></div>
+    </div>
+
+    <div class="panel reveal">
+      <h3 class="ph">Calibration <span>legs grouped by our estimate, against how often they landed</span></h3>
+      <div class="chart" id="calChart"></div>
+      <div class="legend"><span><i class="sw bar-sw"></i>How often they landed</span><span><i class="sw line-sw"></i>Our average estimate</span></div>
+      <details class="tbl"><summary>Show as a table</summary><div id="calTable"></div></details>
+    </div>
+
+    <div class="panel reveal">
+      <h3 class="ph">Profit and loss <span>running total from the stakes you entered</span></h3>
+      <div class="chart" id="plChart"></div>
+    </div>
+
+    <h3 class="sub">Your slips <span>newest first · enter the stake, then mark each leg after the game</span></h3>
+    <div id="slipLog" class="rows"></div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="step" id="how">
+    <div class="step-head reveal"><span class="num">06</span><div><h2>How it works</h2><p>Four steps, from the price on your slip to the chance it lands.</p></div></div>
+    <div class="flow" id="flow">
+      <div class="node" style="--i:0"><div class="viz odds-viz"><span>2.00</span><span>3.40</span><span>3.80</span></div><b>Odds</b><p>We take the bookmaker's prices and remove the margin they build in.</p></div>
+      <svg class="arrow" style="--i:0" viewBox="0 0 60 20" aria-hidden="true"><path d="M2 10H54M46 3l8 7-8 7" pathLength="1"/></svg>
+      <div class="node" style="--i:1"><div class="viz xg-viz"><span>1.56</span><i>–</i><span>1.10</span></div><b>Expected goals</b><p>From those fair prices we work out how many goals each team should score. Team form can be blended in.</p></div>
+      <svg class="arrow" style="--i:1" viewBox="0 0 60 20" aria-hidden="true"><path d="M2 10H54M46 3l8 7-8 7" pathLength="1"/></svg>
+      <div class="node" style="--i:2"><div class="viz grid-viz" id="gridViz"></div><b>Score grid</b><p>Expected goals give the chance of every score, from 0-0 up to 10-10.</p></div>
+      <svg class="arrow" style="--i:2" viewBox="0 0 60 20" aria-hidden="true"><path d="M2 10H54M46 3l8 7-8 7" pathLength="1"/></svg>
+      <div class="node" style="--i:3"><div class="viz"><div class="gauge mini"><svg viewBox="0 0 200 200"><circle class="g-track" cx="100" cy="100" r="84"/><circle class="g-fill" cx="100" cy="100" r="84" style="--p:.474"/></svg><div class="g-num">47<small>%</small></div></div></div><b>Your chance</b><p>Each pick wins on some scores. We add those up. Picks on the same match are worked out together; different matches are multiplied.</p></div>
+    </div>
+    <p class="fine how-note reveal">It's an estimate, not a forecast. It doesn't know about injuries, line-ups or weather unless you add them through the form numbers. Because of the bookmaker's margin, most bets lose money over time.</p>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="step" id="settings">
+    <div class="step-head reveal"><span class="num">07</span><div><h2>Settings</h2><p>Kept on this device only.</p></div></div>
+    <div class="panel reveal set">
+      <label class="lo"><span>Monthly spending limit (R)</span><input class="in" id="limit" inputmode="numeric" placeholder="e.g. 500" autocomplete="off"></label>
+      <p class="hint" id="limitInfo">Set a limit and we'll let you know when the stakes you track this month go past it.</p>
+    </div>
+    <div class="panel reveal set">
+      <div><b>Clear track record</b><p class="hint">Deletes every saved slip on this device.</p></div>
+      <button class="btn ghost sm" id="clearAll" type="button">Clear</button>
+    </div>
   </section>
 </main>
 
@@ -103,6 +236,19 @@
       <label><span>O2.5</span><input class="in" name="oo" inputmode="decimal" placeholder="1.90"></label>
       <label><span>U2.5</span><input class="in" name="ou" inputmode="decimal" placeholder="1.90"></label>
     </div>
+    <details class="form">
+      <summary>Team form <small>optional</small></summary>
+      <div class="form-in">
+        <div class="form-grid">
+          <label><span>Home scored at home</span><input class="in" name="hs" inputmode="decimal" placeholder="1.8"></label>
+          <label><span>Home conceded at home</span><input class="in" name="hc" inputmode="decimal" placeholder="0.9"></label>
+          <label><span>Away scored away</span><input class="in" name="as" inputmode="decimal" placeholder="1.1"></label>
+          <label><span>Away conceded away</span><input class="in" name="ac" inputmode="decimal" placeholder="1.4"></label>
+        </div>
+        <p class="hint">Average goals per game over the last 6–10 games.</p>
+        <label class="trust"><span>Trust odds vs form</span><input type="range" name="w" min="0" max="100" step="5" value="70"><output>70% odds · 30% form</output></label>
+      </div>
+    </details>
     <div class="xg" aria-live="polite"></div>
     <button class="x" type="button" aria-label="Remove match">×</button>
   </article>
@@ -117,6 +263,9 @@
 </template>
 
 <script src="bet-engine.js"></script>
+<script src="slip-import.js"></script>
+<script src="odds-fill.js"></script>
+<script>window.SLIP_PROVIDER = { url: "" }; /* optional: your own endpoint that returns slip text or JSON for ?code= */</script>
 <script src="app.js"></script>
 </body>
 </html>
