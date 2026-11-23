@@ -3,11 +3,16 @@
    <script src="ui/nexera-ui.js" defer></script>                                              */
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const LOW = matchMedia("(max-width: 760px)").matches || (navigator.hardwareConcurrency || 8) <= 4 || !!navigator.connection?.saveData;
+  if (LOW) document.documentElement.classList.add("nx-low");
+  // every image: decode off the main thread
+  document.querySelectorAll("img:not([decoding])").forEach(i => (i.decoding = "async"));
 
   // ---------- smooth scrolling ----------
   let lenis = null;
   if (!reduce && window.Lenis) {
-    lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9, smoothWheel: true });
+    // touch scrolling stays native (phones already scroll smoothly; smoothing touch adds lag)
+    lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true, syncTouch: false });
     const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
     // in-page links glide instead of jumping
@@ -57,7 +62,10 @@
   const els = document.querySelectorAll(".reveal");
   if (reduce || !("IntersectionObserver" in window)) { els.forEach(el => el.classList.add("in-view")); return; }
   const io = new IntersectionObserver(entries => entries.forEach(en => {
-    if (en.isIntersecting) { en.target.classList.add("in-view"); io.unobserve(en.target); }
+    if (en.isIntersecting) {
+      const el = en.target; el.classList.add("in-view"); io.unobserve(el);
+      setTimeout(() => el.classList.add("done"), 1400);   // free the GPU layer once it has played
+    }
   }), { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
   els.forEach(el => io.observe(el));
   // grids: stagger children automatically

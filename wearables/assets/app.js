@@ -99,7 +99,7 @@
   function header() {
     const el = $('#site-header'); if (!el) return;
     el.className = 'nx-head';
-    el.innerHTML = `<a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>${esc(S.name)}</span></a>`;
+    el.innerHTML = `<a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28" decoding="async"><span data-store>${esc(S.name)}</span></a>`;
     badge();
   }
 
@@ -110,7 +110,7 @@
       <p class="nx-wordmark" aria-hidden="true">${esc(S.name)}</p>
       <div class="footer__grid">
         <div class="footer__brand">
-          <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>${esc(S.name)}</span></a>
+          <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28" decoding="async"><span data-store>${esc(S.name)}</span></a>
           <p>Fitness watches, smart rings and watch cases, delivered in South Africa.</p>
         </div>
         <div><h2>Shop</h2><ul>

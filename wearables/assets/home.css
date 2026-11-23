@@ -149,3 +149,6 @@ html:not(.js) .chapter__sticky { position: static; height: auto; }
 
 /* logo over the dark film, top left; it scrolls away with the page */
 .home .nx-head { position: absolute; top: 0; left: 0; right: 0; color: var(--on-ink); max-width: none; }
+
+/* film photos: width/height attributes give the proportions; the size itself comes from cinema.css */
+.cin .prod { height: auto; }
