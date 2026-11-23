@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06080d">
+<title>SlipCheck · Know your odds before you bet</title>
+<meta name="description" content="Check the real chance your betting slip lands, find the weak leg, and see safer alternatives.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="SlipCheck home"><span class="brand-mark" aria-hidden="true"><i></i></span><b>SLIPCHECK</b></a>
+  <span class="age">18+</span>
+</header>
+
+<main id="main">
+  <!-- HERO: pitch lines draw in, gauge sweeps, ticker counts -->
+  <section class="hero" id="top">
+    <svg class="pitch" viewBox="0 0 1200 700" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <rect x="40" y="40" width="1120" height="620" rx="6"/>
+      <line x1="600" y1="40" x2="600" y2="660"/>
+      <circle cx="600" cy="350" r="92"/>
+      <rect x="40" y="200" width="170" height="300"/><rect x="990" y="200" width="170" height="300"/>
+      <rect x="40" y="280" width="60" height="140"/><rect x="1100" y="280" width="60" height="140"/>
+    </svg>
+    <div class="hero-in">
+      <p class="eyebrow reveal">Betting slip analyser</p>
+      <h1 class="reveal" style="--d:.1s">Know your odds<br><span class="grad">before you bet.</span></h1>
+      <p class="lead reveal" style="--d:.2s">Enter your slip. See the real chance it lands, which leg is dragging it down, and safer picks that still cover you.</p>
+      <div class="hero-cta reveal" style="--d:.3s">
+        <a class="btn" href="#matches">Check a slip</a>
+        <button class="btn ghost" id="loadExample" type="button">Try an example</button>
+      </div>
+    </div>
+    <div class="hero-gauge reveal" style="--d:.25s" aria-hidden="true">
+      <svg viewBox="0 0 200 200"><circle class="g-track" cx="100" cy="100" r="84"/><circle class="g-fill" cx="100" cy="100" r="84" style="--p:.075"/></svg>
+      <div class="g-num"><span class="tick" data-to="7.5" data-dec="1">0</span><small>%</small></div>
+      <div class="g-cap">4-leg slip · lands about 1 in 13</div>
+    </div>
+  </section>
+
+  <!-- STEP 1: MATCHES -->
+  <section class="step" id="matches">
+    <div class="step-head reveal"><span class="num">01</span><div><h2>Matches</h2><p>Add each game on your slip with its 1X2 odds. Over/under 2.5 makes the estimate sharper.</p></div></div>
+    <div id="matchList" class="cards"></div>
+    <button class="btn ghost add" id="addMatch" type="button">+ Add match</button>
+  </section>
+
+  <!-- STEP 2: SLIP -->
+  <section class="step" id="slip">
+    <div class="step-head reveal"><span class="num">02</span><div><h2>Your slip</h2><p>Pick the match, the market and the odds you were offered.</p></div></div>
+    <div id="legList" class="cards"></div>
+    <button class="btn ghost add" id="addLeg" type="button">+ Add selection</button>
+    <button class="btn big" id="analyse" type="button"><span>Analyse slip</span><i class="scan" aria-hidden="true"></i></button>
+    <p class="err" id="err" role="alert"></p>
+  </section>
+
+  <!-- STEP 3: ANALYSIS -->
+  <section class="step" id="analysis" hidden>
+    <div class="step-head"><span class="num">03</span><div><h2>Analysis</h2><p id="summary"></p></div></div>
+
+    <div class="result">
+      <div class="gauge big-g">
+        <svg viewBox="0 0 200 200"><circle class="g-track" cx="100" cy="100" r="84"/><circle class="g-fill" id="slipFill" cx="100" cy="100" r="84"/></svg>
+        <div class="g-num"><span id="slipPct">0</span><small>%</small></div>
+      </div>
+      <div class="result-stats">
+        <div><span class="k">Lands about</span><b id="oneIn">1 in –</b></div>
+        <div><span class="k">Total odds</span><b id="totOdds">–</b></div>
+        <div><span class="k">Expected return per R100</span><b id="evR">–</b></div>
+      </div>
+      <p class="fine">These are statistical estimates from the odds and form you entered. They don't know about injuries, line-ups or weather. Bookmakers build a margin into every price, so most bets lose money over time.</p>
+    </div>
+
+    <h3 class="sub">Each selection <span>our estimate vs the bookmaker's</span></h3>
+    <div id="legRows" class="rows"></div>
+
+    <h3 class="sub">Drop one leg <span>how your chance changes</span></h3>
+    <div id="dropRows" class="rows"></div>
+
+    <h3 class="sub">Safer alternatives <span>still cover your pick, take them only at these odds or better</span></h3>
+    <div id="altRows"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p><b>18+ only.</b> Gamble only what you can afford to lose.</p>
+  <p>Free 24/7 help: National Responsible Gambling Programme <a href="tel:0800006008">0800 006 008</a> · WhatsApp HELP to <a href="https://wa.me/27766750710">076 675 0710</a></p>
+</footer>
+
+<template id="tMatch">
+  <article class="card match">
+    <div class="row2"><input class="in" name="home" placeholder="Home team" autocomplete="off"><span class="v">v</span><input class="in" name="away" placeholder="Away team" autocomplete="off"></div>
+    <div class="odds">
+      <label><span>1</span><input class="in" name="o1" inputmode="decimal" placeholder="2.00"></label>
+      <label><span>X</span><input class="in" name="ox" inputmode="decimal" placeholder="3.40"></label>
+      <label><span>2</span><input class="in" name="o2" inputmode="decimal" placeholder="3.80"></label>
+      <label><span>O2.5</span><input class="in" name="oo" inputmode="decimal" placeholder="1.90"></label>
+      <label><span>U2.5</span><input class="in" name="ou" inputmode="decimal" placeholder="1.90"></label>
+    </div>
+    <div class="xg" aria-live="polite"></div>
+    <button class="x" type="button" aria-label="Remove match">×</button>
+  </article>
+</template>
+<template id="tLeg">
+  <article class="card leg">
+    <select class="in" name="match" aria-label="Match"></select>
+    <select class="in" name="market" aria-label="Market"></select>
+    <label class="lo"><span>Odds</span><input class="in" name="odds" inputmode="decimal" placeholder="1.90"></label>
+    <button class="x" type="button" aria-label="Remove selection">×</button>
+  </article>
+</template>
+
+<script src="bet-engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
