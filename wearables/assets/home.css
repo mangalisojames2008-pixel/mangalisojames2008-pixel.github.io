@@ -145,6 +145,7 @@ html:not(.js) .chapter__sticky { position: static; height: auto; }
 @media (min-width: 761px) { .cin .copy.c { max-width: min(64vw, 22em); } }
 
 /* header: sits over the film, see-through at the very top, light text */
-.home .nav { position: fixed; top: 0; left: 0; right: 0; }
-.nav.is-top { background: transparent; border-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .home .bento-wrap { padding-top: 72px; }
+
+/* logo over the dark film, top left; it scrolls away with the page */
+.home .nx-head { position: absolute; top: 0; left: 0; right: 0; color: var(--on-ink); max-width: none; }

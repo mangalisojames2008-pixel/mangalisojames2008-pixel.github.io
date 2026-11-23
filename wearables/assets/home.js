@@ -1,15 +1,16 @@
-/* Home page: the header over the film, prices in the film, the product chapters
+/* Home page: prices in the film, the product chapters
    and the bundle builder. The film itself runs on cinema/cinema.js (not changed here).
    Scroll work is one rAF per frame and only touches transforms, opacity and classes.
    Product pictures are real photos inside their stage boxes. */
 (function () {
   'use strict';
   const go = () => {
-    const { $, $$, esc, fmt, load, card, bezel, url, srcAttrs, cart, toast, reveals, S } = window.Shop;
+    const { $, $$, esc, fmt, load, fill, bezel, url, srcAttrs, cart, toast, S } = window.Shop;
     const root = document.documentElement;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) root.classList.add('static');
-    const navH = () => ($('.nav') || { offsetHeight: 56 }).offsetHeight;
+    /* chapters pin below the top band that holds the logo and the menu button */
+    const navH = () => parseFloat(getComputedStyle(root).getPropertyValue('--nav-h')) || 80;
     const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
     /* film scenes that wait for product photos: shown once none of their products has "photoPending" */
@@ -45,7 +46,7 @@
       /* home rows show only products with a real photo; the shop page lists everything */
       $$('[data-row]').forEach(row => {
         const list = d.products.filter(p => p.category === row.dataset.row && !p.photoPending);
-        row.innerHTML = list.map(card).join('');
+        fill(row, list);                               /* the cards are already in the HTML; redraw only if the data changed */
         if (!list.length && row.parentElement) row.parentElement.hidden = true;
       });
       $$('[data-from]').forEach(el => {
@@ -66,21 +67,11 @@
       $$('[data-price]').forEach(el => { const p = d.bySlug[el.dataset.price]; if (p) el.textContent = fmt(p.price); });
     }
 
-    const darks = $$('.cin, .ink-band, .section--ink, .footer');
-    const film = $('.cin');
-
     /* ---------- one scroll loop ---------- */
     let queued = false;
     function frame() {
       queued = false;
       const vh = innerHeight, nh = navH(), frameH = vh - nh;
-
-      /* header: see-through over the top of the film, dark glass once scrolled over dark parts, light glass elsewhere */
-      const nav = $('.nav');
-      if (nav) {
-        nav.classList.toggle('is-top', !!film && scrollY < 8);
-        nav.classList.toggle('is-dark', darks.some(el => { const r = el.getBoundingClientRect(); return r.top <= nh / 2 && r.bottom > nh / 2; }));
-      }
 
       for (const c of chapters) {
         const r = c.sec.getBoundingClientRect();
@@ -146,7 +137,6 @@
       try { showReadyScenes(d); } catch (e) { console.error(e); }
       try { buildChapters(d); } catch (e) { console.error(e); }
       try { buildBundle(d); } catch (e) { console.error(e); }
-      reveals();
       kick();
     }).catch(e => {
       console.error(e);

@@ -9,32 +9,60 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fitness watches and smart rings in South Africa">
 <meta property="og:description" content="Watches from R599, smart rings and watch cases, delivered in South Africa.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preload" as="image" href="images/cut/xiaomi-redmi-watch-5-active.png" imagesrcset="images/cut/xiaomi-redmi-watch-5-active-960.webp 960w, images/cut/xiaomi-redmi-watch-5-active-1440.webp 1440w, images/cut/xiaomi-redmi-watch-5-active-2160.webp 2160w" imagesizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw" fetchpriority="high">
 <link rel="stylesheet" href="cinema/cinema.css">
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="stylesheet" href="assets/home.css">
+<link rel="stylesheet" href="ui/nexera-ui.css">
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
 <script src="config.js"></script>
+<script src="assets/card.js" defer></script>
 <script src="assets/app.js" defer></script>
 <script src="assets/home.js" defer></script>
 </head>
 <body class="home">
+<!-- NEXERA menu (ui/menu-snippet.html, links set for this store) -->
+<button class="nx-burger" aria-expanded="false" aria-controls="nx-menu" aria-label="Open menu">
+  <span></span><span></span><span></span><b class="nx-count"></b>
+</button>
+<div class="nx-menu" id="nx-menu">
+  <div class="nx-top"><img src="assets/mark.svg" alt="" width="28" height="28"><span>NEXERA</span></div>
+  <nav aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="shop.html?c=watches">Watches <small data-from-label="watches">from R599</small></a>
+    <a href="shop.html?c=rings">Smart rings <small data-from-label="rings">from R1 099</small></a>
+    <a href="shop.html?c=cases">Watch cases <small data-from-label="cases">from R249</small></a>
+    <a href="index.html#bundle">Build a bundle</a>
+    <a href="index.html#faq">Help &amp; FAQ</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+  <div class="nx-foot">
+    <span>Delivered anywhere in South Africa · 7-day returns</span>
+    <a class="nx-wa" href="https://wa.me/27746592098" target="_blank" rel="noopener">Chat on WhatsApp</a>
+  </div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
-<header id="site-header" class="nav"><div class="nav__in"><a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>NEXERA</span></a></div></header>
+<header id="site-header" class="nx-head"><a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>NEXERA</span></a></header>
 
 <main id="main">
 
-<!-- NEXERA cinema film for the wearables store (engine: cinema/cinema.js + cinema/cinema.css, unchanged).
-     Images: images/cut/<name>.png = transparent cut-out of the REAL product photo, plus -960/-1440/-2160 WebP
+<!-- NEXERA cinema film (engine: cinema/cinema.js + cinema/cinema.css, used as they are).
+     Images: images/cut/<slug>.png = transparent cut-out of the REAL product photo, plus -960/-1440/-2160/-3840 WebP
      (only the sizes that exist are listed). data-fallback = the normal photo on a light plate.
      Prices fill in from products.json (data-price). Numbers checked on mi.com spec pages, 2026-11-23:
-     Redmi Watch 5 Active typical battery 18 days; Smart Band 10 brightness HBM 1500 nits.
-     Scenes with data-needs stay hidden while any of those products still has "photoPending" in products.json (home.js shows them). -->
+     Redmi Watch 5 Active typical battery 18 days; Smart Band 10 brightness HBM 1500 nits. -->
 
 <section class="cin" id="cinema" aria-labelledby="cinTitle">
   <h1 class="sr-only" id="cinTitle">NEXERA: fitness watches, smart rings and watch cases, delivered in South Africa</h1>
   <div class="cin-ambient" aria-hidden="true"></div>
+
+  <!-- BRAND INTRO: NEXERA wordmark rises letter by letter, then lifts away as the first product arrives -->
+  <div class="brand-intro" aria-hidden="true">
+    <div class="bi-word"><span style="--i:0">N</span><span style="--i:1">E</span><span style="--i:2">X</span><span style="--i:3">E</span><span style="--i:4">R</span><span style="--i:5">A</span></div>
+    <div class="bi-line"></div>
+    <div class="bi-tag">Wearables · Checked &amp; delivered in South Africa</div>
+  </div>
 
   <!-- 1 · INTRO: plays on load, then scrubs out on scroll -->
   <div class="scene" style="--len:240" data-glow="#ff5a1f">
@@ -42,7 +70,7 @@
       <div class="giant-wrap" aria-hidden="true">
         <p class="giant" data-k="0:o1 s1 | .55:o1 s1.05 | 1:o0 s1.14 b10">ACTIVE</p>
       </div>
-      <div class="in" style="--d:.15s">
+      <div class="in" style="--d:1.35s">
         <div class="prod-glow" data-k="0:o.7 | .6:o.7 | 1:o0"></div>
         <img class="prod"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
@@ -54,13 +82,14 @@
          fetchpriority="high"
          data-k="0:s1 | .5:s1.04 | 1:o.3 s.72 y-6 b8">
       </div>
-      <div class="in" style="--d:.8s">
+      <div class="in" style="--d:1.9s">
         <div class="copy l ghost" data-k="0:o1 | .3:o1 y0 b0 | .58:o0 y-9 b14">
-          <h2>Built for the days that test you</h2>
+          <span class="kick">NEXERA <i></i> 01 · Watches</span>
+          <h2>Built for the days that test you.</h2>
           <p>Redmi Watch 5 Active. Calls from your wrist, 140+ workout modes, delivered anywhere in South Africa.</p>
-          <a class="btn" href="product.html?p=xiaomi-redmi-watch-5-active">Shop · <span data-price="xiaomi-redmi-watch-5-active">R849</span></a>
+          <a class="btn" href="product.html?id=xiaomi-redmi-watch-5-active">Shop · <span data-price="xiaomi-redmi-watch-5-active">R849</span></a>
         </div>
-        <div class="meta" data-k="0:o1 | .4:o1 | .6:o0">From <b data-from="watches">R599</b> · Ring sizing help · 7-day returns</div>
+        <div class="meta" data-k="0:o1 | .4:o1 | .6:o0">From <b data-from="watches">R599</b> · Free sizing help · 7-day returns</div>
       </div>
     </div>
   </div>
@@ -79,9 +108,10 @@
          alt=""
          data-k="0:o0 x16 s.8 b10 | .15:o1 s1 b0 | .82:o1 | 1:o.3 y-10 b12">
       <div class="copy l ghost" data-k="0:o0 y6 b12 | .14:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 02 · Battery</span>
         <span class="num" data-count="0,18" data-at=".12,.55">0<small>days</small></span>
-        <h2>One charge, most of the month</h2>
-        <p>Up to 18 days in typical use, as measured by Xiaomi. Charge it on a Sunday and check again in a fortnight.</p>
+        <h2>One charge. Most of the month.</h2>
+        <p>Up to 18 days in typical use, measured by Xiaomi. Charge it on a Sunday and check again in a fortnight.</p>
       </div>
     </div>
   </div>
@@ -99,15 +129,39 @@
          alt="Xiaomi Smart Band 10"
          data-k="0:o0 s.6 b8 | .12:o1 s.9 b0 | .38:s2.1 y8 | .58:s2.1 y8 | .78:s1 x16 y0 | .94:o1 | 1:o.3 b10">
       <div class="copy l ghost" data-k="0:o0 | .8:o0 y6 b12 | .87:o1 y0 b0 | .96:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 03 · Display</span>
         <span class="num" data-count="0,1500" data-at=".82,.94">0<small>nits peak</small></span>
-        <h2>Bright enough for noon</h2>
+        <h2>Bright enough for noon.</h2>
         <p>Xiaomi Smart Band 10. A 1.72-inch AMOLED screen you can read on a Durban beach.</p>
-        <a class="btn" href="product.html?p=xiaomi-smart-band-10">Shop · <span data-price="xiaomi-smart-band-10">R1 199</span></a>
+        <a class="btn" href="product.html?id=xiaomi-smart-band-10">Shop · <span data-price="xiaomi-smart-band-10">R1 199</span></a>
       </div>
     </div>
   </div>
 
-  <!-- 4 · RING -->
+  <!-- 4 · SCREENLESS: Spovan H7, sage glow for the calm "recovery" feel -->
+  <div class="scene" style="--len:260" data-glow="#8fb59a">
+    <div class="stage">
+      <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 s.9 | .15:o1 s1 | .8:o1 | 1:o0 s1.1 b10">NO SCREEN</p></div>
+      <div class="prod-glow" data-k="0:o0 x14 | .15:o.7 | .85:o.7 | 1:o0"></div>
+      <img class="prod"
+         onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
+         loading="lazy"
+         src="images/cut/spovan-h7.png"
+         srcset="images/cut/spovan-h7-960.webp 960w, images/cut/spovan-h7-1440.webp 1440w"
+         sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw"
+         data-fallback="images/spovan-h7.jpg"
+         alt="Spovan H7 screenless smart band"
+         data-k="0:o0 x14 y10 r-12 b10 | .18:o1 y0 r0 b0 | .5:s1.12 r6 | .82:o1 s1 r0 | 1:o.3 y-8 b10">
+      <div class="copy l ghost" data-k="0:o0 y6 b12 | .2:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 04 · Screenless</span>
+        <h2>Rest smarter. Nothing to look at.</h2>
+        <p>Spovan H7. No screen, just quiet tracking you check in the app.</p>
+        <a class="btn" href="product.html?id=spovan-h7">Shop · <span data-price="spovan-h7">R999</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 · RING -->
   <div class="scene" style="--len:260" data-glow="#5aa8ff">
     <div class="stage">
       <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 s.9 | .15:o1 s1 | .8:o1 | 1:o0 s1.1 b10">RING</p></div>
@@ -115,62 +169,23 @@
       <img class="prod"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
          loading="lazy"
-         src="images/cut/colmi-r10.png"
-         srcset="images/cut/colmi-r10-960.webp 960w, images/cut/colmi-r10-1440.webp 1440w, images/cut/colmi-r10-2160.webp 2160w"
+         src="images/cut/colmi-r12.png"
+         srcset="images/cut/colmi-r12-960.webp 960w, images/cut/colmi-r12-1440.webp 1440w, images/cut/colmi-r12-2160.webp 2160w"
          sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw"
-         data-fallback="images/colmi-r10.jpg"
-         alt="Colmi R10 smart ring"
+         data-fallback="images/colmi-r12.jpg"
+         alt="Colmi R12 smart ring"
          data-k="0:o0 x14 y12 r-20 b10 | .18:o1 y0 r0 b0 | .5:r12 s1.08 | .82:o1 r0 s1 | 1:o.3 y-8 b10">
       <div class="copy l ghost" data-k="0:o0 y6 b12 | .22:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
-        <h2>All the tracking, nothing on your wrist</h2>
-        <p>Colmi R10. Sleep, heart rate and activity in a ring under 5 g. Sizes 7 to 13.</p>
-        <a class="btn" href="product.html?p=colmi-r10">Shop · <span data-price="colmi-r10">R1 099</span></a>
+        <span class="kick">NEXERA <i></i> 05 · Rings</span>
+        <h2>All the tracking. Nothing on your wrist.</h2>
+        <p>Colmi R12 with a small touch display for the time and your steps. Sizes 7 to 13.</p>
+        <a class="btn" href="product.html?id=colmi-r12">Shop · <span data-price="colmi-r12">R1 499</span></a>
       </div>
     </div>
   </div>
 
-  <!-- 5 · FINISHES: the three ring colours slide in side by side -->
-  <div class="scene" style="--len:240" data-glow="#c9a46a">
-    <div class="stage">
-      <img class="prod"
-         onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
-         loading="lazy"
-         src="images/cut/colmi-r10.png"
-         srcset="images/cut/colmi-r10-960.webp 960w, images/cut/colmi-r10-1440.webp 1440w, images/cut/colmi-r10-2160.webp 2160w"
-         sizes="(max-width:760px) 30vw, (min-width:3400px) 900px, (min-width:2400px) 640px, 24vw"
-         data-fallback="images/colmi-r10.jpg"
-         alt=""
-         style="width:min(24vw,260px);top:38%"
-         data-k="0:o0 x-60 | .25:o1 x-24 | .82:o1 | 1:o.3 y-8 b10">
-      <img class="prod"
-         onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
-         loading="lazy"
-         src="images/cut/colmi-r10-gold.png"
-         srcset="images/cut/colmi-r10-gold-960.webp 960w, images/cut/colmi-r10-gold-1440.webp 1440w, images/cut/colmi-r10-gold-2160.webp 2160w"
-         sizes="(max-width:760px) 30vw, (min-width:3400px) 900px, (min-width:2400px) 640px, 24vw"
-         data-fallback="images/colmi-r10-gold.jpg"
-         alt=""
-         style="width:min(24vw,260px);top:38%"
-         data-k="0:o0 y30 | .3:o1 y0 | .82:o1 | 1:o.3 y-8 b10">
-      <img class="prod"
-         onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
-         loading="lazy"
-         src="images/cut/colmi-r10-silver.png"
-         srcset="images/cut/colmi-r10-silver-960.webp 960w, images/cut/colmi-r10-silver-1440.webp 1440w, images/cut/colmi-r10-silver-2160.webp 2160w"
-         sizes="(max-width:760px) 30vw, (min-width:3400px) 900px, (min-width:2400px) 640px, 24vw"
-         data-fallback="images/colmi-r10-silver.jpg"
-         alt=""
-         style="width:min(24vw,260px);top:38%"
-         data-k="0:o0 x60 | .35:o1 x24 | .82:o1 | 1:o.3 y-8 b10">
-      <div class="copy c ghost" style="bottom:8vh" data-k="0:o0 y6 b12 | .32:o0 y6 b12 | .45:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
-        <h2>Black, gold or silver</h2>
-        <a class="btn" href="product.html?p=colmi-r10">Pick a finish · <span data-price="colmi-r10">R1 099</span></a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6 · OUTDOOR (shows once images/spovan-pr3.jpg is uploaded) -->
-  <div class="scene" style="--len:240" data-glow="#ff7a1a" data-needs="spovan-pr3" hidden>
+  <!-- 6 · OUTDOOR -->
+  <div class="scene" style="--len:240" data-glow="#ff7a1a">
     <div class="stage">
       <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 x-20 | .2:o1 x0 | .8:o1 | 1:o0 x20 b10">OUTDOOR</p></div>
       <div class="prod-glow" data-k="0:o0 x14 | .2:o.7 | .85:o.7 | 1:o0"></div>
@@ -184,15 +199,16 @@
          alt="Spovan PR3 outdoor watch"
          data-k="0:o0 x14 s1.3 b14 | .2:o1 s1 b0 | .82:o1 | 1:o.3 s.8 b10">
       <div class="copy l ghost" data-k="0:o0 y6 b12 | .25:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
-        <h2>Made for the trail, not the desk</h2>
+        <span class="kick">NEXERA <i></i> 06 · Outdoor</span>
+        <h2>Made for the trail, not the desk.</h2>
         <p>Spovan PR3. A 50 m water rating, a tough case and big buttons for mud and sun.</p>
-        <a class="btn" href="product.html?p=spovan-pr3">Shop · <span data-price="spovan-pr3">R899</span></a>
+        <a class="btn" href="product.html?id=spovan-pr3">Shop · <span data-price="spovan-pr3">R899</span></a>
       </div>
     </div>
   </div>
 
-  <!-- 7 · CASES (shows once the three case photos are uploaded) -->
-  <div class="scene" style="--len:240" data-glow="#c9a46a" data-needs="pu-leather-travel-watch-case glass-top-wooden-display-box aluminium-watch-case" hidden>
+  <!-- 7 · CASES: three cases slide in side by side -->
+  <div class="scene" style="--len:240" data-glow="#c9a46a">
     <div class="stage">
       <img class="prod"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
@@ -225,7 +241,8 @@
          style="width:min(24vw,260px);top:38%"
          data-k="0:o0 x60 | .35:o1 x24 | .82:o1 | 1:o.3 y-8 b10">
       <div class="copy c ghost" style="bottom:8vh" data-k="0:o0 y6 b12 | .32:o0 y6 b12 | .45:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
-        <h2>A safe place for it at night</h2>
+        <span class="kick">NEXERA <i></i> 07 · Cases</span>
+        <h2>A safe place for it at night.</h2>
         <a class="btn" href="shop.html?c=cases">Watch cases from <span data-from="cases">R249</span></a>
       </div>
     </div>
@@ -234,9 +251,10 @@
   <!-- BRIEF MESSAGE, then the categories, products, bundle, ordering steps, FAQ and footer follow -->
   <div class="message">
     <div>
-      <h2 class="ghost">Real gear, local delivery, no guesswork</h2>
-      <p>Order on your phone and get it delivered anywhere in South Africa. Stuck on a ring size or a strap? Ask us on WhatsApp.</p>
-      <div class="ticks"><span>Delivery nationwide</span><span>7-day returns</span><span>Printable ring sizer</span></div>
+      <span class="kick">NEXERA <i></i> Our promise</span>
+      <h2 class="ghost reveal">Real gear. Local delivery. No guesswork.</h2>
+      <p class="reveal" style="--rd:.1s">Every watch, ring and case we sell is one we've checked ourselves. Order on your phone, get it delivered anywhere in South Africa, and chat to us on WhatsApp if you're stuck.</p>
+      <div class="ticks reveal" style="--rd:.2s"><span>Delivery nationwide</span><span>7-day returns</span><span>Printable ring sizer</span></div>
     </div>
   </div>
 </section>
@@ -263,7 +281,7 @@
   <section class="chapter" id="watches" data-chapter="watches" aria-labelledby="chWatches">
     <div class="chapter__sticky">
       <div class="chapter__grid wrap">
-        <div class="chapter__head">
+        <div class="chapter__head reveal">
           <p class="kicker">Watches</p>
           <h2 id="chWatches">Calls, workouts and up to three weeks per charge</h2>
         </div>
@@ -272,13 +290,76 @@
       </div>
     </div>
   </section>
-  <div class="wrap chapter__more"><div class="row" data-row="watches"></div><a class="link" href="shop.html?c=watches">See all watches</a></div>
+  <div class="wrap chapter__more"><div class="row" data-row="watches" data-stagger>
+<!-- cards:start (tools/build-cards.js) -->
+<article class="card nx-card" data-cat="watches" data-sig="1opex4e">
+      <div class="stage stage--sq"><img class="shot" src="images/xiaomi-redmi-watch-5-active.jpg" srcset="images/xiaomi-redmi-watch-5-active-960.jpg 960w, images/xiaomi-redmi-watch-5-active-1440.jpg 1440w, images/xiaomi-redmi-watch-5-active-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Xiaomi Redmi Watch 5 Active" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=xiaomi-redmi-watch-5-active">Xiaomi Redmi Watch 5 Active</a></h3>
+        
+        <p class="card__line">A big, bright square screen and up to 18 days on a charge. Take calls on your wrist and log more than 140 kinds of workout.</p>
+        <div class="card__foot"><span class="price">R849</span><button class="btn card__add" type="button" data-add="xiaomi-redmi-watch-5-active">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="watches" data-sig="195o06m">
+      <div class="stage stage--sq"><img class="shot" src="images/xiaomi-smart-band-10.jpg" srcset="images/xiaomi-smart-band-10-960.jpg 960w, images/xiaomi-smart-band-10-1440.jpg 1440w, images/xiaomi-smart-band-10-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Xiaomi Smart Band 10" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=xiaomi-smart-band-10">Xiaomi Smart Band 10</a></h3>
+        
+        <p class="card__line">A light band with a sharp AMOLED screen that you forget you are wearing. Rated for swimming, with up to 21 days between charges.</p>
+        <div class="card__foot"><span class="price">R1 199</span><button class="btn card__add" type="button" data-add="xiaomi-smart-band-10">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="watches" data-sig="1ct1v7g">
+      <div class="stage stage--sq"><img class="shot" src="images/spovan-h7.jpg" srcset="images/spovan-h7-960.jpg 960w, images/spovan-h7-1440.jpg 1440w, images/spovan-h7-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Spovan H7 Screenless Smart Band" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=spovan-h7">Spovan H7 Screenless Smart Band</a></h3>
+        <p class="tag">Screenless band</p>
+        <p class="card__line">No screen, no distractions. Wear it 24/7 and see your sleep, heart rate and recovery in the app.</p>
+        <div class="card__foot"><span class="price">R999</span><button class="btn card__add" type="button" data-add="spovan-h7">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="watches" data-sig="1046lsl">
+      <div class="stage stage--sq"><img class="shot" src="images/colmi-p71.jpg" srcset="images/colmi-p71-960.jpg 960w, images/colmi-p71-1440.jpg 1440w, images/colmi-p71-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Colmi P71 smartwatch" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=colmi-p71">Colmi P71 smartwatch</a></h3>
+        
+        <p class="card__line">A large screen and calls from the wrist for under R600. A good first smartwatch for steps, sleep and workouts.</p>
+        <div class="card__foot"><span class="price">R599</span><button class="btn card__add" type="button" data-add="colmi-p71">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="watches" data-sig="17dyt8w">
+      <div class="stage stage--sq"><img class="shot" src="images/spovan-pr3.jpg" srcset="images/spovan-pr3-960.jpg 960w, images/spovan-pr3-1440.jpg 1440w, images/spovan-pr3-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Spovan PR3 outdoor sports watch" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=spovan-pr3">Spovan PR3 outdoor sports watch</a></h3>
+        
+        <p class="card__line">A rugged outdoor watch for trail runs, hikes and site work. Ask us on WhatsApp which version is in stock before you order.</p>
+        <div class="card__foot"><span class="price">R899</span><button class="btn card__add" type="button" data-add="spovan-pr3">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="watches" data-sig="node4q">
+      <div class="stage stage--sq"><img class="shot" src="images/woven-nylon-strap-case-set.jpg" srcset="images/woven-nylon-strap-case-set-960.jpg 960w, images/woven-nylon-strap-case-set-1440.jpg 1440w, images/woven-nylon-strap-case-set-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Woven nylon strap + case set" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=woven-nylon-strap-case-set">Woven nylon strap + case set</a></h3>
+        
+        <p class="card__line">A soft woven nylon strap with a matching protective case for the watch face. Not sure it fits your watch? Ask us before you order.</p>
+        <div class="card__foot"><span class="price">R249</span><button class="btn card__add" type="button" data-add="woven-nylon-strap-case-set">Add to cart</button></div>
+      </div>
+    </article>
+<!-- cards:end -->
+</div><a class="link" href="shop.html?c=watches">See all watches</a></div>
 
   <div class="ink-band">
     <section class="chapter chapter--ink on-ink" id="rings" data-chapter="rings" aria-labelledby="chRings">
       <div class="chapter__sticky">
         <div class="chapter__grid wrap">
-          <div class="chapter__head">
+          <div class="chapter__head reveal">
             <p class="kicker">Smart rings</p>
             <h2 id="chRings">All the tracking, nothing on your wrist</h2>
           </div>
@@ -287,13 +368,36 @@
         </div>
       </div>
     </section>
-    <div class="wrap chapter__more on-ink"><div class="row" data-row="rings"></div><p class="muted">Not sure of your size? <a class="link" href="sizer.html">Print the ring sizer</a></p></div>
+    <div class="wrap chapter__more on-ink"><div class="row" data-row="rings" data-stagger>
+<!-- cards:start (tools/build-cards.js) -->
+<article class="card nx-card" data-cat="rings" data-sig="18wvrgj">
+      <div class="stage stage--sq"><img class="shot" src="images/colmi-r10.jpg" srcset="images/colmi-r10-960.jpg 960w, images/colmi-r10-1440.jpg 1440w, images/colmi-r10-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Colmi R10 smart ring" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=colmi-r10">Colmi R10 smart ring</a></h3>
+        
+        <p class="card__line">Sleep, heart rate and activity tracking in a ring that weighs under 5 g. No screen, no buzzing, and you can swim with it.</p>
+        <div class="card__foot"><span class="price">R1 099</span><a class="btn btn--ghost card__add" href="product.html?p=colmi-r10">Choose ring size</a></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="rings" data-sig="4f432a">
+      <div class="stage stage--sq"><img class="shot" src="images/colmi-r12.jpg" srcset="images/colmi-r12-960.jpg 960w, images/colmi-r12-1440.jpg 1440w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Colmi R12 smart ring (touch display)" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=colmi-r12">Colmi R12 smart ring (touch display)</a></h3>
+        
+        <p class="card__line">A smart ring with its own small touch display. Check the time, your steps and the battery on your finger, without picking up your phone.</p>
+        <div class="card__foot"><span class="price">R1 499</span><a class="btn btn--ghost card__add" href="product.html?p=colmi-r12">Choose ring size</a></div>
+      </div>
+    </article>
+<!-- cards:end -->
+</div><p class="muted">Not sure of your size? <a class="link" href="sizer.html">Print the ring sizer</a></p></div>
   </div>
 
   <section class="chapter" id="cases" data-chapter="cases" aria-labelledby="chCases">
     <div class="chapter__sticky">
       <div class="chapter__grid wrap">
-        <div class="chapter__head">
+        <div class="chapter__head reveal">
           <p class="kicker">Watch cases</p>
           <h2 id="chCases">A safe place for the watch when it is off your wrist</h2>
         </div>
@@ -302,7 +406,40 @@
       </div>
     </div>
   </section>
-  <div class="wrap chapter__more"><div class="row" data-row="cases"></div><a class="link" href="shop.html?c=cases">See all cases</a></div>
+  <div class="wrap chapter__more"><div class="row" data-row="cases" data-stagger>
+<!-- cards:start (tools/build-cards.js) -->
+<article class="card nx-card" data-cat="cases" data-sig="1bkxb5u">
+      <div class="stage stage--sq"><img class="shot" src="images/pu-leather-travel-watch-case.jpg" srcset="images/pu-leather-travel-watch-case-960.jpg 960w, images/pu-leather-travel-watch-case-1440.jpg 1440w, images/pu-leather-travel-watch-case-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="PU leather travel watch case" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=pu-leather-travel-watch-case">PU leather travel watch case</a></h3>
+        
+        <p class="card__line">A compact zip case that keeps a watch from getting scratched in a gym bag or carry-on.</p>
+        <div class="card__foot"><span class="price">R249</span><button class="btn card__add" type="button" data-add="pu-leather-travel-watch-case">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="cases" data-sig="1yy4fm1">
+      <div class="stage stage--sq"><img class="shot" src="images/glass-top-wooden-display-box.jpg" srcset="images/glass-top-wooden-display-box-960.jpg 960w, images/glass-top-wooden-display-box-1440.jpg 1440w, images/glass-top-wooden-display-box-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Glass-top wooden display box" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=glass-top-wooden-display-box">Glass-top wooden display box</a></h3>
+        
+        <p class="card__line">A wooden box with a glass lid, so your watches stay dust-free and still on show on a desk or dresser.</p>
+        <div class="card__foot"><span class="price">R449</span><button class="btn card__add" type="button" data-add="glass-top-wooden-display-box">Add to cart</button></div>
+      </div>
+    </article>
+<article class="card nx-card" data-cat="cases" data-sig="1m1gvic">
+      <div class="stage stage--sq"><img class="shot" src="images/aluminium-watch-case.jpg" srcset="images/aluminium-watch-case-960.jpg 960w, images/aluminium-watch-case-1440.jpg 1440w, images/aluminium-watch-case-2160.jpg 2160w" sizes="(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw" alt="Aluminium watch case" width="1000" height="1000" loading="lazy" decoding="async"></div>
+      <div class="card__body">
+        <span class="nx-badge">NEXERA checked</span>
+        <h3 class="card__name"><a href="product.html?p=aluminium-watch-case">Aluminium watch case</a></h3>
+        
+        <p class="card__line">A hard aluminium case with foam slots, for one to three watches. Made for travel where bags get thrown around.</p>
+        <div class="card__foot"><span class="price">R549</span><a class="btn btn--ghost card__add" href="product.html?p=aluminium-watch-case">Choose slots</a></div>
+      </div>
+    </article>
+<!-- cards:end -->
+</div><a class="link" href="shop.html?c=cases">See all cases</a></div>
 
   <!-- BUNDLE BUILDER: watch + strap set + case -->
   <section class="section bundle" id="bundle" aria-labelledby="bundleTitle">
@@ -351,7 +488,7 @@
   </section>
 
   <!-- FAQ: details elements work without JavaScript -->
-  <section class="section" aria-labelledby="faqTitle">
+  <section class="section" id="faq" aria-labelledby="faqTitle">
     <div class="wrap faq">
       <div class="section__head reveal"><p class="kicker">Questions</p><h2 id="faqTitle">Before you order</h2></div>
       <div class="faq__list">
@@ -359,6 +496,7 @@
         <details><summary>How long does delivery take?</summary><p>Most orders arrive in <span data-cfg="deliveryTime">[2 to 5 working days]</span> by <span data-cfg="courier">[COURIER NAME]</span>. See <a class="link" href="delivery.html">delivery and returns</a>.</p></details>
         <details><summary>Will it work with my phone?</summary><p>The watches and rings pair with Android phones and iPhones through each maker's free app. Send us your phone model and we check before you order.</p></details>
         <details><summary>Which ring size do I need?</summary><p>Smart rings come in sizes 7 to 13. Use the <a class="link" href="sizer.html">printable ring sizer</a>, or measure a ring you already wear. If you are between sizes, ask us first.</p></details>
+        <details><summary>How does a band with no screen work?</summary><p>The Spovan H7 has no display. It sits on your wrist and the app on your phone shows your sleep, heart rate and heart-rate variability. It is rated IP68 for dust and water. <a class="link" href="product.html?p=spovan-h7">See the H7</a>.</p></details>
         <details><summary>Are these medical devices?</summary><p>No. Heart rate, SpO2, sleep and stress readings are for fitness and general wellness. They do not diagnose or treat anything. Speak to a doctor or clinic about any health concern.</p></details>
         <details><summary>What if something is faulty?</summary><p>Faulty products can come back within 6 months for a repair, replacement or refund. See the <a class="link" href="warranty.html">warranty page</a>.</p></details>
       </div>
@@ -376,6 +514,8 @@
 </main>
 
 <footer id="site-footer" class="footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
 <script src="cinema/cinema.js" defer></script>
+<script src="ui/nexera-ui.js" defer></script>
 </body>
 </html>

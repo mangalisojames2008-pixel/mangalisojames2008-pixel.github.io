@@ -33,12 +33,12 @@
   --r-stage: 24px;
   --maxw: 1200px;
   --gutter: 16px;
-  --nav-h: 56px;
+  --nav-h: 80px;            /* top band: logo left, menu button right (ui/nexera-ui.css) */
   --ease: cubic-bezier(.16, 1, .3, 1);
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
-@media (min-width: 760px) { :root { --gutter: 32px; --nav-h: 60px; } }
+@media (min-width: 760px) { :root { --gutter: 32px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 16px); }
@@ -64,7 +64,7 @@ p { margin: 0 0 1em; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
 .muted { color: var(--muted); }
 .price { font-variant-numeric: tabular-nums; font-weight: 500; }
-.kicker { color: var(--muted); font-weight: 500; font-size: .95rem; margin: 0 0 12px; }
+.kicker { color: var(--ember-ink); font-weight: 500; font-size: .95rem; margin: 0 0 12px; }
 .lede { color: var(--muted); font-size: 1.1rem; max-width: 34em; }
 .small { font-size: .875rem; }
 
@@ -72,11 +72,11 @@ p { margin: 0 0 1em; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 48px; padding: 0 20px; border-radius: var(--r-ctl);
-  border: 1px solid transparent; background: var(--ink); color: var(--on-ink);
+  border: 1px solid transparent; background: var(--brand, var(--ember)); color: #14100f;   /* brand colour, dark text (4.8:1) */
   font-weight: 500; text-decoration: none; white-space: nowrap;
   transition: background-color .2s, color .2s, border-color .2s, transform .15s;
 }
-.btn:hover { background: #2a2b31; }
+.btn:hover { background: #f0583f; }
 .btn:active { transform: scale(.98); }
 .btn--ghost { background: transparent; color: var(--text); border-color: rgba(21, 22, 26, .2); }
 .btn--ghost:hover { background: rgba(21, 22, 26, .05); }
@@ -85,69 +85,41 @@ p { margin: 0 0 1em; }
 .btn--block { width: 100%; }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
 .btn svg { width: 18px; height: 18px; flex: none; }
-.on-ink .btn { background: var(--on-ink); color: var(--ink); }
-.on-ink .btn:hover { background: #fff; }
 .on-ink .btn--ghost { background: transparent; color: var(--on-ink); border-color: rgba(244, 242, 237, .3); }
 .link { color: var(--text); text-underline-offset: 3px; text-decoration-thickness: 1px; font-weight: 500; }
 .on-ink .link { color: var(--on-ink); }
 .link svg { display: inline-block; width: 16px; height: 16px; vertical-align: -3px; margin-right: 4px; color: var(--wa); }
 
-/* ---------- glass nav ---------- */
-.nav {
-  position: sticky; top: 0; z-index: 100; height: var(--nav-h);
-  background: rgba(244, 242, 237, .8); border-bottom: 1px solid var(--line);
-  -webkit-backdrop-filter: saturate(160%) blur(16px); backdrop-filter: saturate(160%) blur(16px);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .nav { background: var(--paper); } }
-.nav__in { max-width: var(--maxw); margin: 0 auto; height: 100%; padding: 0 var(--gutter); display: flex; align-items: center; gap: 16px; }
+/* ---------- header: NEXERA logo top left; the three-line menu (ui/) sits top right ---------- */
+.nx-head { position: relative; z-index: 100; height: var(--nav-h); display: flex; align-items: center;
+  padding: 0 calc(16px + env(safe-area-inset-left)); max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: .14em; font-size: .95rem; }
 .brand img { width: 28px; height: 28px; }
-.nav__links { display: none; list-style: none; margin: 0 0 0 auto; padding: 0; gap: 4px; }
-.nav__links a { display: block; padding: 8px 12px; border-radius: 10px; text-decoration: none; font-size: .92rem; color: var(--muted); transition: color .2s, background-color .2s; }
-.nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--text); background: rgba(21, 22, 26, .05); }
-.nav__cart { margin-left: auto; position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; text-decoration: none; }
-.nav__cart:hover { background: rgba(21, 22, 26, .05); }
-.nav__cart svg { width: 22px; height: 22px; }
-.nav__count {
-  position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 6px;
-  border-radius: 9px; background: var(--ink); color: var(--on-ink);
-  font: 600 11px/18px var(--font); text-align: center; font-variant-numeric: tabular-nums;
-}
-.nav__menu { width: 44px; height: 44px; border: 0; background: none; border-radius: 10px; display: grid; place-items: center; }
-.nav__menu svg { width: 22px; height: 22px; }
-.nav__panel {
-  position: absolute; top: var(--nav-h); left: 0; right: 0; background: var(--paper);
-  border-bottom: 1px solid var(--line); padding: 8px var(--gutter) 16px;
-}
-.nav__panel a { display: block; padding: 12px 4px; text-decoration: none; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
-.nav__panel a:last-child { border-bottom: 0; }
-@media (min-width: 860px) {
-  .nav__links { display: flex; }
-  .nav__cart { margin-left: 4px; }
-  .nav__menu, .nav__panel { display: none !important; }
-}
+@media (min-width: 760px) { .nx-head { padding: 0 var(--gutter); } }
 
-/* header on 1440p and 4K screens: grows with the film instead of staying laptop-sized */
+/* 1440p and 4K: the header grows with the film instead of staying laptop-sized */
 @media (min-width: 2400px) {
-  :root { --nav-h: 88px; --gutter: 56px; }
-  .nav__in { max-width: 2200px; }
-  .nav__links { flex-wrap: nowrap; }
-  .nav__links a { white-space: nowrap; }
+  :root { --nav-h: 112px; --gutter: 56px; }
+  .nx-head { max-width: calc(2200px + 2 * var(--gutter)); }
   .brand { font-size: 1.35rem; gap: 16px; }
   .brand img { width: 40px; height: 40px; }
-  .nav__links a { font-size: 1.25rem; padding: 12px 16px; }
-  .nav__cart { width: 60px; height: 60px; }
-  .nav__cart svg { width: 30px; height: 30px; }
 }
 @media (min-width: 3400px) {
-  :root { --nav-h: 120px; --gutter: 80px; }
-  .nav__in { max-width: 3300px; }
+  :root { --nav-h: 128px; --gutter: 80px; }
+  .nx-head { max-width: calc(3300px + 2 * var(--gutter)); }
   .brand { font-size: 1.8rem; }
   .brand img { width: 56px; height: 56px; }
-  .nav__links a { font-size: 1.7rem; padding: 16px 24px; }
-  .nav__cart { width: 80px; height: 80px; }
-  .nav__cart svg { width: 40px; height: 40px; }
 }
+
+/* the three-line menu (ui/nexera-ui.css): logo next to the name at the top */
+.nx-menu .nx-top { display: flex; align-items: center; gap: 10px; }
+.nx-menu .nx-top img { width: 28px; height: 28px; }
+/* if the UI script never runs, nothing stays hidden */
+html:not(.js) .reveal { opacity: 1; transform: none; filter: none; }
+/* the NEXERA wordmark above the footer links: as big as the footer column allows (it is 3.9 em wide) */
+.footer .nx-wordmark { font-size: min(22vw, 520px, calc((min(100vw, var(--maxw)) - 2 * var(--gutter)) / 4)); }
+/* product page: hold the space while the product loads, so the footer does not jump */
+body[data-page="product"] main { min-height: 100svh; }
 
 /* ---------- stage box ---------- */
 .stage {
@@ -192,7 +164,7 @@ p { margin: 0 0 1em; }
 @media (min-width: 760px) { .section { padding: 112px 0; } }
 .section--ink { background: var(--ink); color: var(--on-ink); }
 .section--ink .muted, .section--ink .lede { color: var(--on-ink-muted); }
-.section--ink .kicker { color: var(--on-ink-muted); }
+.section--ink .kicker { color: var(--brand, var(--ember)); }
 .section__head { margin-bottom: 32px; }
 
 /* ---------- footer ---------- */
@@ -227,7 +199,7 @@ p { margin: 0 0 1em; }
   font-size: .95rem; transition: background-color .2s, color .2s, border-color .2s;
 }
 .chip:hover { border-color: rgba(21, 22, 26, .4); }
-.chip[aria-pressed="true"], .chip[aria-checked="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.chip[aria-pressed="true"], .chip[aria-checked="true"] { background: var(--brand, var(--ember)); color: #14100f; border-color: var(--brand, var(--ember)); }
 
 /* ---------- toast ---------- */
 .toast {
@@ -239,10 +211,6 @@ p { margin: 0 0 1em; }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
 .toast a { color: #fff; font-weight: 600; }
 
-/* ---------- entrance (only when JS is running) ---------- */
-.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.js .reveal.is-in { opacity: 1; transform: none; }
-
 /* ---------- plain content pages ---------- */
 .page { padding: 48px 0 80px; }
 .page h1 { font-size: clamp(2rem, 6vw, 3.25rem); }
@@ -252,16 +220,7 @@ p { margin: 0 0 1em; }
 .note { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card); padding: 16px 20px; }
 .ph { background: rgba(232, 69, 44, .1); border-radius: 4px; padding: 0 4px; }   /* [PLACEHOLDER] marks for the owner */
 
-/* ---------- glass nav over dark sections (set by home.js) ---------- */
-.nav.is-dark { background: rgba(14, 15, 19, .78); color: var(--on-ink); border-color: var(--line-ink); }
-.nav.is-dark .nav__links a { color: var(--on-ink-muted); }
-.nav.is-dark .nav__links a:hover { color: var(--on-ink); background: rgba(244, 242, 237, .08); }
-.nav.is-dark .nav__count { background: var(--on-ink); color: var(--ink); }
-.nav.is-dark .nav__panel { background: var(--ink); }
-.nav.is-dark .nav__panel a { border-color: var(--line-ink); }
-
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
-  .js .reveal { opacity: 1; transform: none; }
 }

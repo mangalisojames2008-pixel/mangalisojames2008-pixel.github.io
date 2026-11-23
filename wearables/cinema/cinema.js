@@ -41,7 +41,7 @@
   };
 
   const scenes = [...cin.querySelectorAll(".scene")].map(el => ({
-    el,
+    el, cur: 0, tgt: 0,
     glow: el.dataset.glow,
     keys: [...el.querySelectorAll("[data-k]")].map(n => ({ n, stops: parse(n.dataset.k), ghost: n.classList.contains("ghost") })),
     counts: [...el.querySelectorAll("[data-count]")].map(n => {
@@ -54,31 +54,50 @@
 
   const fmt = (v, dec) => v.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
-  function frame() {
+  // progress is eased toward the scroll position every frame, so motion glides instead of stepping
+  let last = performance.now(), running = false;
+  function measure() {
     const vh = innerHeight;
-    let active = null, best = -1;
     for (const sc of scenes) {
       const r = sc.el.getBoundingClientRect();
       const span = r.height - vh;
-      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
-      const vis = Math.min(r.bottom, vh) - Math.max(r.top, 0);
-      if (vis > best) { best = vis; active = sc; }
-      if (r.bottom < -vh || r.top > 2 * vh) continue; // off screen: skip work
-      for (const k of sc.keys) {
-        const v = sample(k.stops, p);
-        const st = k.n.style;
-        st.opacity = v.o.toFixed(3);
-        st.transform = `translate(${v.x}vw, ${v.y}vh) scale(${v.s}) rotate(${v.r}deg)`;
-        st.filter = v.b > 0.05 ? `blur(${v.b.toFixed(1)}px)` : "";
-        if (k.ghost) st.textShadow = v.b > 0.5 ? `0 ${(v.b * 1.4).toFixed(1)}px ${v.b.toFixed(1)}px rgba(200,190,255,.45)` : "";
-      }
-      for (const c of sc.counts) {
-        const t = ease(Math.min(1, Math.max(0, (p - c.a) / (c.b - c.a))));
-        c.n.innerHTML = fmt(c.from + (c.to - c.from) * t, c.dec) + c.label;
-      }
+      sc.tgt = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+      sc.top = r.top; sc.bottom = r.bottom;
+      sc.vis = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+    }
+  }
+  function render(sc, p) {
+    for (const k of sc.keys) {
+      const v = sample(k.stops, p);
+      const st = k.n.style;
+      st.opacity = v.o.toFixed(3);
+      st.transform = `translate3d(${v.x}vw, ${v.y}vh, 0) scale(${v.s.toFixed(4)}) rotate(${v.r.toFixed(2)}deg)`;
+      st.filter = v.b > 0.05 ? `blur(${v.b.toFixed(1)}px)` : "";
+      if (k.ghost) st.textShadow = v.b > 0.5 ? `0 ${(v.b * 1.4).toFixed(1)}px ${v.b.toFixed(1)}px rgba(200,190,255,.45)` : "";
+    }
+    for (const c of sc.counts) {
+      const t = ease(Math.min(1, Math.max(0, (p - c.a) / (c.b - c.a))));
+      c.n.innerHTML = fmt(c.from + (c.to - c.from) * t, c.dec) + c.label;
+    }
+  }
+  function frame(now = performance.now(), snap = false) {
+    const dt = Math.min(64, now - last); last = now;
+    const k = snap ? 1 : 1 - Math.pow(1 - 0.16, dt / 16.67);   // frame-rate independent easing
+    measure();
+    let active = null, best = -1, moving = false;
+    for (const sc of scenes) {
+      if (sc.vis > best) { best = sc.vis; active = sc; }
+      const d = sc.tgt - sc.cur;
+      sc.cur = Math.abs(d) < 0.0004 ? sc.tgt : sc.cur + d * k;
+      if (sc.cur !== sc.tgt) moving = true;
+      if (sc.bottom < -innerHeight || sc.top > 2 * innerHeight) continue;
+      render(sc, sc.cur);
     }
     if (active?.glow && cin.style.getPropertyValue("--glow") !== active.glow) cin.style.setProperty("--glow", active.glow);
+    running = moving;
+    if (moving) requestAnimationFrame(frame);
   }
+  const kick = () => { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } };
 
   if (reduce) {
     scenes.forEach(sc => sc.counts.forEach(c => (c.n.innerHTML = fmt(c.to, c.dec) + c.label)));
@@ -86,14 +105,12 @@
     return;
   }
 
-  let queued = false;
-  const tick = () => { queued = false; frame(); };
-  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(tick); } }, { passive: true });
-  addEventListener("resize", frame);
+  addEventListener("scroll", kick, { passive: true });
+  addEventListener("resize", () => frame(performance.now(), true));
 
   // intro: wait for the hero photo, then play the load-in
   const hero = cin.querySelector(".scene .prod");
-  const start = () => { frame(); requestAnimationFrame(() => cin.classList.add("is-in")); };
+  const start = () => { frame(performance.now(), true); requestAnimationFrame(() => cin.classList.add("is-in")); };
   if (hero && !hero.complete) { hero.addEventListener("load", start, { once: true }); hero.addEventListener("error", start, { once: true }); setTimeout(start, 1500); }
   else start();
 

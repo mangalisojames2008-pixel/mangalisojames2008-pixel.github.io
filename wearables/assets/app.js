@@ -7,10 +7,8 @@
   const S = window.STORE || { name: 'NEXERA', whatsapp: '', shopify: {} };
   const $ = (q, el = document) => el.querySelector(q);
   const $$ = (q, el = document) => [...el.querySelectorAll(q)];
-  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-  /* R1 199 style: space between thousands, no cents */
-  const fmt = n => 'R' + Math.round(Number(n) || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  /* card markup and small helpers live in assets/card.js (shared with tools/build-cards.js) */
+  const { esc, fmt, url, srcAttrs, card, fill } = window.ShopCard;
 
   /* ---------- product data ---------- */
   let dataP = null;
@@ -28,13 +26,17 @@
   }
 
   /* ---------- cart (kept on this device) ---------- */
-  const KEY = 'store-cart-v1';
+  const KEY = 'cart', OLD = 'store-cart-v1';
+  try {
+    if (!localStorage.getItem(KEY) && localStorage.getItem(OLD)) localStorage.setItem(KEY, localStorage.getItem(OLD));
+    localStorage.removeItem(OLD);
+  } catch (e) { /* storage blocked */ }
   const cart = {
     get() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } },
     set(items) {
       try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) { /* private mode: cart lives for this page only */ }
       memory = items; badge();
-      document.dispatchEvent(new CustomEvent('cart:change'));
+      window.dispatchEvent(new CustomEvent('cart:change'));   /* ui/nexera-ui.js updates the menu count on this */
     },
     items() { const i = cart.get(); return i.length || !memory ? i : memory; },
     add(slug, opt = '', qty = 1, bundle = '') {
@@ -47,10 +49,10 @@
   };
   let memory = null;
 
+  /* cart count on the three-line menu button */
   function badge() {
     const n = cart.count();
-    $$('.nav__count').forEach(b => { b.textContent = n; b.hidden = !n; });
-    $$('.nav__cart').forEach(a => a.setAttribute('aria-label', n ? `Cart, ${n} item${n > 1 ? 's' : ''}` : 'Cart, empty'));
+    $$('.nx-burger .nx-count').forEach(b => { b.textContent = n > 0 ? n : ''; });
   }
 
   /* ---------- WhatsApp ---------- */
@@ -77,39 +79,11 @@
     return `<svg class="bezel" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g stroke="currentColor" stroke-width="1" stroke-linecap="round">${t}</g><circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" stroke-width=".6"/></svg>`;
   }
 
-  const url = p => `product.html?p=${encodeURIComponent(p.slug)}`;
-
-  /* Sharp photos on 1440p and 4K screens: a product's "hires" list (e.g. [960, 1440, 2160])
-     means images/<name>-960.jpg and so on exist next to the photo. */
-  function srcAttrs(p, src, sizes) {
-    const ws = (p && p.hires) || [];
-    if (!ws.length || !/\.jpg$/.test(src)) return `src="${esc(src)}"`;
-    const set = ws.map(w => `${esc(src.replace(/\.jpg$/, `-${w}.jpg`))} ${w}w`).join(', ');
-    return `src="${esc(src)}" srcset="${set}" sizes="${esc(sizes)}"`;
-  }
-
   /* a photo that has not been uploaded yet: hide the broken image, leave the empty plate */
   document.addEventListener('error', e => {
     const t = e.target;
     if (t && t.tagName === 'IMG' && t.classList.contains('shot')) t.hidden = true;
   }, true);
-
-  function card(p) {
-    const needsChoice = !!p.options;
-    const btn = !p.inStock
-      ? '<span class="soldout">Sold out</span>'
-      : needsChoice
-        ? `<a class="btn btn--ghost card__add" href="${url(p)}">Choose ${esc(p.options.label.toLowerCase())}</a>`
-        : `<button class="btn card__add" type="button" data-add="${esc(p.slug)}">Add to cart</button>`;
-    return `<article class="card">
-      <div class="stage stage--sq">${p.photoPending ? '' : `<img class="shot" ${srcAttrs(p, p.image, '(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw')} alt="${esc(p.name)}" width="1000" height="1000" loading="lazy" decoding="async">`}</div>
-      <div class="card__body">
-        <h3 class="card__name"><a href="${url(p)}">${esc(p.name)}</a></h3>
-        <p class="card__line">${esc(p.description)}</p>
-        <div class="card__foot"><span class="price">${fmt(p.price)}</span>${btn}</div>
-      </div>
-    </article>`;
-  }
 
   let toastT;
   function toast(msg, linkText, href) {
@@ -121,33 +95,11 @@
   }
 
   /* ---------- header and footer ---------- */
+  /* header: the NEXERA logo, top left. Navigation is the three-line menu (ui/menu-snippet.html) in each page. */
   function header() {
     const el = $('#site-header'); if (!el) return;
-    const here = location.pathname.split('/').pop() || 'index.html';
-    const c = new URLSearchParams(location.search).get('c');
-    const links = [
-      ['shop.html?c=watches', 'Watches', here === 'shop.html' && c === 'watches'],
-      ['shop.html?c=rings', 'Smart rings', here === 'shop.html' && c === 'rings'],
-      ['shop.html?c=cases', 'Watch cases', here === 'shop.html' && c === 'cases'],
-      ['index.html#bundle', 'Bundles', false],
-      ['delivery.html', 'Delivery', here === 'delivery.html'],
-      ['contact.html', 'Contact', here === 'contact.html']
-    ];
-    const li = links.map(([h, t, on]) => `<li><a href="${h}"${on ? ' aria-current="page"' : ''}>${t}</a></li>`).join('');
-    el.className = 'nav';
-    el.innerHTML = `<div class="nav__in">
-      <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>${esc(S.name)}</span></a>
-      <ul class="nav__links">${li}</ul>
-      <a class="nav__cart" href="cart.html" aria-label="Cart">${icons.cart}<span class="nav__count" hidden>0</span></a>
-      <button class="nav__menu" type="button" aria-expanded="false" aria-controls="navPanel" aria-label="Menu">${icons.menu}</button>
-    </div>
-    <nav class="nav__panel" id="navPanel" aria-label="Menu" hidden>${links.map(([h, t]) => `<a href="${h}">${t}</a>`).join('')}<a href="shop.html">All products</a></nav>`;
-    const btn = $('.nav__menu', el), panel = $('#navPanel', el);
-    btn.addEventListener('click', () => {
-      const open = panel.hidden; panel.hidden = !open;
-      btn.setAttribute('aria-expanded', String(open)); btn.innerHTML = open ? icons.close : icons.menu;
-    });
-    panel.addEventListener('click', e => { if (e.target.closest('a')) { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); btn.innerHTML = icons.menu; } });
+    el.className = 'nx-head';
+    el.innerHTML = `<a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>${esc(S.name)}</span></a>`;
     badge();
   }
 
@@ -155,6 +107,7 @@
     const el = $('#site-footer'); if (!el) return;
     el.className = 'footer';
     el.innerHTML = `<div class="wrap">
+      <p class="nx-wordmark" aria-hidden="true">${esc(S.name)}</p>
       <div class="footer__grid">
         <div class="footer__brand">
           <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>${esc(S.name)}</span></a>
@@ -197,14 +150,6 @@
     document.title = t ? `${t} · ${S.name}` : `${S.name} · Fitness watches and smart rings in South Africa`;
   }
 
-  /* fade-and-rise once, when a block scrolls into view */
-  function reveals(root = document) {
-    const els = $$('.reveal:not(.is-in)', root);
-    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('is-in')); return; }
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
-    els.forEach(e => io.observe(e));
-  }
-
   /* any "Add to cart" button with data-add="slug" */
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-add]'); if (!b) return;
@@ -220,11 +165,15 @@
     try { header(); } catch (e) { console.error(e); }
     try { footer(); } catch (e) { console.error(e); }
     try { names(); } catch (e) { console.error(e); }
-    try { reveals(); } catch (e) { console.error(e); }
+    /* menu labels like "from R599" follow products.json */
+    load().then(d => $$('[data-from-label]').forEach(el => {
+      const ps = d.products.filter(p => p.category === el.dataset.fromLabel && !p.addon).map(p => p.price);
+      if (ps.length) el.textContent = `from ${fmt(Math.min(...ps))}`;
+    })).catch(() => {});
     document.documentElement.classList.add('ready');
   }
   window.addEventListener('storage', badge);
 
-  window.Shop = { S, $, $$, esc, fmt, load, cart, card, bezel, url, srcAttrs, toast, icons, waLink, waReady, reveals, badge };
+  window.Shop = { S, $, $$, esc, fmt, load, cart, card, fill, bezel, url, srcAttrs, toast, icons, waLink, waReady, badge };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

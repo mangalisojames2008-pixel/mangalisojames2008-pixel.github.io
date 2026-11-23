@@ -156,6 +156,44 @@
       ]
     },
     {
+      "slug": "spovan-h7",
+      "name": "Spovan H7 Screenless Smart Band",
+      "category": "watches",
+      "label": "Screenless band",
+      "price": 999,
+      "description": "No screen, no distractions. Wear it 24/7 and see your sleep, heart rate and recovery in the app.",
+      "features": [
+        "No screen: a small sensor pod on a soft woven strap",
+        "Heart rate and heart-rate variability (HRV) in the app",
+        "Sleep tracking",
+        "IP68 dust and water rating"
+      ],
+      "image": "images/spovan-h7.jpg",
+      "inStock": true,
+      "stats": [
+        {
+          "value": "0",
+          "unit": "screens",
+          "label": "no display to check during the day"
+        },
+        {
+          "value": "IP68",
+          "unit": "",
+          "label": "dust and water rating"
+        }
+      ],
+      "photo": "Spovan (supplier listing)",
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      },
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
+    },
+    {
       "slug": "colmi-p71",
       "name": "Colmi P71 smartwatch",
       "category": "watches",

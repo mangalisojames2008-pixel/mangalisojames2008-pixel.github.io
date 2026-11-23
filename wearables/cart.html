@@ -7,24 +7,46 @@
 <meta name="description" content="Your cart. Check out securely.">
 <meta name="theme-color" content="#f4f2ed">
 <meta name="robots" content="noindex">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="stylesheet" href="assets/pages.css">
+<link rel="stylesheet" href="ui/nexera-ui.css">
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
 <script src="config.js"></script>
+<script src="assets/card.js" defer></script>
 <script src="assets/app.js" defer></script>
 <script src="assets/pages.js" defer></script>
 </head>
 <body data-page="cart" data-title="Cart">
+<!-- NEXERA menu (ui/menu-snippet.html, links set for this store) -->
+<button class="nx-burger" aria-expanded="false" aria-controls="nx-menu" aria-label="Open menu">
+  <span></span><span></span><span></span><b class="nx-count"></b>
+</button>
+<div class="nx-menu" id="nx-menu">
+  <div class="nx-top"><img src="assets/mark.svg" alt="" width="28" height="28"><span>NEXERA</span></div>
+  <nav aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="shop.html?c=watches">Watches <small data-from-label="watches">from R599</small></a>
+    <a href="shop.html?c=rings">Smart rings <small data-from-label="rings">from R1 099</small></a>
+    <a href="shop.html?c=cases">Watch cases <small data-from-label="cases">from R249</small></a>
+    <a href="index.html#bundle">Build a bundle</a>
+    <a href="index.html#faq">Help &amp; FAQ</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+  <div class="nx-foot">
+    <span>Delivered anywhere in South Africa · 7-day returns</span>
+    <a class="nx-wa" href="https://wa.me/27746592098" target="_blank" rel="noopener">Chat on WhatsApp</a>
+  </div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
-<header id="site-header" class="nav"></header>
+<header id="site-header" class="nx-head"><a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>NEXERA</span></a></header>
 
 <main id="main" class="page">
   <div class="wrap">
-    <h1>Your cart</h1>
+    <h1 class="reveal">Your cart</h1>
 
     <div class="cart__empty" data-empty hidden>
-      <p class="lede">Your cart is empty.</p>
+      <p class="lede reveal">Your cart is empty.</p>
       <a class="btn" href="shop.html">Go to the shop</a>
     </div>
 
@@ -60,5 +82,7 @@
 </main>
 
 <footer id="site-footer" class="footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
+<script src="ui/nexera-ui.js" defer></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const go = () => {
-    const { S, $, $$, esc, fmt, load, cart, card, bezel, url, srcAttrs, toast, waLink, waReady, reveals } = window.Shop;
+    const { S, $, $$, esc, fmt, load, cart, card, fill, bezel, url, srcAttrs, toast, waLink, waReady } = window.Shop;
     const page = document.body.dataset.page;
     const q = new URLSearchParams(location.search);
     const fail = el => { if (el) el.innerHTML = '<p class="muted">Products could not load. Check your connection and refresh.</p>'; };
@@ -26,7 +26,7 @@
           if (sort === 'low') list = [...list].sort((a, b) => a.price - b.price);
           if (sort === 'high') list = [...list].sort((a, b) => b.price - a.price);
           list = [...list.filter(p => p.inStock), ...list.filter(p => !p.inStock)];
-          grid.innerHTML = list.map(card).join('');
+          fill(grid, list);                          /* the full list is already in the HTML; redraw only when filtered or sorted */
           count.textContent = `${list.length} product${list.length === 1 ? '' : 's'}`;
           $$('[data-c]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.c === cat)));
           const c = d.cat[cat];
@@ -48,7 +48,7 @@
     /* ================= product ================= */
     if (page === 'product') {
       load().then(d => {
-        const p = d.bySlug[q.get('p')];
+        const p = d.bySlug[q.get('p') || q.get('id')];   /* ?id= links come from the film */
         if (!p) { $('[data-missing]').hidden = false; return; }
         const c = d.cat[p.category];
         document.title = `${p.name} · ${S.name}`;
@@ -273,7 +273,7 @@
       });
 
       load().then(d => { data = d; draw(); }).catch(() => fail($('[data-lines]')));
-      document.addEventListener('cart:change', () => data && draw());
+      window.addEventListener('cart:change', () => data && draw());
       addEventListener('storage', () => data && draw());
     }
 
@@ -327,7 +327,6 @@
       if (el && S.deliveryFee != null) el.textContent = `${fmt(S.deliveryFee)}${S.freeDeliveryFrom ? `, free on orders over ${fmt(S.freeDeliveryFrom)}` : ''}`;
     }
 
-    reveals();
   };
   if (window.Shop) go(); else document.addEventListener('DOMContentLoaded', go);
 })();
