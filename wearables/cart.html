@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cart · NEXERA</title>
-<meta name="description" content="Your cart. Send the order on WhatsApp.">
+<meta name="description" content="Your cart. Check out securely.">
 <meta name="theme-color" content="#f4f2ed">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -37,32 +37,22 @@
           <dl class="sum">
             <div><dt>Subtotal</dt><dd class="price" data-subtotal>R0</dd></div>
             <div data-save-row hidden><dt>Bundle saving</dt><dd class="price" data-save>R0</dd></div>
-            <div><dt>Delivery</dt><dd data-delivery>Confirmed on WhatsApp</dd></div>
+            <div><dt>Delivery</dt><dd data-delivery>Shown at checkout</dd></div>
             <div class="sum__total"><dt>Total</dt><dd class="price" data-total>R0</dd></div>
           </dl>
         </section>
 
-        <!-- CHECKOUT: the order goes into one WhatsApp message -->
-        <form class="cart__form" data-checkout novalidate aria-labelledby="coTitle">
-          <h2 id="coTitle" class="cart__h">Order on WhatsApp</h2>
-          <div class="field"><label for="coName">Your name</label><input id="coName" name="name" autocomplete="name" maxlength="80" required></div>
-          <div class="field"><label for="coArea">Suburb and town</label><input id="coArea" name="area" autocomplete="address-level2" maxlength="120" placeholder="e.g. Soshanguve, Pretoria" required></div>
-          <div class="field"><label for="coNote">Note (optional)</label><textarea id="coNote" name="note" maxlength="400" placeholder="Phone model, strap fit, delivery times"></textarea></div>
-          <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="small pdp__err" data-err role="alert" hidden></p>
-          <button class="btn btn--wa btn--block" type="submit" data-send>Order on WhatsApp</button>
-          <p class="small muted">This opens WhatsApp with your order written out. Nothing is paid yet. We reply to confirm stock, delivery cost and how to pay. Your name and area go only into that message.</p>
-          <p class="small ph" data-owner-note hidden>Owner note: add your WhatsApp number in config.js. Until then this button opens WhatsApp's chat picker.</p>
-        </form>
-
         <!-- ===================================================================
-             PAYMENT SLOT: PayFast or Yoco goes here later.
-             Turn it on in config.js (payments.payfast / payments.yoco).
-             See NOTES.md, "Adding online payment", for the exact steps.
+             CHECKOUT: the cart goes to the Shopify checkout (cart link).
+             Set shopify.domain in config.js and each product's shopify.variant
+             in products.json. Until then the button sends the order by email.
              =================================================================== -->
-        <section class="cart__pay" data-pay-slot hidden aria-label="Pay online">
-          <h2 class="cart__h">Or pay online</h2>
-          <div data-pay-buttons></div>
+        <section class="cart__form" data-checkout aria-labelledby="coTitle">
+          <h2 id="coTitle" class="cart__h">Checkout</h2>
+          <button class="btn btn--block" type="button" data-send>Checkout</button>
+          <p class="small pdp__err" data-err role="alert" hidden></p>
+          <p class="small muted" data-co-note>You enter your address and pay on the secure Shopify checkout. Delivery cost shows there before you pay.</p>
+          <p class="small muted">Questions first? <a class="link" data-wa="Hi, I have a question before I order." href="https://wa.me/" target="_blank" rel="noopener">Ask us on WhatsApp</a></p>
         </section>
       </div>
     </div>

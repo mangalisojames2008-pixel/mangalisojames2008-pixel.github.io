@@ -90,6 +90,7 @@ p { margin: 0 0 1em; }
 .on-ink .btn--ghost { background: transparent; color: var(--on-ink); border-color: rgba(244, 242, 237, .3); }
 .link { color: var(--text); text-underline-offset: 3px; text-decoration-thickness: 1px; font-weight: 500; }
 .on-ink .link { color: var(--on-ink); }
+.link svg { display: inline-block; width: 16px; height: 16px; vertical-align: -3px; margin-right: 4px; color: var(--wa); }
 
 /* ---------- glass nav ---------- */
 .nav {

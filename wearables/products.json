@@ -49,6 +49,7 @@
       }
     ]
   },
+  "shopifyHelp": "Fill in each product's shopify.variant with its Shopify variant ID (the number at the end of the variant link in Shopify admin). For products with colours, sizes or slots, add one ID per choice in shopify.variants, using the choice exactly as the cart shows it, for example \"Black, ring size 9\" or \"2 slots\". A choice with no ID of its own uses shopify.variant and is written in the order note.",
   "products": [
     {
       "slug": "xiaomi-redmi-watch-5-active",
@@ -107,7 +108,11 @@
           "image": "images/xiaomi-redmi-watch-5-active-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "xiaomi-smart-band-10",
@@ -157,7 +162,11 @@
           "label": "water rating, swim-proof"
         }
       ],
-      "photo": "Xiaomi"
+      "photo": "Xiaomi",
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "colmi-p71",
@@ -207,7 +216,11 @@
           "image": "images/colmi-p71-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "spovan-pr3",
@@ -252,7 +265,11 @@
           "image": "images/spovan-pr3-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "woven-nylon-strap-case-set",
@@ -260,11 +277,11 @@
       "category": "watches",
       "addon": true,
       "price": 249,
-      "description": "A soft woven nylon strap with a matching protective case for the watch face. Tell us which watch you have and we confirm the fit before you pay.",
+      "description": "A soft woven nylon strap with a matching protective case for the watch face. Not sure it fits your watch? Ask us before you order.",
       "features": [
         "Woven nylon strap, light and quick to dry",
         "Protective case for the watch body",
-        "Fit checked on WhatsApp before payment"
+        "Ask us about fit before you order"
       ],
       "image": "images/woven-nylon-strap-case-set.jpg",
       "inStock": true,
@@ -278,7 +295,11 @@
           "image": "images/woven-nylon-strap-case-set-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "colmi-r10",
@@ -349,7 +370,11 @@
           "image": "images/colmi-r10-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "colmi-r12",
@@ -406,7 +431,11 @@
           "image": "images/colmi-r12-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "pu-leather-travel-watch-case",
@@ -431,7 +460,11 @@
           "image": "images/pu-leather-travel-watch-case-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "glass-top-wooden-display-box",
@@ -455,7 +488,11 @@
           "image": "images/glass-top-wooden-display-box-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     },
     {
       "slug": "aluminium-watch-case",
@@ -488,7 +525,11 @@
           "image": "images/aluminium-watch-case-inside.jpg",
           "label": "Inside, illustration"
         }
-      ]
+      ],
+      "shopify": {
+        "variant": "",
+        "variants": {}
+      }
     }
   ]
 }

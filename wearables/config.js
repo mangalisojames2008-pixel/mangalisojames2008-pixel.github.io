@@ -3,32 +3,37 @@
    Prices and products live in products.json.
    ========================================================= */
 window.STORE = {
-  /* The store name, shown in the logo, page titles, footer and WhatsApp message */
+  /* The store name, shown in the logo, page titles and footer */
   name: 'NEXERA',
 
-  /* WhatsApp number for orders: country code + number, digits only.
-     Example: '27821234567' for 082 123 4567. Leave the X's until you have it. */
+  /* CHECKOUT: the cart goes to your Shopify checkout.
+     domain: your shop's address without https://, e.g. 'nexera-wearables.myshopify.com'
+             (or your own domain once it is connected in Shopify).
+     Each product also needs its Shopify variant ID in products.json ("shopify").
+     Until domain is filled in, the Checkout button sends the order by email instead.
+     Payments (PayFast, Yoco and others) and delivery rates are set up inside Shopify. */
+  shopify: {
+    domain: '',
+    bundleCode: ''    /* optional: a Shopify discount code applied when the cart holds a full bundle */
+  },
+
+  /* WhatsApp for questions (contact page, footer, "Ask about this"). Not used for orders.
+     Country code + number, digits only: 074 659 2098 is '27746592098'. */
   whatsapp: '27746592098',
 
-  /* Shown on the contact page. Leave '' to hide a line. */
+  /* Orders go here by email until Shopify is connected. Also shown on the contact page. */
   email: 'nexeracommerce@gmail.com',
   phone: '',
   hours: '[OPENING HOURS]',
   area: 'South Africa',
 
-  /* Delivery. Fee in rand, or null to say "confirmed on WhatsApp" */
+  /* Delivery text on the delivery page. Fee in rand, or null for "shown at checkout". */
   deliveryFee: null,
   freeDeliveryFrom: null,          /* e.g. 1500 for free delivery over R1 500 */
   deliveryTime: '[2 to 5 working days]',
   courier: '[COURIER NAME]',
 
-  /* Bundle builder: rand off when a watch, strap set and case are bought together. 0 = no discount */
-  bundleDiscount: 0,
-
-  /* Online payments, for later. Leave false until a PayFast or Yoco account is set up.
-     The marked slot in cart.html shows the button once one is switched on. */
-  payments: {
-    payfast: false,   /* PAYFAST SLOT: merchant_id and merchant_key go in cart.html, see NOTES.md */
-    yoco: false       /* YOCO SLOT: payment link goes here as a string, e.g. 'https://pay.yoco.com/...' */
-  }
+  /* Bundle builder: rand off shown in the builder when a watch, strap set and case are picked.
+     With Shopify, create the matching discount code in Shopify and put it in shopify.bundleCode. 0 = no discount */
+  bundleDiscount: 0
 };

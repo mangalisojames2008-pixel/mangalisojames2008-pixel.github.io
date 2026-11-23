@@ -4,7 +4,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const S = window.STORE || { name: 'NEXERA', whatsapp: '', payments: {} };
+  const S = window.STORE || { name: 'NEXERA', whatsapp: '', shopify: {} };
   const $ = (q, el = document) => el.querySelector(q);
   const $$ = (q, el = document) => [...el.querySelectorAll(q)];
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -144,7 +144,7 @@
       <div class="footer__grid">
         <div class="footer__brand">
           <a class="brand" href="index.html"><img src="assets/mark.svg" alt="" width="28" height="28"><span data-store>${esc(S.name)}</span></a>
-          <p>Fitness watches, smart rings and watch cases, delivered in South Africa. Order on WhatsApp.</p>
+          <p>Fitness watches, smart rings and watch cases, delivered in South Africa.</p>
         </div>
         <div><h2>Shop</h2><ul>
           <li><a href="shop.html?c=watches">Watches</a></li><li><a href="shop.html?c=rings">Smart rings</a></li>
@@ -160,7 +160,7 @@
         <p>Watches and rings sold here are for fitness and general wellness. They are not medical devices and do not diagnose or treat any condition.</p>
         <p>Product photos of the Redmi Watch 5 Active, Smart Band 10 and Colmi R10 are by Xiaomi and Colmi. Other pictures and all 3D views are illustrations by <span data-store>${esc(S.name)}</span>.</p>
         <p>Xiaomi, Redmi, Colmi and Spovan are trademarks of their owners. <span data-store>${esc(S.name)}</span> is an independent shop and is not linked to these brands.</p>
-        <p>Prices in rand, including VAT where it applies. Your cart stays on this device. Details you type at checkout go only into the WhatsApp message you send.</p>
+        <p>Prices in rand, including VAT where it applies. Your cart stays on this device until you check out. Checkout and payment happen on Shopify.</p>
         <p>&copy; ${new Date().getFullYear()} <span data-store>${esc(S.name)}</span></p>
       </div>
     </div>`;

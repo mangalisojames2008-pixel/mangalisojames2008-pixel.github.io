@@ -5,7 +5,7 @@
     const { S, $, $$, esc, fmt, load, cart, card, bezel, url, toast, waLink, waReady, reveals } = window.Shop;
     const page = document.body.dataset.page;
     const q = new URLSearchParams(location.search);
-    const fail = el => { if (el) el.innerHTML = '<p class="muted">Products could not load. Check your connection and refresh, or order on WhatsApp.</p>'; };
+    const fail = el => { if (el) el.innerHTML = '<p class="muted">Products could not load. Check your connection and refresh.</p>'; };
 
     /* ring size rows, shared by product and sizer pages */
     const sizeRows = d => (d.ringSizes ? d.ringSizes.sizes : []).map(s =>
@@ -157,13 +157,16 @@
     /* ================= cart ================= */
     if (page === 'cart') {
       let data = null;
+      /* Shopify checkout settings (config.js). No domain yet: orders go by email. */
+      const shopDomain = String((S.shopify && S.shopify.domain) || '').trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+      const bundleCode = String((S.shopify && S.shopify.bundleCode) || '').trim();
       /* "ring size 10" for numbers, "2 slots" as is */
       const optText = (p, i) => /^\d+$/.test(i.opt) && p.options ? `${p.options.label.toLowerCase()} ${i.opt}` : i.opt;
       const label = (p, i) => `${p.name}${i.opt ? `, ${optText(p, i)}` : ''}`;
       const lines = () => cart.items().filter(i => data.bySlug[i.slug]);
       /* bundle saving: only for bundles that still have a watch, a strap set and a case */
       const saving = () => {
-        if (!(S.bundleDiscount > 0)) return 0;
+        if (!(S.bundleDiscount > 0) || (shopDomain && !bundleCode)) return 0;
         const groups = {};
         lines().forEach(i => { if (i.bundle) (groups[i.bundle] = groups[i.bundle] || new Set()).add(data.bySlug[i.slug].addon ? 'strap' : data.bySlug[i.slug].category); });
         return Object.values(groups).filter(g => g.has('watches') && g.has('strap') && g.has('cases')).length * S.bundleDiscount;
@@ -182,8 +185,9 @@
         if (!items.length) return;
         $('[data-lines]').innerHTML = items.map((i, n) => {
           const p = data.bySlug[i.slug];
+          const pic = ((p.colours || []).find(c => (i.opt || '').startsWith(c.name)) || p).image;
           return `<li class="line">
-            <a class="stage line__img" href="${url(p)}" tabindex="-1" aria-hidden="true"><img class="shot" src="${esc(p.image)}" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
+            <a class="stage line__img" href="${url(p)}" tabindex="-1" aria-hidden="true"><img class="shot" src="${esc(pic)}" alt="" width="1000" height="1000" loading="lazy" decoding="async"></a>
             <div class="line__info">
               <a class="line__name" href="${url(p)}">${esc(p.name)}</a>
               ${i.opt ? `<span class="small muted">${esc(optText(p, i).replace(/^./, c => c.toUpperCase()))}</span>` : ''}
@@ -205,7 +209,7 @@
         $('[data-subtotal]').textContent = fmt(t.sub);
         $('[data-save-row]').hidden = !t.save;
         $('[data-save]').textContent = '−' + fmt(t.save);
-        $('[data-delivery]').textContent = t.del == null ? 'Confirmed on WhatsApp' : t.del === 0 ? 'Free' : fmt(t.del);
+        $('[data-delivery]').textContent = t.del == null ? (shopDomain ? 'Shown at checkout' : 'Confirmed by email') : t.del === 0 ? 'Free' : fmt(t.del);
         $('[data-total]').textContent = fmt(t.total) + (t.del == null ? ' + delivery' : '');
       };
       const change = (n, fn) => { const items = lines(); fn(items, n); cart.set(items.filter(i => i.qty > 0)); draw(); };
@@ -215,36 +219,65 @@
         if (r) change(+r.dataset.rm, (it, n) => { it[n].qty = 0; });
       });
 
-      /* the WhatsApp order message */
-      const message = f => {
-        const t = totals();
-        const rows = lines().map(i => { const p = data.bySlug[i.slug]; return `• ${i.qty} × ${label(p, i)}: ${fmt(p.price * i.qty)}`; });
-        return [
-          `Hi ${S.name}, I'd like to order:`, '', ...rows, '',
-          `Subtotal: ${fmt(t.sub)}`,
-          t.save ? `Bundle saving: −${fmt(t.save)}` : null,
-          `Delivery: ${t.del == null ? 'please confirm' : t.del === 0 ? 'free' : fmt(t.del)}`,
-          `Total: ${fmt(t.total)}${t.del == null ? ' + delivery' : ''}`, '',
-          `Name: ${f.name}`, `Deliver to: ${f.area}`, f.note ? `Note: ${f.note}` : null
-        ].filter(l => l !== null).join('\n');
+      /* ---------- CHECKOUT ---------- */
+      const box = $('[data-checkout]'), err = $('[data-err]', box), btn = $('[data-send]', box);
+      const fullBundle = () => {
+        const groups = {};
+        lines().forEach(i => { if (i.bundle) (groups[i.bundle] = groups[i.bundle] || new Set()).add(data.bySlug[i.slug].addon ? 'strap' : data.bySlug[i.slug].category); });
+        return Object.values(groups).some(g => g.has('watches') && g.has('strap') && g.has('cases'));
       };
-      const form = $('[data-checkout]'), err = $('[data-err]', form);
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        if (form.company.value) return;                       /* honeypot filled: a bot */
-        const f = { name: form.name.value.trim(), area: form.area.value.trim(), note: form.note.value.trim() };
-        if (f.name.length < 2) { err.textContent = 'Add your name so we know who the order is from.'; err.hidden = false; form.name.focus(); return; }
-        if (f.area.length < 2) { err.textContent = 'Add your suburb and town so we can quote delivery.'; err.hidden = false; form.area.focus(); return; }
-        err.hidden = true;
-        window.open(waLink(message(f)), '_blank', 'noopener');
-      });
-      $('[data-owner-note]').hidden = waReady();
 
-      /* PAYMENT SLOT: shows only when switched on in config.js */
-      const pay = S.payments || {}, btns = [];
-      if (typeof pay.yoco === 'string' && pay.yoco) btns.push(`<a class="btn btn--block" href="${esc(pay.yoco)}" target="_blank" rel="noopener">Pay by card with Yoco</a>`);
-      if (pay.payfast) btns.push('<p class="small muted">PayFast button: add the form from NOTES.md here.</p>');
-      if (btns.length) { $('[data-pay-buttons]').innerHTML = btns.join(''); $('[data-pay-slot]').hidden = false; }
+      /* Shopify cart link: https://<shop>/cart/<variant>:<qty>,<variant>:<qty>?note=...
+         Each product's variant IDs are in products.json ("shopify"). */
+      function shopifyUrl() {
+        const qty = new Map(), notes = [], missing = [];
+        lines().forEach(i => {
+          const p = data.bySlug[i.slug], sh = p.shopify || {}, own = (sh.variants || {})[i.opt];
+          const id = String(own || sh.variant || '').replace(/\D/g, '');
+          if (!id) { missing.push(p.name); return; }
+          qty.set(id, (qty.get(id) || 0) + i.qty);
+          if (i.opt && !own) notes.push(`${i.qty} × ${p.name}: ${optText(p, i)}`);   /* a choice with no variant of its own */
+        });
+        if (missing.length) return { missing };
+        const q = new URLSearchParams();
+        if (notes.length) q.set('note', 'Choices: ' + notes.join('; '));
+        if (bundleCode && fullBundle()) q.set('discount', bundleCode);
+        const path = [...qty].map(([id, n]) => `${id}:${Math.min(99, n)}`).join(',');
+        return { url: `https://${shopDomain}/cart/${path}${q.toString() ? '?' + q : ''}` };
+      }
+
+      /* Before Shopify is connected: the order goes by email */
+      function emailUrl() {
+        const t = totals();
+        const rows = lines().map(i => { const p = data.bySlug[i.slug]; return `- ${i.qty} x ${label(p, i)}: ${fmt(p.price * i.qty)}`; });
+        const body = [
+          `Hi ${S.name}, I'd like to order:`, '', ...rows, '',
+          `Subtotal: ${fmt(t.sub)}`, t.save ? `Bundle saving: -${fmt(t.save)}` : null, `Total: ${fmt(t.total)} + delivery`, '',
+          'My name:', 'Delivery address:', 'Phone number:'
+        ].filter(l => l !== null).join('\n');
+        return `mailto:${S.email}?subject=${encodeURIComponent('Order from the website')}&body=${encodeURIComponent(body)}`;
+      }
+
+      if (shopDomain) {
+        btn.textContent = 'Checkout';
+      } else {
+        btn.textContent = 'Order by email';
+        $('[data-co-note]').textContent = 'Online checkout opens soon. For now this button opens your email app with the order written out: add your name, address and phone number, then send. We reply with the total including delivery and how to pay.';
+        if (!S.email) btn.disabled = true;
+      }
+      btn.addEventListener('click', () => {
+        err.hidden = true;
+        if (!lines().length) return;
+        if (!shopDomain) { location.href = emailUrl(); return; }
+        const r = shopifyUrl();
+        if (r.missing) {
+          err.innerHTML = `Online checkout is not ready for ${esc(r.missing.join(', '))} yet. ${S.email ? `<a class="link" href="${esc(emailUrl())}">Email us the order</a> instead.` : ''}`;
+          err.hidden = false; return;
+        }
+        btn.disabled = true; btn.textContent = 'Opening checkout…';
+        location.href = r.url;
+        setTimeout(() => { btn.disabled = false; btn.textContent = 'Checkout'; }, 4000);
+      });
 
       load().then(d => { data = d; draw(); }).catch(() => fail($('[data-lines]')));
       document.addEventListener('cart:change', () => data && draw());
