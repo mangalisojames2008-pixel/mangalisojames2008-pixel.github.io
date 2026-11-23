@@ -105,7 +105,6 @@
       <div class="stage stage--sq">${p.photoPending ? '' : `<img class="shot" ${srcAttrs(p, p.image, '(max-width: 760px) 46vw, (min-width: 2400px) 560px, 24vw')} alt="${esc(p.name)}" width="1000" height="1000" loading="lazy" decoding="async">`}</div>
       <div class="card__body">
         <h3 class="card__name"><a href="${url(p)}">${esc(p.name)}</a></h3>
-        ${p.photoPending ? '<p class="tag">Photo coming soon</p>' : ''}
         <p class="card__line">${esc(p.description)}</p>
         <div class="card__foot"><span class="price">${fmt(p.price)}</span>${btn}</div>
       </div>
@@ -173,7 +172,7 @@
       </div>
       <div class="footer__fine">
         <p>Watches and rings sold here are for fitness and general wellness. They are not medical devices and do not diagnose or treat any condition.</p>
-        <p>Product photos by Xiaomi and Colmi. Products marked "Photo coming soon" get their photo shortly.</p>
+        <p>Product photos from Xiaomi, Colmi, Spovan and our suppliers.</p>
         <p>Xiaomi, Redmi, Colmi and Spovan are trademarks of their owners. <span data-store>${esc(S.name)}</span> is an independent shop and is not linked to these brands.</p>
         <p>Prices in rand, including VAT where it applies. Your cart stays on this device until you check out. Checkout and payment happen on Shopify.</p>
         <p>&copy; ${new Date().getFullYear()} <span data-store>${esc(S.name)}</span></p>

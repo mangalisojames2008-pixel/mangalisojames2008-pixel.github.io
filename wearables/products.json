@@ -191,7 +191,30 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "colours": [
+        {
+          "name": "Black",
+          "image": "images/colmi-p71.jpg"
+        },
+        {
+          "name": "Gold",
+          "image": "images/colmi-p71-gold.jpg"
+        },
+        {
+          "name": "Navy",
+          "image": "images/colmi-p71-navy.jpg"
+        },
+        {
+          "name": "Lilac",
+          "image": "images/colmi-p71-lilac.jpg"
+        }
+      ],
+      "photo": "Colmi, via Tradeinn",
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "spovan-pr3",
@@ -229,7 +252,18 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "gallery": [
+        {
+          "image": "images/spovan-pr3-colours.jpg",
+          "label": "Red, black and yellow"
+        }
+      ],
+      "photo": "Spovan, via supplier listing",
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "woven-nylon-strap-case-set",
@@ -249,7 +283,12 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "photo": "supplier listing (Casestody)",
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "colmi-r10",
@@ -369,7 +408,25 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "colours": [
+        {
+          "name": "Black",
+          "image": "images/colmi-r12.jpg"
+        },
+        {
+          "name": "Silver",
+          "image": "images/colmi-r12-silver.jpg"
+        },
+        {
+          "name": "Gold",
+          "image": "images/colmi-r12-gold.jpg"
+        }
+      ],
+      "photo": "Colmi, via Star Tech",
+      "hires": [
+        960,
+        1440
+      ]
     },
     {
       "slug": "pu-leather-travel-watch-case",
@@ -388,7 +445,12 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "photo": "supplier listing (AliExpress)",
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "glass-top-wooden-display-box",
@@ -407,7 +469,12 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "photo": "supplier listing (Home Depot, unbranded)",
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     },
     {
       "slug": "aluminium-watch-case",
@@ -434,7 +501,12 @@
         "variant": "",
         "variants": {}
       },
-      "photoPending": true
+      "photo": "supplier listing (AliExpress)",
+      "hires": [
+        960,
+        1440,
+        2160
+      ]
     }
   ]
 }

@@ -80,7 +80,7 @@
           $('[data-thumbs]').innerHTML = pics.map(g => `<button type="button" class="pdp__thumb stage" data-thumb="${esc(g.image)}" aria-pressed="${g.image === p.image}" aria-label="${esc(g.label)}"><img class="shot" src="${esc(g.image)}" alt="" width="1000" height="1000" loading="lazy" decoding="async"></button>`).join('');
           $('[data-thumbs]').addEventListener('click', e => { const t = e.target.closest('[data-thumb]'); if (t) show(t.dataset.thumb, `${p.name}, ${t.getAttribute('aria-label')}`); });
         }
-        $('[data-img-note]').textContent = p.photoPending ? 'Photo coming soon.' : p.photo ? `Photo: ${p.photo}.` : '';
+        $('[data-img-note]').textContent = p.photo ? `Photo: ${p.photo}.` : '';
 
         /* colour */
         let colour = '';
