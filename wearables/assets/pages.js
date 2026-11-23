@@ -55,7 +55,7 @@
         const md = document.querySelector('meta[name="description"]'); if (md) md.content = p.description;
         $('[data-crumbs]').innerHTML = `<a href="shop.html">Shop</a> <span aria-hidden="true">/</span> <a href="shop.html?c=${esc(p.category)}">${esc(c ? c.name : '')}</a>`;
         const PDP_SIZES = '(max-width: 860px) 92vw, (min-width: 3400px) 1400px, (min-width: 2400px) 1000px, 46vw';
-        $('[data-pdp-stage]').innerHTML = (p.photoPending ? '' : bezel(0)) + (p.photoPending ? '' : `<img class="shot" ${srcAttrs(p, p.image, PDP_SIZES)} alt="${esc(p.name)}" width="1000" height="1000" fetchpriority="high" decoding="async">`);
+        $('[data-pdp-stage]').innerHTML = (p.photoPending ? '' : `<img class="shot" ${srcAttrs(p, p.image, PDP_SIZES)} alt="${esc(p.name)}" width="1000" height="1000" fetchpriority="high" decoding="async">`);
         $('[data-pdp-name]').textContent = p.name;
         $('[data-pdp-price]').textContent = fmt(p.price);
         $('[data-pdp-desc]').textContent = p.description;

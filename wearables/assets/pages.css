@@ -101,7 +101,7 @@
 .contact { display: grid; gap: 32px; }
 .contact__list { margin: 24px 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
 .contact > * { min-width: 0; }
-.contact__list div { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.contact__list div { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .contact__list dt { color: var(--muted); }
 .contact__list dd { margin: 0; overflow-wrap: anywhere; }
 .contact__list .link { display: inline-flex; align-items: center; gap: 8px; }

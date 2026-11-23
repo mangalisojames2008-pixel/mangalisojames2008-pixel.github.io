@@ -42,8 +42,11 @@
         }).join('') + (list.length > 1 ? `<ol class="dots" aria-hidden="true">${list.map((_, i) => `<li${i ? '' : ' class="is-on"'}></li>`).join('')}</ol>` : '');
         chapters.push({ sec, stage, n: list.length, imgs: $$('.shot', stage), caps: $$('.cap', caps), dots: $$('.dots li', caps), idx: 0 });
       });
+      /* home rows show only products with a real photo; the shop page lists everything */
       $$('[data-row]').forEach(row => {
-        row.innerHTML = d.products.filter(p => p.category === row.dataset.row).map(card).join('');
+        const list = d.products.filter(p => p.category === row.dataset.row && !p.photoPending);
+        row.innerHTML = list.map(card).join('');
+        if (!list.length && row.parentElement) row.parentElement.hidden = true;
       });
       $$('[data-from]').forEach(el => {
         const ps = d.products.filter(p => p.category === el.dataset.from && !p.addon).map(p => p.price);
@@ -54,6 +57,10 @@
         const p = d.products.find(x => x.category === el.dataset.tile && !x.photoPending && (el.dataset.tile !== 'watches' || x.slug === 'xiaomi-smart-band-10'))
           || d.products.find(x => x.category === el.dataset.tile && !x.photoPending);
         if (p) el.innerHTML = `<img class="shot" ${srcAttrs(p, p.image, '(max-width: 760px) 50vw, 30vw')} alt="" width="1000" height="1000" loading="lazy" decoding="async">`;
+        else {                                        /* no photo yet in this category: a text tile, no empty plate */
+          const c = d.cat[el.dataset.tile];
+          el.outerHTML = `<span class="bento__line muted">${esc(c ? c.line : '')}</span>`;
+        }
       });
       /* prices in the film come from products.json too */
       $$('[data-price]').forEach(el => { const p = d.bySlug[el.dataset.price]; if (p) el.textContent = fmt(p.price); });
