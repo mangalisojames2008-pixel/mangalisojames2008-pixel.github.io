@@ -23,15 +23,15 @@ window.STORE = {
 
   /* Orders go here by email until Shopify is connected. Also shown on the contact page. */
   email: 'nexeracommerce@gmail.com',
-  phone: '',
-  hours: '[OPENING HOURS]',
+  phone: '074 659 2098',
+  hours: 'Monday to Friday, 08:30–17:00 · Saturday, 09:00–13:00',
   area: 'South Africa',
 
   /* Delivery text on the delivery page. Fee in rand, or null for "shown at checkout". */
   deliveryFee: null,
   freeDeliveryFrom: null,          /* e.g. 1500 for free delivery over R1 500 */
-  deliveryTime: '[2 to 5 working days]',
-  courier: '[COURIER NAME]',
+  /* Delivery prices shown on the delivery page (set the same rates in Shopify). No courier names or fixed times on the site. */
+  deliveryRates: 'Locker R60 · door to door R99 · free on orders over R1 000',
 
   /* Bundle builder: rand off shown in the builder when a watch, strap set and case are picked.
      With Shopify, create the matching discount code in Shopify and put it in shopify.bundleCode. 0 = no discount */

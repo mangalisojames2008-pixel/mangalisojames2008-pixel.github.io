@@ -55,8 +55,8 @@
     empty.hidden = shown > 0;
   });
 
-  /* 4. ring size tools (standard US sizes: inside diameter in mm) */
-  const SIZES = [[7, 17.3], [8, 18.1], [9, 18.9], [10, 19.8], [11, 20.6], [12, 21.4], [13, 22.2]];
+  /* 4. ring size tools: inside diameter in mm of the Colmi R10 / R12 sizes we sell (same as products.json "ringSizes") */
+  const SIZES = [[7, 17.9], [8, 18.3], [9, 19.1], [10, 20.0], [11, 20.8], [12, 21.6], [13, 22.4]];
   const rows = $$("#nxh-sizes tr");
   const nearest = d => SIZES.reduce((b, s) => (Math.abs(s[1] - d) < Math.abs(b[1] - d) ? s : b));
   const describe = d => {

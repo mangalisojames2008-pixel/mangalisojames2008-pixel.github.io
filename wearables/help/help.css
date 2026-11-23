@@ -93,8 +93,10 @@
 .nxh-empty { text-align:center; color:var(--mute); padding:6vh 0; }
 .nxh-foot { display:flex; justify-content:space-between; gap:12px; padding:30px 5vw 40px; margin-top:8vh; border-top:1px solid var(--line); color:var(--mute); font-size:14px; }
 
+/* contact row: WhatsApp, email, phone, hours */
+.nxh-cards4 { grid-template-columns:1fr 1fr; } .nxh-cards4 span { overflow-wrap:anywhere; }
 @media (max-width:760px) {
-  .nxh-cards3, .nxh-steps, .nxh-tools { grid-template-columns:1fr; }
+  .nxh-cards3, .nxh-cards4, .nxh-steps, .nxh-tools { grid-template-columns:1fr; }
   .nxh-dl { grid-template-columns:1fr; gap:2px; } .nxh-dl dd { margin-bottom:10px; }
   .nxh-tabs { top:51px; }
 }
