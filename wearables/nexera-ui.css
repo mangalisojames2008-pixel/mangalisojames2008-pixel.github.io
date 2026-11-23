@@ -1,0 +1,81 @@
+/* NEXERA site UI: menu, reveals, hover feel, page transitions, brand footer. Works on every page. */
+:root { --brand: #e0566b; --nx-ink: #f5f3ef; --nx-bg: #07070a; --nx-mute: #9a96a3; --nx-ease: cubic-bezier(.2, .8, .1, 1); }
+
+/* ---------- three-line menu button (top right) ---------- */
+.nx-burger { position: fixed; top: 16px; right: 16px; z-index: 1001; width: 48px; height: 48px; border: 0; border-radius: 50%;
+  display: grid; place-content: center; gap: 6px; cursor: pointer;
+  background: rgba(20, 20, 26, .55); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); transition: transform .3s var(--nx-ease), background .3s; }
+.nx-burger:hover { transform: scale(1.06); }
+.nx-burger span { display: block; width: 20px; height: 2px; border-radius: 2px; background: var(--nx-ink);
+  transition: transform .45s var(--nx-ease), opacity .25s; }
+.nx-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nx-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(.2); }
+.nx-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.nx-burger .nx-count { position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: var(--brand); color: #fff; font: 700 11px/18px system-ui, sans-serif; text-align: center; }
+.nx-burger .nx-count:empty { display: none; }
+
+/* ---------- full-screen menu ---------- */
+.nx-menu { position: fixed; inset: 0; z-index: 1000; background: var(--nx-bg); color: var(--nx-ink);
+  display: grid; grid-template-rows: auto 1fr auto; padding: 22px 6vw 28px;
+  clip-path: circle(0 at calc(100% - 40px) 40px); visibility: hidden;
+  transition: clip-path .8s var(--nx-ease), visibility 0s linear .8s; }
+.nx-menu.open { clip-path: circle(150% at calc(100% - 40px) 40px); visibility: visible; transition: clip-path .8s var(--nx-ease); }
+.nx-menu .nx-top { font: 900 22px/1 "Inter Tight", system-ui, sans-serif; letter-spacing: -.02em; }
+.nx-menu nav { align-self: center; display: grid; gap: .1em; }
+.nx-menu nav a { color: var(--nx-ink); text-decoration: none; font: 800 clamp(34px, 7vw, 96px)/1.05 "Inter Tight", system-ui, sans-serif;
+  letter-spacing: -.035em; display: flex; align-items: baseline; gap: .4em;
+  opacity: 0; transform: translateY(40px); transition: opacity .5s, transform .6s var(--nx-ease), color .2s; }
+.nx-menu nav a small { font-size: .28em; color: var(--nx-mute); font-weight: 600; letter-spacing: .05em; }
+.nx-menu nav a:hover { color: var(--brand); }
+.nx-menu.open nav a { opacity: 1; transform: none; transition-delay: calc(.18s + var(--i) * 55ms); }
+.nx-menu .nx-foot { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between;
+  color: var(--nx-mute); font-size: 14px; opacity: 0; transition: opacity .5s .5s; }
+.nx-menu.open .nx-foot { opacity: 1; }
+.nx-menu .nx-wa { background: var(--brand); color: #fff; padding: .8em 1.3em; border-radius: 999px; text-decoration: none; font-weight: 700; }
+html.nx-lock, html.nx-lock body { overflow: hidden; }
+
+/* ---------- scroll reveals (product grid, sections, cards) ---------- */
+.reveal { opacity: 0; transform: translateY(34px); filter: blur(8px);
+  transition: opacity .9s var(--nx-ease) var(--rd, 0s), transform 1s var(--nx-ease) var(--rd, 0s), filter .9s var(--nx-ease) var(--rd, 0s); }
+.reveal.in-view { opacity: 1; transform: none; filter: none; }
+
+/* product cards: lift + image glide on hover/touch */
+.nx-card { transition: transform .5s var(--nx-ease), box-shadow .5s var(--nx-ease); will-change: transform; }
+.nx-card img { transition: transform .8s var(--nx-ease); }
+.nx-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -20px rgba(0, 0, 0, .5); }
+.nx-card:hover img { transform: scale(1.05); }
+.nx-badge { display: inline-flex; align-items: center; gap: .4em; font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--brand); }
+.nx-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* buttons: soft press */
+.btn, .nx-btn { transition: transform .25s var(--nx-ease), filter .25s; }
+.btn:active, .nx-btn:active { transform: scale(.97); }
+
+/* big brand wordmark at the bottom of every page */
+.nx-wordmark { font: 900 clamp(80px, 22vw, 520px)/.8 "Inter Tight", system-ui, sans-serif; letter-spacing: -.06em; text-align: center;
+  margin: 8vh 0 0; background: linear-gradient(180deg, var(--nx-ink) 10%, transparent 95%); -webkit-background-clip: text;
+  background-clip: text; color: transparent; user-select: none; }
+
+/* smooth page-to-page transitions (Chrome, Edge, Safari 18+) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: nx-fade-out .35s var(--nx-ease) both; }
+::view-transition-new(root) { animation: nx-fade-in .5s var(--nx-ease) both; }
+@keyframes nx-fade-out { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes nx-fade-in { from { opacity: 0; transform: translateY(16px); } }
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (min-width: 2400px) { .nx-burger { width: 64px; height: 64px; top: 24px; right: 24px; } .nx-burger span { width: 28px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  .nx-menu, .nx-menu.open { transition: none; }
+  .nx-menu nav a { transition: none; opacity: 1; transform: none; }
+  @view-transition { navigation: none; }
+}
