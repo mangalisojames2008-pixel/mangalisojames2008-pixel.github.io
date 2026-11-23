@@ -117,8 +117,9 @@
           <li><a href="shop.html?c=watches">Watches</a></li><li><a href="shop.html?c=rings">Smart rings</a></li>
           <li><a href="shop.html?c=cases">Watch cases</a></li><li><a href="index.html#bundle">Build a bundle</a></li></ul></div>
         <div><h2>Help</h2><ul>
-          <li><a href="delivery.html">Delivery and returns</a></li><li><a href="warranty.html">Warranty</a></li>
-          <li><a href="sizer.html">Ring sizer</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+          <li><a href="help/">Help centre</a></li><li><a href="help/#delivery">Delivery</a></li><li><a href="help/#returns">Returns and refunds</a></li>
+          <li><a href="help/#warranty">Warranty</a></li><li><a href="help/#ring-size">Ring size</a></li><li><a href="help/#contact">Contact</a></li>
+          <li><a href="help/#privacy">Privacy</a></li><li><a href="help/#terms">Terms and legal</a></li></ul></div>
         <div><h2>Talk to us</h2><ul>
           <li><a href="${waLink('Hi ' + S.name + ', I have a question.')}" target="_blank" rel="noopener">WhatsApp</a></li>
           ${S.email ? `<li><a href="mailto:${esc(S.email)}">${esc(S.email)}</a></li>` : ''}</ul></div>
