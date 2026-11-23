@@ -1,0 +1,147 @@
+<!-- NEXERA cinema: paste at the top of <main> in index.html, right under the header.
+     Needs: <link rel="stylesheet" href="cinema/cinema.css"> in <head>
+            <script src="cinema/cinema.js" defer></script> before </body>
+     Images: images/cut/<slug>.png = transparent cut-out of the REAL product photo.
+             data-fallback = the normal photo, used if the cut-out is missing.
+     srcset: -960 / -1440 (1440p) / -2160 / -3840 (4K) WebP versions; the browser picks the sharpest one the screen needs.
+     Numbers marked VERIFY must be checked against the official spec page before going live. -->
+
+<section class="cin" id="cinema" aria-label="NEXERA product film">
+  <div class="cin-ambient" aria-hidden="true"></div>
+
+  <!-- BRAND INTRO: NEXERA wordmark rises letter by letter, then lifts away as the first product arrives -->
+  <div class="brand-intro" aria-hidden="true">
+    <div class="bi-word"><span style="--i:0">N</span><span style="--i:1">E</span><span style="--i:2">X</span><span style="--i:3">E</span><span style="--i:4">R</span><span style="--i:5">A</span></div>
+    <div class="bi-line"></div>
+    <div class="bi-tag">Wearables · Checked &amp; delivered in South Africa</div>
+  </div>
+
+  <!-- 1 · INTRO: plays on load, then scrubs out on scroll -->
+  <div class="scene" style="--len:240" data-glow="#ff5a1f">
+    <div class="stage">
+      <div class="giant-wrap" aria-hidden="true">
+        <p class="giant" data-k="0:o1 s1 | .55:o1 s1.05 | 1:o0 s1.14 b10">ACTIVE</p>
+      </div>
+      <div class="in" style="--d:1.35s">
+        <div class="prod-glow" data-k="0:o.7 | .6:o.7 | 1:o0"></div>
+        <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" src="images/cut/xiaomi-redmi-watch-5-active.png"
+         srcset="images/cut/xiaomi-redmi-watch-5-active-960.webp 960w, images/cut/xiaomi-redmi-watch-5-active-1440.webp 1440w, images/cut/xiaomi-redmi-watch-5-active-2160.webp 2160w, images/cut/xiaomi-redmi-watch-5-active-3840.webp 3840w"
+         sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw" data-fallback="images/xiaomi-redmi-watch-5-active.jpg"
+             alt="Xiaomi Redmi Watch 5 Active" fetchpriority="high"
+             data-k="0:s1 | .5:s1.04 | 1:o0 s.72 y-6 b8">
+      </div>
+      <div class="in" style="--d:1.9s">
+        <div class="copy l ghost" data-k="0:o1 | .3:o1 y0 b0 | .58:o0 y-9 b14">
+        <span class="kick">NEXERA <i></i> 01 · Watches</span>
+          <h2>Built for the days that test you.</h2>
+          <p>Redmi Watch 5 Active. Calls from your wrist, 140+ workout modes, delivered anywhere in South Africa.</p>
+          <a class="btn" href="product.html?id=xiaomi-redmi-watch-5-active">Shop · R849</a>
+        </div>
+        <div class="meta" data-k="0:o1 | .4:o1 | .6:o0">From <b>R599</b> · Free sizing help · Pay securely</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 · STAT: counter scrubs with scroll, product slides right -->
+  <div class="scene" style="--len:260" data-glow="#ffb648">
+    <div class="stage">
+      <div class="prod-glow" data-k="0:o0 x16 | .15:o.6 x16 | .85:o.6 | 1:o0"></div>
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/xiaomi-redmi-watch-5-active.png"
+         srcset="images/cut/xiaomi-redmi-watch-5-active-960.webp 960w, images/cut/xiaomi-redmi-watch-5-active-1440.webp 1440w, images/cut/xiaomi-redmi-watch-5-active-2160.webp 2160w, images/cut/xiaomi-redmi-watch-5-active-3840.webp 3840w"
+         sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw" data-fallback="images/xiaomi-redmi-watch-5-active.jpg" alt=""
+           data-k="0:o0 x16 s.8 b10 | .15:o1 s1 b0 | .82:o1 | 1:o0 y-10 b12">
+      <div class="copy l ghost" data-k="0:o0 y6 b12 | .14:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 02 · Battery</span>
+        <span class="num" data-count="0,18" data-at=".12,.55">0<small>days</small></span><!-- VERIFY battery -->
+        <h2>One charge. Most of the month.</h2>
+        <p>Typical use, measured by Xiaomi. Charge it on Sunday and forget it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 · ZOOM: product flies in close, then settles beside the number -->
+  <div class="scene" style="--len:320" data-glow="#c9d2ff">
+    <div class="stage">
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/xiaomi-smart-band-10.png"
+         srcset="images/cut/xiaomi-smart-band-10-960.webp 960w, images/cut/xiaomi-smart-band-10-1440.webp 1440w, images/cut/xiaomi-smart-band-10-2160.webp 2160w, images/cut/xiaomi-smart-band-10-3840.webp 3840w"
+         sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw" data-fallback="images/xiaomi-smart-band-10.jpg" alt="Xiaomi Smart Band 10"
+           data-k="0:o0 s.6 b8 | .12:o1 s.9 b0 | .38:s2.1 y8 | .58:s2.1 y8 | .8:s1 x16 y0 | .92:o1 | 1:o0 b10">
+      <div class="copy l ghost" data-k="0:o0 | .6:o0 y6 b12 | .72:o1 y0 b0 | .92:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 03 · Display</span>
+        <span class="num" data-count="0,1500" data-at=".64,.88">0<small>nits</small></span><!-- VERIFY brightness -->
+        <h2>Bright enough for noon.</h2>
+        <p>Xiaomi Smart Band 10. A big AMOLED screen you can read on a Durban beach.</p>
+        <a class="btn" href="product.html?id=xiaomi-smart-band-10">Shop · R1 199</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 · RING -->
+  <div class="scene" style="--len:260" data-glow="#5aa8ff">
+    <div class="stage">
+      <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 s.9 | .15:o1 s1 | .8:o1 | 1:o0 s1.1 b10">RING</p></div>
+      <div class="prod-glow" data-k="0:o0 x14 | .15:o.7 | .85:o.7 | 1:o0"></div>
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/colmi-r12.png"
+         srcset="images/cut/colmi-r12-960.webp 960w, images/cut/colmi-r12-1440.webp 1440w, images/cut/colmi-r12-2160.webp 2160w, images/cut/colmi-r12-3840.webp 3840w"
+         sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw" data-fallback="images/colmi-r12.jpg" alt="Colmi R12 smart ring"
+           data-k="0:o0 x14 y12 r-20 b10 | .18:o1 y0 r0 b0 | .5:r12 s1.08 | .82:o1 r0 s1 | 1:o0 y-8 b10">
+      <div class="copy l ghost" data-k="0:o0 y6 b12 | .22:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 04 · Rings</span>
+        <h2>All the tracking. Nothing on your wrist.</h2>
+        <p>Colmi R12 with a tap-to-wake display. Sizes 7 to 13.</p>
+        <a class="btn" href="product.html?id=colmi-r12">Shop · R1 499</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 · OUTDOOR -->
+  <div class="scene" style="--len:240" data-glow="#ff7a1a">
+    <div class="stage">
+      <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 x-20 | .2:o1 x0 | .8:o1 | 1:o0 x20 b10">OUTDOOR</p></div>
+      <div class="prod-glow" data-k="0:o0 x14 | .2:o.7 | .85:o.7 | 1:o0"></div>
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/spovan-pr3.png"
+         srcset="images/cut/spovan-pr3-960.webp 960w, images/cut/spovan-pr3-1440.webp 1440w, images/cut/spovan-pr3-2160.webp 2160w, images/cut/spovan-pr3-3840.webp 3840w"
+         sizes="(max-width:760px) 70vw, (min-width:3400px) 1800px, (min-width:2400px) 1300px, 84vw" data-fallback="images/spovan-pr3.jpg" alt="Spovan PR3 outdoor watch"
+           data-k="0:o0 x14 s1.3 b14 | .2:o1 s1 b0 | .82:o1 | 1:o0 s.8 b10">
+      <div class="copy l ghost" data-k="0:o0 y6 b12 | .25:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 05 · Outdoor</span>
+        <h2>Made for the trail, not the desk.</h2>
+        <p>Spovan PR3. Rugged case, big buttons, built for mud and sun.</p>
+        <a class="btn" href="product.html?id=spovan-pr3">Shop · R899</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 · CASES: three cases slide in side by side -->
+  <div class="scene" style="--len:240" data-glow="#c9a46a">
+    <div class="stage">
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/pu-leather-travel-watch-case.png"
+         srcset="images/cut/pu-leather-travel-watch-case-960.webp 960w, images/cut/pu-leather-travel-watch-case-1440.webp 1440w, images/cut/pu-leather-travel-watch-case-2160.webp 2160w, images/cut/pu-leather-travel-watch-case-3840.webp 3840w"
+         sizes="(max-width:760px) 30vw, (min-width:3400px) 900px, (min-width:2400px) 640px, 24vw" data-fallback="images/pu-leather-travel-watch-case.jpg" alt=""
+           style="width:min(24vw,260px);top:38%" data-k="0:o0 x-60 | .25:o1 x-24 | .82:o1 | 1:o0 y-8 b10">
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/glass-top-wooden-display-box.png"
+         srcset="images/cut/glass-top-wooden-display-box-960.webp 960w, images/cut/glass-top-wooden-display-box-1440.webp 1440w, images/cut/glass-top-wooden-display-box-2160.webp 2160w, images/cut/glass-top-wooden-display-box-3840.webp 3840w"
+         sizes="(max-width:760px) 30vw, (min-width:3400px) 900px, (min-width:2400px) 640px, 24vw" data-fallback="images/glass-top-wooden-display-box.jpg" alt=""
+           style="width:min(24vw,260px);top:38%" data-k="0:o0 y30 | .3:o1 y0 | .82:o1 | 1:o0 y-8 b10">
+      <img class="prod" onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}" loading="lazy" src="images/cut/aluminium-watch-case.png"
+         srcset="images/cut/aluminium-watch-case-960.webp 960w, images/cut/aluminium-watch-case-1440.webp 1440w, images/cut/aluminium-watch-case-2160.webp 2160w, images/cut/aluminium-watch-case-3840.webp 3840w"
+         sizes="(max-width:760px) 30vw, (min-width:3400px) 900px, (min-width:2400px) 640px, 24vw" data-fallback="images/aluminium-watch-case.jpg" alt=""
+           style="width:min(24vw,260px);top:38%" data-k="0:o0 x60 | .35:o1 x24 | .82:o1 | 1:o0 y-8 b10">
+      <div class="copy c ghost" style="bottom:8vh" data-k="0:o0 y6 b12 | .35:o1 y0 b0 | .82:o1 | 1:o0 y-8 b14">
+        <span class="kick">NEXERA <i></i> 06 · Cases</span>
+        <h2>A safe place for it at night.</h2>
+        <a class="btn" href="shop.html?c=cases">Watch cases from R249</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BRIEF MESSAGE, then the existing product grid follows -->
+  <div class="message">
+    <div>
+      <span class="kick">NEXERA <i></i> Our promise</span>
+      <h2 class="ghost reveal">Real gear. Local delivery. No guesswork.</h2>
+      <p class="reveal" style="--rd:.1s">Every watch, ring and case we sell is one we've checked ourselves. Order on your phone, get it delivered anywhere in South Africa, and chat to us on WhatsApp if you're stuck.</p>
+      <div class="ticks reveal" style="--rd:.2s"><span>Delivery nationwide</span><span>7-day returns</span><span>Secure checkout</span></div>
+    </div>
+  </div>
+</section>
