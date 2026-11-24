@@ -309,32 +309,6 @@
       ]
     },
     {
-      "slug": "woven-nylon-strap-case-set",
-      "name": "Woven nylon strap + case set",
-      "category": "watches",
-      "addon": true,
-      "price": 249,
-      "description": "A soft woven nylon strap with a matching protective case for the watch face. Not sure it fits your watch? Ask us before you order.",
-      "features": [
-        "Woven nylon strap, light and quick to dry",
-        "Protective case for the watch body",
-        "Ask us about fit before you order"
-      ],
-      "image": "images/woven-nylon-strap-case-set.jpg",
-      "inStock": true,
-      "shopify": {
-        "handle": "woven-nylon-strap-case",
-        "variant": "gid://shopify/ProductVariant/68475160461501",
-        "variants": {}
-      },
-      "photo": "supplier listing (Casestody)",
-      "hires": [
-        960,
-        1440,
-        2160
-      ]
-    },
-    {
       "slug": "colmi-r10",
       "name": "Colmi R10 smart ring",
       "category": "rings",

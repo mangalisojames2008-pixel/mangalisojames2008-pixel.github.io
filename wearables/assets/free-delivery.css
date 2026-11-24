@@ -1,0 +1,9 @@
+/* NEXERA free-delivery bar: scoped, no global changes */
+[data-free-delivery] { margin: 0 0 16px; }
+.nxfd-text { margin: 0 0 8px; font-size: 14px; font-weight: 600; letter-spacing: .01em; }
+.nxfd-track { height: 6px; border-radius: 99px; background: color-mix(in srgb, currentColor 12%, transparent); overflow: hidden; }
+.nxfd-fill { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--nx-accent, #c8ff3d); transition: width .6s cubic-bezier(.2,.8,.2,1); }
+[data-free-delivery].is-done .nxfd-text::before { content: "✓ "; }
+[data-free-delivery].pop .nxfd-track { animation: nxfdPop .5s ease; }
+@keyframes nxfdPop { 50% { transform: scaleY(1.8); } }
+@media (prefers-reduced-motion: reduce) { .nxfd-fill { transition: none; } [data-free-delivery].pop .nxfd-track { animation: none; } }

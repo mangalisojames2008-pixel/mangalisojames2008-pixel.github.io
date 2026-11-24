@@ -22,9 +22,10 @@ window.NXH = {
   lastUpdated:    "23 November 2026",
 
   // ---- delivery ----
-  feeLocker:      "R60",
+  feeLocker:      "R59",
   feeDoor:        "R99",
-  freeOver:       "R1 000",
+  freeOver:       "R1 200",                   // keep in sync with assets/free-delivery.js and Shopify
+  deliveryTime:   "10–20 business days",
   // no courier names and no fixed delivery times on the site (owner, 23 Nov 2026)
 
   // ---- returns & warranty ----

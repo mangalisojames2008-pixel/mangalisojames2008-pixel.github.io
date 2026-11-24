@@ -166,6 +166,8 @@
     try { header(); } catch (e) { console.error(e); }
     try { footer(); } catch (e) { console.error(e); }
     try { names(); } catch (e) { console.error(e); }
+    /* a cart saved before a product was removed from the shop: drop that product quietly */
+    load().then(d => { const it = cart.get(), keep = it.filter(i => d.bySlug[i.slug]); if (keep.length !== it.length) cart.set(keep); }).catch(() => {});
     /* menu labels like "from R599" follow products.json */
     load().then(d => $$('[data-from-label]').forEach(el => {
       const ps = d.products.filter(p => p.category === el.dataset.fromLabel && !p.addon).map(p => p.price);

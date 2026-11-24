@@ -157,12 +157,12 @@
       const optText = (p, i) => /^\d+$/.test(i.opt) && p.options ? `${p.options.label.toLowerCase()} ${i.opt}` : i.opt;
       const label = (p, i) => `${p.name}${i.opt ? `, ${optText(p, i)}` : ''}`;
       const lines = () => cart.items().filter(i => data.bySlug[i.slug]);
-      /* bundle saving: only for bundles that still have a watch, a strap set and a case */
+      /* bundle saving: only for bundles that still have a watch and a case */
       const saving = () => {
         if (!(S.bundleDiscount > 0) || (shopDomain && !bundleCode)) return 0;
         const groups = {};
-        lines().forEach(i => { if (i.bundle) (groups[i.bundle] = groups[i.bundle] || new Set()).add(data.bySlug[i.slug].addon ? 'strap' : data.bySlug[i.slug].category); });
-        return Object.values(groups).filter(g => g.has('watches') && g.has('strap') && g.has('cases')).length * S.bundleDiscount;
+        lines().forEach(i => { if (i.bundle) (groups[i.bundle] = groups[i.bundle] || new Set()).add(data.bySlug[i.slug].category); });
+        return Object.values(groups).filter(g => g.has('watches') && g.has('cases')).length * S.bundleDiscount;
       };
       const totals = () => {
         const sub = lines().reduce((s, i) => s + data.bySlug[i.slug].price * i.qty, 0);
@@ -175,7 +175,7 @@
         const items = lines();
         $('[data-empty]').hidden = !!items.length;
         $('[data-cart]').hidden = !items.length;
-        if (!items.length) return;
+        if (!items.length) { if (window.NXFree) NXFree.render(0); return; }
         $('[data-lines]').innerHTML = items.map((i, n) => {
           const p = data.bySlug[i.slug];
           const pic = ((p.colours || []).find(c => (i.opt || '').startsWith(c.name)) || p).image;
@@ -199,6 +199,7 @@
           </li>`;
         }).join('');
         const t = totals();
+        if (window.NXFree) NXFree.render(t.sub - t.save);   /* free-delivery bar: what the shopper pays for products */
         $('[data-subtotal]').textContent = fmt(t.sub);
         $('[data-save-row]').hidden = !t.save;
         $('[data-save]').textContent = '−' + fmt(t.save);
@@ -216,8 +217,8 @@
       const box = $('[data-checkout]'), err = $('[data-err]', box), btn = $('[data-send]', box);
       const fullBundle = () => {
         const groups = {};
-        lines().forEach(i => { if (i.bundle) (groups[i.bundle] = groups[i.bundle] || new Set()).add(data.bySlug[i.slug].addon ? 'strap' : data.bySlug[i.slug].category); });
-        return Object.values(groups).some(g => g.has('watches') && g.has('strap') && g.has('cases'));
+        lines().forEach(i => { if (i.bundle) (groups[i.bundle] = groups[i.bundle] || new Set()).add(data.bySlug[i.slug].category); });
+        return Object.values(groups).some(g => g.has('watches') && g.has('cases'));
       };
 
       /* Each cart line as a Shopify variant plus notes. Ring sizes are Shopify variants

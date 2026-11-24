@@ -11,10 +11,12 @@
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="stylesheet" href="assets/pages.css">
 <link rel="stylesheet" href="ui/nexera-ui.css">
+<link rel="stylesheet" href="assets/free-delivery.css">
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
 <script src="config.js" defer></script>
 <script src="assets/card.js" defer></script>
 <script src="assets/app.js" defer></script>
+<script src="assets/free-delivery.js" defer></script>
 <script src="assets/pages.js" defer></script>
 </head>
 <body data-page="cart" data-title="Cart">
@@ -56,6 +58,7 @@
       <div class="cart__side">
         <section class="cart__sum" aria-labelledby="sumTitle">
           <h2 id="sumTitle" class="cart__h">Summary</h2>
+          <div data-free-delivery></div>
           <dl class="sum">
             <div><dt>Subtotal</dt><dd class="price" data-subtotal>R0</dd></div>
             <div data-save-row hidden><dt>Bundle saving</dt><dd class="price" data-save>R0</dd></div>

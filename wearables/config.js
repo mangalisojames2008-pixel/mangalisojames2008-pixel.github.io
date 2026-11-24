@@ -35,9 +35,10 @@ window.STORE = {
   deliveryFee: null,
   freeDeliveryFrom: null,          /* e.g. 1500 for free delivery over R1 500 */
   /* Delivery prices shown on the delivery page (set the same rates in Shopify). No courier names or fixed times on the site. */
-  deliveryRates: 'Locker R60 · door to door R99 · free on orders over R1 000',
+  deliveryRates: 'Locker R59 · door to door R99 · free on orders over R1 200',
+  deliveryTime: '10–20 business days',
 
-  /* Bundle builder: rand off shown in the builder when a watch, strap set and case are picked.
+  /* Bundle builder: rand off shown in the builder when a watch and a case are picked.
      With Shopify, create the matching discount code in Shopify and put it in shopify.bundleCode. 0 = no discount */
   bundleDiscount: 0
 };

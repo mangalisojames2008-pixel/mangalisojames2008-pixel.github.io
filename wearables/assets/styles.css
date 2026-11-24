@@ -25,6 +25,7 @@
   --line-ink: rgba(244, 242, 237, .12);
   --ember: #e8452c;
   --ember-ink: #b8341d;
+  --nx-accent: var(--ember);   /* free-delivery bar (assets/free-delivery.css) */
   --wa: #157a41;
   --wa-hover: #10652f;
 

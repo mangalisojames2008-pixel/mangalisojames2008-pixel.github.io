@@ -97,7 +97,6 @@
       const ok = p => p.inStock;
       const expand = p => p.options ? p.options.values.map(v => ({ p, opt: v })) : [{ p, opt: '' }];
       const watches = d.products.filter(p => p.category === 'watches' && !p.addon && ok(p)).flatMap(expand);
-      const straps = d.products.filter(p => p.addon && ok(p)).flatMap(expand);
       const cases = d.products.filter(p => p.category === 'cases' && ok(p)).flatMap(expand);
       const opt = (name, o, i, checked) => `<label class="opt">
           <input type="radio" name="${name}" value="${i}"${checked ? ' checked' : ''}>
@@ -106,17 +105,16 @@
           <span class="price">${fmt(o.p.price)}</span></label>`;
       const none = (name, label) => `<label class="opt"><input type="radio" name="${name}" value="-1"><span class="opt__none" aria-hidden="true"></span><span class="opt__name">${label}</span><span></span></label>`;
       $('[data-opts="watch"]', form).innerHTML = watches.map((o, i) => opt('watch', o, i, i === 0)).join('');
-      $('[data-opts="strap"]', form).innerHTML = straps.map((o, i) => opt('strap', o, i, i === 0)).join('') + none('strap', 'No strap set');
       $('[data-opts="case"]', form).innerHTML = cases.map((o, i) => opt('case', o, i, i === 0)).join('') + none('case', 'No case');
 
       const pick = () => {
         const v = n => { const el = form.querySelector(`input[name="${n}"]:checked`); return el ? +el.value : -1; };
-        return [watches[v('watch')], straps[v('strap')], cases[v('case')]].filter(Boolean);
+        return [watches[v('watch')], cases[v('case')]].filter(Boolean);
       };
       const render = () => {
         const items = pick();
         let total = items.reduce((s, o) => s + o.p.price, 0);
-        const full = items.length === 3 && S.bundleDiscount > 0;
+        const full = items.length === 2 && S.bundleDiscount > 0;
         if (full) total -= S.bundleDiscount;
         $('[data-lines]', form).innerHTML = items.map(o => `<li><span>${esc(o.p.name)}${o.opt ? `, ${esc(o.opt)}` : ''}</span><span class="price">${fmt(o.p.price)}</span></li>`).join('')
           + (full ? `<li class="save"><span>Bundle saving</span><span class="price">−${fmt(S.bundleDiscount)}</span></li>` : '');
@@ -126,7 +124,7 @@
       form.addEventListener('submit', e => {
         e.preventDefault();
         const items = pick(); if (!items.length) return;
-        const id = items.length === 3 ? 'b' + Date.now().toString(36) : '';
+        const id = items.length === 2 ? 'b' + Date.now().toString(36) : '';
         items.forEach(o => cart.add(o.p.slug, o.opt, 1, id));
         toast('Bundle added', 'View cart', 'cart.html');
       });
