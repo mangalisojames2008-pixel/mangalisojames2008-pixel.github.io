@@ -220,23 +220,68 @@
         return Object.values(groups).some(g => g.has('watches') && g.has('strap') && g.has('cases'));
       };
 
-      /* Shopify cart link: https://<shop>/cart/<variant>:<qty>,<variant>:<qty>?note=...
-         Each product's variant IDs are in products.json ("shopify"). */
-      function shopifyUrl() {
-        const qty = new Map(), notes = [], missing = [];
+      /* Each cart line as a Shopify variant plus notes. Ring sizes are Shopify variants
+         (products.json "shopify.variants", filled by tools/shopify-sync.js); colours and slots
+         are not, so they go on the line as notes ("Colour: Gold") and show on the order. */
+      function shopLines() {
+        const out = [], missing = [];
         lines().forEach(i => {
-          const p = data.bySlug[i.slug], sh = p.shopify || {}, own = (sh.variants || {})[i.opt];
-          const id = String(own || sh.variant || '').replace(/\D/g, '');
+          const p = data.bySlug[i.slug], sh = p.shopify || {}, vars = sh.variants || {};
+          const parts = String(i.opt || '').split(', ').filter(Boolean);
+          const key = x => x.replace(/^ring size /i, '');
+          const hit = parts.find(x => vars[key(x)]);
+          /* a product with variants never falls back to its first one: a ring must have its size */
+          const id = Object.keys(vars).length ? (hit ? vars[key(hit)] : '') : (sh.variant || '');
           if (!id) { missing.push(p.name); return; }
-          qty.set(id, (qty.get(id) || 0) + i.qty);
-          if (i.opt && !own) notes.push(`${i.qty} × ${p.name}: ${optText(p, i)}`);   /* a choice with no variant of its own */
+          const attrs = parts.filter(x => x !== hit).map(x => ({
+            key: (p.colours || []).some(c => c.name === x) ? 'Colour' : (p.options && p.options.values.includes(x)) ? p.options.label : 'Choice',
+            value: x
+          }));
+          out.push({ id: String(id), qty: Math.min(99, i.qty), attrs, name: p.name });
         });
-        if (missing.length) return { missing };
+        return { out, missing };
+      }
+      const num = id => id.replace(/\D/g, '');
+      const gid = id => /^gid:/.test(id) ? id : `gid://shopify/ProductVariant/${num(id)}`;
+
+      /* Main way in: the Storefront API makes the cart in Shopify, then we open its checkout */
+      async function storefrontCheckout(r) {
+        const sh = S.shopify || {};
+        if (!sh.storefrontToken) throw new Error('no Storefront token');
+        const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 8000);
+        const input = {
+          lines: r.out.map(l => ({ merchandiseId: gid(l.id), quantity: l.qty, attributes: l.attrs })),
+          buyerIdentity: { countryCode: 'ZA' }
+        };
+        if (bundleCode && fullBundle()) input.discountCodes = [bundleCode];
+        try {
+          const res = await fetch(`https://${shopDomain}/api/${sh.apiVersion || '2025-10'}/graphql.json`, {
+            method: 'POST', signal: ctl.signal,
+            headers: { 'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': sh.storefrontToken },
+            body: JSON.stringify({
+              query: 'mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { checkoutUrl } userErrors { message } } }',
+              variables: { input }
+            })
+          });
+          const j = await res.json();
+          const c = j && j.data && j.data.cartCreate;
+          if (!res.ok || !c || !c.cart || (c.userErrors || []).length) throw new Error(JSON.stringify((c && c.userErrors) || j.errors || res.status));
+          return c.cart.checkoutUrl;
+        } finally { clearTimeout(t); }
+      }
+
+      /* Backup way in, if the API can't be reached: a Shopify cart link, with the choices in the order note */
+      function cartLink(r) {
+        const qty = new Map(), notes = [];
+        r.out.forEach(l => {
+          qty.set(num(l.id), (qty.get(num(l.id)) || 0) + l.qty);
+          if (l.attrs.length) notes.push(`${l.qty} × ${l.name}: ${l.attrs.map(a => a.value).join(', ')}`);
+        });
         const q = new URLSearchParams();
         if (notes.length) q.set('note', 'Choices: ' + notes.join('; '));
         if (bundleCode && fullBundle()) q.set('discount', bundleCode);
         const path = [...qty].map(([id, n]) => `${id}:${Math.min(99, n)}`).join(',');
-        return { url: `https://${shopDomain}/cart/${path}${q.toString() ? '?' + q : ''}` };
+        return `https://${shopDomain}/cart/${path}${q.toString() ? '?' + q : ''}`;
       }
 
       /* Before Shopify is connected: the order goes by email */
@@ -262,14 +307,16 @@
         err.hidden = true;
         if (!lines().length) return;
         if (!shopDomain) { location.href = emailUrl(); return; }
-        const r = shopifyUrl();
-        if (r.missing) {
+        const r = shopLines();
+        if (r.missing.length) {
           err.innerHTML = `Online checkout is not ready for ${esc(r.missing.join(', '))} yet. ${S.email ? `<a class="link" href="${esc(emailUrl())}">Email us the order</a> instead.` : ''}`;
           err.hidden = false; return;
         }
         btn.disabled = true; btn.textContent = 'Opening checkout…';
-        location.href = r.url;
-        setTimeout(() => { btn.disabled = false; btn.textContent = 'Checkout'; }, 4000);
+        storefrontCheckout(r)
+          .catch(e => { console.warn('Storefront API checkout failed, using the cart link instead:', e.message); return cartLink(r); })
+          .then(url => { location.href = url; });
+        setTimeout(() => { btn.disabled = false; btn.textContent = 'Checkout'; }, 6000);
       });
 
       load().then(d => { data = d; draw(); }).catch(() => fail($('[data-lines]')));

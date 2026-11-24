@@ -33,7 +33,7 @@
       },
       {
         "size": "10",
-        "mm": 20.0
+        "mm": 20
       },
       {
         "size": "11",
@@ -96,7 +96,8 @@
       ],
       "photo": "Xiaomi",
       "shopify": {
-        "variant": "",
+        "handle": "redmi-watch-5-active",
+        "variant": "gid://shopify/ProductVariant/68475159904445",
         "variants": {}
       },
       "hires": [
@@ -146,7 +147,8 @@
       ],
       "photo": "Xiaomi",
       "shopify": {
-        "variant": "",
+        "handle": "xiaomi-smart-band-10",
+        "variant": "gid://shopify/ProductVariant/68475160035517",
         "variants": {}
       },
       "hires": [
@@ -184,7 +186,8 @@
       ],
       "photo": "Spovan (supplier listing)",
       "shopify": {
-        "variant": "",
+        "handle": "spovan-h7-screenless-band",
+        "variant": "gid://shopify/ProductVariant/68475160330429",
         "variants": {}
       },
       "hires": [
@@ -226,7 +229,8 @@
         }
       ],
       "shopify": {
-        "variant": "",
+        "handle": "colmi-p71",
+        "variant": "gid://shopify/ProductVariant/68475160166589",
         "variants": {}
       },
       "colours": [
@@ -287,7 +291,8 @@
         }
       ],
       "shopify": {
-        "variant": "",
+        "handle": "spovan-pr3",
+        "variant": "gid://shopify/ProductVariant/68475160264893",
         "variants": {}
       },
       "gallery": [
@@ -318,7 +323,8 @@
       "image": "images/woven-nylon-strap-case-set.jpg",
       "inStock": true,
       "shopify": {
-        "variant": "",
+        "handle": "woven-nylon-strap-case",
+        "variant": "gid://shopify/ProductVariant/68475160461501",
         "variants": {}
       },
       "photo": "supplier listing (Casestody)",
@@ -389,8 +395,17 @@
       ],
       "photo": "Colmi",
       "shopify": {
-        "variant": "",
-        "variants": {}
+        "handle": "colmi-r10-smart-ring",
+        "variant": "gid://shopify/ProductVariant/68475160559805",
+        "variants": {
+          "7": "gid://shopify/ProductVariant/68475160559805",
+          "8": "gid://shopify/ProductVariant/68475160592573",
+          "9": "gid://shopify/ProductVariant/68475160625341",
+          "10": "gid://shopify/ProductVariant/68475160658109",
+          "11": "gid://shopify/ProductVariant/68475160690877",
+          "12": "gid://shopify/ProductVariant/68475160723645",
+          "13": "gid://shopify/ProductVariant/68475160756413"
+        }
       },
       "hires": [
         960,
@@ -443,8 +458,17 @@
         }
       ],
       "shopify": {
-        "variant": "",
-        "variants": {}
+        "handle": "colmi-r12-smart-ring",
+        "variant": "gid://shopify/ProductVariant/68475160920253",
+        "variants": {
+          "7": "gid://shopify/ProductVariant/68475160920253",
+          "8": "gid://shopify/ProductVariant/68475160953021",
+          "9": "gid://shopify/ProductVariant/68475160985789",
+          "10": "gid://shopify/ProductVariant/68475161018557",
+          "11": "gid://shopify/ProductVariant/68475161051325",
+          "12": "gid://shopify/ProductVariant/68475161084093",
+          "13": "gid://shopify/ProductVariant/68475161116861"
+        }
       },
       "colours": [
         {
@@ -480,7 +504,8 @@
       "image": "images/pu-leather-travel-watch-case.jpg",
       "inStock": true,
       "shopify": {
-        "variant": "",
+        "handle": "pu-leather-travel-watch-case",
+        "variant": "gid://shopify/ProductVariant/68475161182397",
         "variants": {}
       },
       "photo": "supplier listing (AliExpress)",
@@ -504,7 +529,8 @@
       "image": "images/glass-top-wooden-display-box.jpg",
       "inStock": true,
       "shopify": {
-        "variant": "",
+        "handle": "glass-top-wooden-watch-box",
+        "variant": "gid://shopify/ProductVariant/68475161280701",
         "variants": {}
       },
       "photo": "supplier listing (Home Depot, unbranded)",
@@ -536,7 +562,8 @@
       "image": "images/aluminium-watch-case.jpg",
       "inStock": true,
       "shopify": {
-        "variant": "",
+        "handle": "aluminium-watch-case",
+        "variant": "gid://shopify/ProductVariant/68475161379005",
         "variants": {}
       },
       "photo": "supplier listing (AliExpress)",
