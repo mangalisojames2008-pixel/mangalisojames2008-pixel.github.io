@@ -17,7 +17,6 @@
 .crumbs a { color: var(--muted); text-underline-offset: 3px; }
 .pdp { display: grid; gap: 24px; }
 .pdp__media > .stage { width: 100%; max-width: 560px; margin: 0 auto; }
-.pdp__credit { margin: 8px 0 0; text-align: center; min-height: 1.4em; }
 .pdp__thumbs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 12px 0 0; }
 .pdp__thumb { width: 64px; height: 64px; border-radius: 12px; border: 1px solid transparent; padding: 0; cursor: pointer; }
 .pdp__thumb[aria-pressed="true"] { border-color: var(--ink); }
