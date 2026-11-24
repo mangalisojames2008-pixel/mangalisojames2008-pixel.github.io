@@ -49,6 +49,27 @@
     if (want !== have) grid.innerHTML = list.map(card).join('');
   }
 
-  const api = { esc, fmt, url, srcAttrs, sig, card, fill };
+  /* Which Shopify variant a cart line is. The site's choices ("Gold, ring size 9", "2 slots") are matched to
+     Shopify's option values in any order or wording ("9 / Gold", "Two Slots"). With no colour chosen (shop card,
+     bundle) it is the colour in the product photo, the first one. Choices Shopify has no variant for come back as
+     notes for the order line. Returns { id, notes } or null when nothing matches. */
+  const norm = x => String(x).toLowerCase().replace(/^ring size /, '').replace(/\bone\b/g, '1').replace(/\btwo\b/g, '2')
+    .replace(/\bthree\b/g, '3').replace(/\bslots?\b/g, 'slot').trim();
+  function variantFor(p, opt) {
+    const sh = (p && p.shopify) || {}, vars = sh.variants || {}, keys = Object.keys(vars);
+    const parts = String(opt || '').split(', ').filter(Boolean), want = parts.map(norm);
+    if (!keys.length) return sh.variant ? { id: sh.variant, notes: parts } : null;
+    const vals = k => k.split(' / ').map(norm);
+    const exact = w => keys.find(k => { const ks = vals(k); return ks.every(v => w.includes(v)) && w.every(v => ks.includes(v)); });
+    let k = exact(want);
+    const cols = (p.colours || []).map(c => c.name);
+    if (!k && cols.length && !parts.some(x => cols.includes(x))) k = exact([...want, norm(cols[0])]);
+    if (!k) k = keys.find(kk => vals(kk).every(v => want.includes(v)));     /* Shopify varies by fewer choices than the site */
+    if (!k) return null;
+    const ks = vals(k);
+    return { id: vars[k], notes: parts.filter(x => !ks.includes(norm(x))) };
+  }
+
+  const api = { esc, fmt, url, srcAttrs, sig, card, fill, variantFor };
   if (typeof module === 'object' && module.exports) module.exports = api; else root.ShopCard = api;
 })(typeof window !== 'undefined' ? window : globalThis);

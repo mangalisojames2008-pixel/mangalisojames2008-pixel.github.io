@@ -1,0 +1,122 @@
+/* NEXERA motion kit styles: all scoped to the kit's own classes/attributes */
+@property --nx-glow { syntax: "<color>"; inherits: true; initial-value: #ff6a2b; }
+:root { --nx-ease: cubic-bezier(.22, 1, .36, 1); }
+
+/* 4. ambient glow: one fixed layer, colour eases between sections (no filter, no repaint of content) */
+.nx-ambient { position: fixed; inset: -20vmax; z-index: -1; pointer-events: none;
+  background: radial-gradient(40vmax 30vmax at 50% 60%, color-mix(in srgb, var(--nx-glow) 32%, transparent), transparent 70%);
+  transition: --nx-glow 1.2s var(--nx-ease); }
+html.nx-low .nx-ambient { inset: -10vmax; }
+
+/* 1. scroll-scrubbed product turn */
+[data-seq] { position: relative; height: 300vh; }
+html.nx-low [data-seq] { height: 220vh; }
+[data-seq] .seq-stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: clip; }
+[data-seq] canvas { width: min(92vw, 1400px); height: min(80vh, 800px); }
+[data-seq] .seq-poster { position: absolute; width: min(70vw, 720px); height: auto; transition: opacity .5s; }
+[data-seq].seq-drawn .seq-poster { opacity: 0; }
+[data-seq] [data-at] { position: absolute; opacity: 0; transform: translate3d(0, 24px, 0); transition: opacity .6s var(--nx-ease), transform .8s var(--nx-ease); }
+[data-seq] [data-at].on { opacity: 1; transform: none; }
+
+/* 2. boot-up: the real photo wakes from dark; a screen overlay powers on (opacity/transform only) */
+[data-boot] { position: relative; }
+[data-boot] img { opacity: .08; transform: scale(.94); transition: opacity 1.1s var(--nx-ease) .5s, transform 1.4s var(--nx-ease) .5s; }
+[data-boot] .nx-screen { position: absolute; left: var(--scr-x, 35%); top: var(--scr-y, 30%); width: var(--scr-w, 30%); height: var(--scr-h, 32%);
+  border-radius: var(--scr-r, 22%); background: #000; display: grid; place-items: center; overflow: hidden; }
+[data-boot] .nx-screen::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: translate3d(0, -120%, 0); }
+[data-boot] [data-clock] { font: 600 clamp(14px, 3.2vw, 44px)/1 "Inter Tight", system-ui, sans-serif; font-variant-numeric: tabular-nums; color: #fff;
+  letter-spacing: .02em; opacity: 0; transform: scale(.9); transition: opacity .5s ease .15s, transform .6s var(--nx-ease) .15s; }
+[data-boot].booted img { opacity: 1; transform: none; }
+[data-boot].booted .nx-screen::after { animation: nxScan .7s ease-out forwards; }
+[data-boot].booted [data-clock] { opacity: 1; transform: none; }
+[data-boot].booted .nx-screen { animation: nxScreenOff .6s ease 1.6s forwards; }   /* hand over to the real screen in the photo */
+@keyframes nxScan { to { transform: translate3d(0, 120%, 0); } }
+@keyframes nxScreenOff { to { opacity: 0; } }
+
+/* 3. UI floats apart */
+[data-ui-split] { position: relative; height: 240vh; }
+[data-ui-split] .split-stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: clip; perspective: 1200px; }
+[data-ui-split] [data-depth] { position: absolute; will-change: transform, opacity; border-radius: 18px; padding: 12px 16px;
+  background: rgba(14,14,18,.72); border: 1px solid rgba(255,255,255,.12); color: #fff; font: 600 14px/1.2 "Inter Tight", system-ui, sans-serif;
+  box-shadow: 0 20px 60px -20px rgba(0,0,0,.7); }
+html.nx-low [data-ui-split] [data-depth] { box-shadow: none; }
+
+/* 5. colour switcher cross-fade */
+.nx-swap-stage { position: relative; display: grid; }
+.nx-swap-stage > img { grid-area: 1 / 1; width: 100%; height: auto; transition: opacity .55s var(--nx-ease), transform .7s var(--nx-ease); }
+.nx-swap-stage > img.nx-swap-in { opacity: 0; transform: scale(.97) translate3d(0, 10px, 0); }
+.nx-swap-stage > img.nx-swap-in.cur { opacity: 1; transform: none; }
+.nx-swap-stage > img.nx-swap-out { opacity: 0; transform: scale(1.02); }
+[data-swatches] button { width: 34px; height: 34px; border-radius: 50%; border: 2px solid transparent; outline: 2px solid transparent; outline-offset: 2px;
+  background: var(--sw); cursor: pointer; transition: transform .3s var(--nx-ease), outline-color .3s; }
+[data-swatches] button.on { outline-color: currentColor; transform: scale(1.08); }
+
+/* 6. odometer */
+[data-roll] { display: inline-flex; font-variant-numeric: tabular-nums; line-height: 1; }
+.nxr-col { display: inline-block; height: 1em; overflow: hidden; }
+.nxr-strip { display: flex; flex-direction: column; transition: transform 1.6s var(--nx-ease) var(--d); }
+.nxr-strip i { font-style: normal; height: 1em; display: block; }
+
+/* 7. headline swap with motion blur (blur only on short text = cheap) */
+[data-swap] { display: inline-grid; }
+.nxs { grid-area: 1 / 1; transition: opacity .55s var(--nx-ease), transform .6s var(--nx-ease), filter .55s var(--nx-ease); }
+.nxs.in { opacity: 0; transform: translate3d(0, 40%, 0); filter: blur(10px); }
+.nxs.out { opacity: 0; transform: translate3d(0, -40%, 0); filter: blur(10px); }
+html.nx-low .nxs.in, html.nx-low .nxs.out { filter: none; }
+
+/* 8. closing hero replay */
+[data-replay] .rp-word { opacity: 0; transform: translate3d(0, 8%, 0) scale(.96); transition: opacity 1s var(--nx-ease), transform 1.4s var(--nx-ease); }
+[data-replay] .rp-product { opacity: 0; transform: translate3d(0, 12%, 0) rotate(-6deg); transition: opacity 1s var(--nx-ease) .2s, transform 1.4s var(--nx-ease) .2s; }
+[data-replay] .rp-cta { opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity .8s ease .7s, transform .8s var(--nx-ease) .7s; }
+[data-replay].play .rp-word, [data-replay].play .rp-product, [data-replay].play .rp-cta { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-ambient { transition: none; }
+  [data-boot] img, [data-boot] [data-clock], .nxr-strip, .nxs, [data-replay] * { transition: none !important; animation: none !important; }
+  [data-boot] .nx-screen { display: none; }
+  [data-seq], [data-ui-split] { height: auto; } [data-seq] .seq-stage, [data-ui-split] .split-stage { position: relative; }
+}
+
+/* clip frames sit on pure black: lighten blend lets the page glow show through, edges fade out */
+[data-seq] canvas { mix-blend-mode: lighten; -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000 55%, transparent 100%); mask-image: radial-gradient(70% 70% at 50% 50%, #000 55%, transparent 100%); }
+
+/* 9. cases rise */
+[data-rise] [data-rise-item] { opacity: 0; transform: translate3d(0, 70px, 0) rotateX(18deg) scale(.94); transform-origin: 50% 100%;
+  transition: opacity .9s var(--nx-ease) calc(var(--i) * .16s), transform 1.2s var(--nx-ease) calc(var(--i) * .16s); }
+[data-rise].risen [data-rise-item] { opacity: 1; transform: none; }
+[data-rise] [data-rise-item]::after { content: ""; position: absolute; left: 15%; right: 15%; bottom: -6%; height: 12%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent); z-index: -1; }
+[data-rise] [data-rise-item] { position: relative; }
+
+/* 10. promise */
+[data-promise] [data-word] { display: block; overflow: hidden; }
+[data-promise] [data-word] > span { display: block; transform: translate3d(0, 105%, 0); transition: transform .9s var(--nx-ease); }
+[data-promise] [data-word].on > span { transform: none; }
+[data-promise] [data-route] { fill: none; stroke: var(--nx-accent, #c8ff3d); stroke-width: 3; stroke-linecap: round; }
+[data-promise] [data-stop] { opacity: .25; transform: scale(.85); transform-box: fill-box; transform-origin: center; transition: opacity .5s, transform .6s var(--nx-ease); }
+[data-promise] [data-stop].on { opacity: 1; transform: none; }
+
+/* 11. loader */
+.nx-loader { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; pointer-events: none; }
+.nx-loader::before, .nx-loader::after { content: ""; position: absolute; left: 0; right: 0; height: 50.5%; background: var(--nx-bg, #07080a);
+  transition: transform 1s var(--nx-ease); }
+.nx-loader::before { top: 0; } .nx-loader::after { bottom: 0; }
+.nx-loader .ld-inner { position: relative; z-index: 1; text-align: center; transition: transform .9s var(--nx-ease), opacity .6s ease; }
+.nx-loader .ld-word { display: flex; justify-content: center; font: 800 clamp(44px, 11vw, 168px)/.9 var(--nx-display, "Inter Tight", system-ui, sans-serif);
+  letter-spacing: .02em; color: #fff; }
+.nx-loader .ld-word span { display: inline-block; opacity: 0; transform: translate3d(0, .35em, 0); filter: blur(12px);
+  animation: ldIn .9s var(--nx-ease) forwards; animation-delay: calc(var(--i) * 60ms + .1s); }
+.nx-loader .ld-bar { width: min(260px, 50vw); height: 2px; margin: 22px auto 14px; background: rgba(255,255,255,.12); overflow: hidden; border-radius: 2px; }
+.nx-loader .ld-bar i { display: block; height: 100%; width: 100%; background: var(--nx-accent, #c8ff3d); transform-origin: 0 50%;
+  transform: scaleX(var(--ld, 0)); transition: transform .35s ease; }
+.nx-loader .ld-slogan { font: 500 clamp(13px, 1.6vw, 18px)/1.3 var(--nx-text, "Inter", system-ui, sans-serif); letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(255,255,255,.7); opacity: 0; transform: translate3d(0, 8px, 0); transition: opacity .7s ease .75s, transform .7s var(--nx-ease) .75s; }
+.nx-loader.ready .ld-slogan { opacity: 1; transform: none; }
+.nx-loader.out::before { transform: translate3d(0, -101%, 0); } .nx-loader.out::after { transform: translate3d(0, 101%, 0); }
+.nx-loader.out .ld-inner { opacity: 0; transform: translate3d(0, -14vh, 0) scale(.6); }
+.nx-loader.out .ld-bar, .nx-loader.out .ld-slogan { opacity: 0; transition-delay: 0s; }
+.nx-loader.quick .ld-word span { animation-duration: .35s; animation-delay: 0s; }
+@keyframes ldIn { to { opacity: 1; transform: none; filter: blur(0); } }
+html.nx-low .nx-loader .ld-word span { filter: none; }
+@media (prefers-reduced-motion: reduce) { .nx-loader { display: none; } }

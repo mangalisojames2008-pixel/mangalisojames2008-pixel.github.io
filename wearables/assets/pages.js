@@ -220,20 +220,16 @@
         return Object.values(groups).some(g => g.has('watches') && g.has('cases'));
       };
 
-      /* Each cart line as a Shopify variant plus notes. Ring sizes are Shopify variants
-         (products.json "shopify.variants", filled by tools/shopify-sync.js); colours and slots
-         are not, so they go on the line as notes ("Colour: Gold") and show on the order. */
+      /* Each cart line as a Shopify variant (colour, ring size and slots are Shopify variants, see
+         products.json "shopify.variants", filled by tools/shopify-sync.js). Any choice Shopify has no
+         variant for goes on the line as a note ("Colour: Gold") and shows on the order. */
       function shopLines() {
         const out = [], missing = [];
         lines().forEach(i => {
-          const p = data.bySlug[i.slug], sh = p.shopify || {}, vars = sh.variants || {};
-          const parts = String(i.opt || '').split(', ').filter(Boolean);
-          const key = x => x.replace(/^ring size /i, '');
-          const hit = parts.find(x => vars[key(x)]);
-          /* a product with variants never falls back to its first one: a ring must have its size */
-          const id = Object.keys(vars).length ? (hit ? vars[key(hit)] : '') : (sh.variant || '');
-          if (!id) { missing.push(p.name); return; }
-          const attrs = parts.filter(x => x !== hit).map(x => ({
+          const p = data.bySlug[i.slug], v = window.ShopCard.variantFor(p, i.opt);   /* assets/card.js */
+          if (!v) { missing.push(p.name); return; }
+          const id = v.id;
+          const attrs = v.notes.map(x => ({
             key: (p.colours || []).some(c => c.name === x) ? 'Colour' : (p.options && p.options.values.includes(x)) ? p.options.label : 'Choice',
             value: x
           }));

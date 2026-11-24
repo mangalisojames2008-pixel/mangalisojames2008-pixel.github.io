@@ -152,3 +152,68 @@ html:not(.js) .chapter__sticky { position: static; height: auto; }
 
 /* film photos: width/height attributes give the proportions; the size itself comes from cinema.css */
 .cin .prod { height: auto; }
+
+/* ---------- owner's motion kit (motion/), fitted to the film ---------- */
+.nx-ambient { display: none; }   /* the film has its own glow (cinema.css); this layer would tint the light sections below it */
+
+/* the loader replaced the brand intro: the first scene plays in as the loader opens */
+html:not(.nx-loaded) .cin.is-in .in, html:not(.nx-loaded) .cin.is-in .giant-wrap { animation-play-state: paused; }
+.cin.is-in .giant-wrap { animation-delay: .35s; }
+.nx-loader:not(.ready) .ld-word { opacity: 0; }   /* no flash of the word before its letters are split */
+
+/* PR3 scroll move: the canvas is sized to the clip (1336 x 1548), so the product stands right of the copy */
+.cin [data-seq] .seq-wrap { position: relative; z-index: 3; --h: min(76vh, 800px); width: calc(var(--h) * .863); height: var(--h);
+  justify-self: end; margin-right: 9vw; }
+.cin [data-seq] .seq-wrap > canvas, .cin [data-seq] .seq-wrap > .seq-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cin [data-seq] .seq-poster { object-fit: contain; }
+.cin [data-seq] canvas { mix-blend-mode: normal;   /* frames are cut out (transparent), so no blend; soft edge where the clip crops the strap */
+  -webkit-mask-image: radial-gradient(80% 75% at 50% 50%, #000 72%, transparent 100%); mask-image: radial-gradient(80% 75% at 50% 50%, #000 72%, transparent 100%); }
+@media (max-width: 760px) { .cin [data-seq] .seq-wrap { --h: min(54vh, calc(88vw / .863)); justify-self: center; align-self: start; margin: 8vh 0 0; } }
+@media (min-width: 2400px) { .cin [data-seq] .seq-wrap { --h: min(74vh, 1300px); } }
+
+/* cases rise in under a night-blue glow */
+.rise { position: relative; z-index: 1; padding: 16vh 6vw 18vh; text-align: center;
+  background: radial-gradient(60% 45% at 50% 62%, rgba(42, 47, 143, .55), transparent 72%); }
+.rise__head h2 { font: 800 clamp(30px, 4.6vw, 64px)/.98 "Inter Tight", system-ui, sans-serif; letter-spacing: -.03em; margin: 0 0 6vh; }
+.rise__row { list-style: none; margin: 0 auto 6vh; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4vw; max-width: 1100px; align-items: end; }
+.rise__item a { display: grid; gap: 8px; justify-items: center; text-decoration: none; color: var(--ink); }
+.rise__stage { display: grid; place-items: end center; aspect-ratio: 1; width: 100%; }
+.rise__stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+.rise__name { font-size: clamp(12px, 1.1vw, 16px); line-height: 1.3; }
+.rise .price { color: var(--mute); font-size: 14px; }
+
+/* promise: words slide up, the delivery route draws itself */
+.promise { position: relative; z-index: 1; height: 200vh; }
+.promise__stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-content: center; justify-items: center;
+  gap: 2.6vh; padding: 0 6vw; text-align: center; }
+.promise .kick { margin: 0; }
+.promise__words { font: 800 clamp(36px, 6vw, 92px)/1 "Inter Tight", system-ui, sans-serif; letter-spacing: -.035em; margin: 0; max-width: 16ch; }
+.promise__route { width: min(640px, 88vw); }
+.promise__route svg { display: block; width: 100%; height: auto; overflow: visible; }
+.promise__track { fill: none; stroke: rgba(255, 255, 255, .16); stroke-width: 2; stroke-dasharray: 2 8; }
+.promise__stops { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); font-size: clamp(12px, 1vw, 15px); }
+.promise__stops i { display: block; width: 12px; height: 12px; margin: -28px auto 14px; border-radius: 50%; background: var(--brand, #e8452c);
+  box-shadow: 0 0 0 5px rgba(232, 69, 44, .22); }
+.promise p { color: var(--mute); max-width: 46ch; margin: 0; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.55; }
+.promise .ticks { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.promise .ticks span { border: 1px solid #2a2833; border-radius: 999px; padding: .5em 1em; font-size: 14px; color: var(--ink); }
+
+@media (min-width: 2400px) {
+  .rise__row { max-width: 1800px; } .rise__name { font-size: 22px; } .rise .price { font-size: 20px; } .rise__head h2 { font-size: 110px; }
+  .promise__words { font-size: 130px; } .promise p { font-size: 26px; } .promise .ticks span, .promise__stops { font-size: 20px; } .promise__route { width: 1000px; }
+}
+@media (min-width: 3400px) {
+  .rise__head h2 { font-size: 150px; } .rise__name { font-size: 30px; } .rise .price { font-size: 28px; }
+  .promise__words { font-size: 180px; } .promise p { font-size: 36px; } .promise .ticks span, .promise__stops { font-size: 28px; } .promise__route { width: 1400px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cin [data-seq] [data-at] { opacity: 1; transform: none; }
+  html.nx-low [data-seq], [data-seq] { height: auto; }   /* the kit's phone height (220vh) would leave a blank stretch here */
+  .promise { height: auto; } .promise__stage { position: relative; height: auto; min-height: 100vh; padding: 14vh 6vw; }
+  .promise [data-word] > span { transform: none !important; } .promise [data-stop] { opacity: 1 !important; transform: none !important; }
+  .promise [data-route] { stroke-dashoffset: 0 !important; }
+}
+.rise__row > li, .rise__item a { min-width: 0; }   /* big case photos must not widen their column on phones */
+.rise__item a { grid-template-columns: minmax(0, 1fr); }
+.rise__stage { min-width: 0; }
+.rise__stage img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }

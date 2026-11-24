@@ -145,5 +145,7 @@
     addEventListener('resize', kick);
     kick();
   };
+  /* the loader (motion/nexera-loader.js) adds nx-loaded; if it never ran, don't leave the first scene waiting */
+  setTimeout(() => document.documentElement.classList.add('nx-loaded'), 3500);
   if (window.Shop) go(); else document.addEventListener('DOMContentLoaded', go);
 })();

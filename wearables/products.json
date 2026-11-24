@@ -97,8 +97,11 @@
       "photo": "Xiaomi",
       "shopify": {
         "handle": "redmi-watch-5-active",
-        "variant": "gid://shopify/ProductVariant/68475159904445",
-        "variants": {}
+        "variant": "gid://shopify/ProductVariant/68477232840893",
+        "variants": {
+          "Black": "gid://shopify/ProductVariant/68477232840893",
+          "Silver": "gid://shopify/ProductVariant/68477232873661"
+        }
       },
       "hires": [
         960,
@@ -230,8 +233,13 @@
       ],
       "shopify": {
         "handle": "colmi-p71",
-        "variant": "gid://shopify/ProductVariant/68475160166589",
-        "variants": {}
+        "variant": "gid://shopify/ProductVariant/68477258891453",
+        "variants": {
+          "Black": "gid://shopify/ProductVariant/68477258891453",
+          "Gold": "gid://shopify/ProductVariant/68477258924221",
+          "Navy": "gid://shopify/ProductVariant/68477258956989",
+          "Lilac": "gid://shopify/ProductVariant/68477258989757"
+        }
       },
       "colours": [
         {
@@ -372,13 +380,27 @@
         "handle": "colmi-r10-smart-ring",
         "variant": "gid://shopify/ProductVariant/68475160559805",
         "variants": {
-          "7": "gid://shopify/ProductVariant/68475160559805",
-          "8": "gid://shopify/ProductVariant/68475160592573",
-          "9": "gid://shopify/ProductVariant/68475160625341",
-          "10": "gid://shopify/ProductVariant/68475160658109",
-          "11": "gid://shopify/ProductVariant/68475160690877",
-          "12": "gid://shopify/ProductVariant/68475160723645",
-          "13": "gid://shopify/ProductVariant/68475160756413"
+          "7 / Black": "gid://shopify/ProductVariant/68475160559805",
+          "7 / Gold": "gid://shopify/ProductVariant/68477269737661",
+          "7 / Silver": "gid://shopify/ProductVariant/68477269770429",
+          "8 / Black": "gid://shopify/ProductVariant/68475160592573",
+          "8 / Gold": "gid://shopify/ProductVariant/68477269803197",
+          "8 / Silver": "gid://shopify/ProductVariant/68477269835965",
+          "9 / Black": "gid://shopify/ProductVariant/68475160625341",
+          "9 / Gold": "gid://shopify/ProductVariant/68477269868733",
+          "9 / Silver": "gid://shopify/ProductVariant/68477269901501",
+          "10 / Black": "gid://shopify/ProductVariant/68475160658109",
+          "10 / Gold": "gid://shopify/ProductVariant/68477269934269",
+          "10 / Silver": "gid://shopify/ProductVariant/68477269967037",
+          "11 / Black": "gid://shopify/ProductVariant/68475160690877",
+          "11 / Gold": "gid://shopify/ProductVariant/68477269999805",
+          "11 / Silver": "gid://shopify/ProductVariant/68477270032573",
+          "12 / Black": "gid://shopify/ProductVariant/68475160723645",
+          "12 / Gold": "gid://shopify/ProductVariant/68477270065341",
+          "12 / Silver": "gid://shopify/ProductVariant/68477270098109",
+          "13 / Black": "gid://shopify/ProductVariant/68475160756413",
+          "13 / Gold": "gid://shopify/ProductVariant/68477270130877",
+          "13 / Silver": "gid://shopify/ProductVariant/68477270163645"
         }
       },
       "hires": [
@@ -435,13 +457,27 @@
         "handle": "colmi-r12-smart-ring",
         "variant": "gid://shopify/ProductVariant/68475160920253",
         "variants": {
-          "7": "gid://shopify/ProductVariant/68475160920253",
-          "8": "gid://shopify/ProductVariant/68475160953021",
-          "9": "gid://shopify/ProductVariant/68475160985789",
-          "10": "gid://shopify/ProductVariant/68475161018557",
-          "11": "gid://shopify/ProductVariant/68475161051325",
-          "12": "gid://shopify/ProductVariant/68475161084093",
-          "13": "gid://shopify/ProductVariant/68475161116861"
+          "7 / Black": "gid://shopify/ProductVariant/68475160920253",
+          "7 / Gold": "gid://shopify/ProductVariant/68477174579389",
+          "7 / Silver": "gid://shopify/ProductVariant/68477174612157",
+          "8 / Black": "gid://shopify/ProductVariant/68475160953021",
+          "8 / Gold": "gid://shopify/ProductVariant/68477174644925",
+          "8 / Silver": "gid://shopify/ProductVariant/68477174677693",
+          "9 / Black": "gid://shopify/ProductVariant/68475160985789",
+          "9 / Gold": "gid://shopify/ProductVariant/68477174710461",
+          "9 / Silver": "gid://shopify/ProductVariant/68477174743229",
+          "10 / Black": "gid://shopify/ProductVariant/68475161018557",
+          "10 / Gold": "gid://shopify/ProductVariant/68477174775997",
+          "10 / Silver": "gid://shopify/ProductVariant/68477174808765",
+          "11 / Black": "gid://shopify/ProductVariant/68475161051325",
+          "11 / Gold": "gid://shopify/ProductVariant/68477174841533",
+          "11 / Silver": "gid://shopify/ProductVariant/68477174874301",
+          "12 / Black": "gid://shopify/ProductVariant/68475161084093",
+          "12 / Gold": "gid://shopify/ProductVariant/68477174907069",
+          "12 / Silver": "gid://shopify/ProductVariant/68477174939837",
+          "13 / Black": "gid://shopify/ProductVariant/68475161116861",
+          "13 / Gold": "gid://shopify/ProductVariant/68477174972605",
+          "13 / Silver": "gid://shopify/ProductVariant/68477175005373"
         }
       },
       "colours": [
@@ -537,8 +573,12 @@
       "inStock": true,
       "shopify": {
         "handle": "aluminium-watch-case",
-        "variant": "gid://shopify/ProductVariant/68475161379005",
-        "variants": {}
+        "variant": "gid://shopify/ProductVariant/68477278617789",
+        "variants": {
+          "One Slot": "gid://shopify/ProductVariant/68477278617789",
+          "Two Slots": "gid://shopify/ProductVariant/68477278650557",
+          "Three Slots": "gid://shopify/ProductVariant/68477278683325"
+        }
       },
       "photo": "supplier listing (AliExpress)",
       "hires": [
