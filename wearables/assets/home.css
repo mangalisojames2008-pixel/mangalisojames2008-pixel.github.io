@@ -139,7 +139,7 @@ html:not(.js) .chapter__sticky { position: static; height: auto; }
 .cin .stage { position: sticky; top: 0; height: 100vh; display: grid; place-items: center; border-radius: 0; background: none; isolation: auto; }
 .cin .btn { min-height: 0; padding: .8em 1.3em; border: 0; border-radius: var(--r-ctl); background: var(--glow); color: #0b0b0e; font-weight: 600; }
 .cin .btn:hover { background: color-mix(in srgb, var(--glow) 85%, #fff); transform: none; }
-.cin .btn:active { transform: scale(.98); }
+.cin .btn:active { transform: scale(.97); transition: transform .1s ease-out; }
 @media (prefers-reduced-motion: reduce) { .cin .stage { position: relative; } }
 /* centred headline (finishes, cases): room for a few words per line on wider screens */
 @media (min-width: 761px) { .cin .copy.c { max-width: min(64vw, 22em); } }
@@ -157,19 +157,16 @@ html:not(.js) .chapter__sticky { position: static; height: auto; }
 .nx-ambient { display: none; }   /* the film has its own glow (cinema.css); this layer would tint the light sections below it */
 
 /* the loader replaced the brand intro: the first scene plays in as the loader opens */
-html:not(.nx-loaded) .cin.is-in .in, html:not(.nx-loaded) .cin.is-in .giant-wrap { animation-play-state: paused; }
-.cin.is-in .giant-wrap { animation-delay: .35s; }
-.nx-loader:not(.ready) .ld-word { opacity: 0; }   /* no flash of the word before its letters are split */
 
-/* PR3 scroll move: the canvas is sized to the clip (1336 x 1548), so the product stands right of the copy */
-.cin [data-seq] .seq-wrap { position: relative; z-index: 3; --h: min(76vh, 800px); width: calc(var(--h) * .863); height: var(--h);
-  justify-self: end; margin-right: 9vw; }
+/* PR3 scroll move: frames are padded 12% left/right and the cropped strap ends fade into the page
+   (tools/pad_frames.py), so the whole watch case is always inside the canvas: no mask, nothing clipped */
+.cin [data-seq] .seq-wrap { position: relative; z-index: 3; --h: min(74vh, 800px); width: calc(var(--h) * 1.069); height: var(--h);
+  justify-self: end; margin-right: 6vw; }
 .cin [data-seq] .seq-wrap > canvas, .cin [data-seq] .seq-wrap > .seq-poster { position: absolute; inset: 0; width: 100%; height: 100%; }
 .cin [data-seq] .seq-poster { object-fit: contain; }
-.cin [data-seq] canvas { mix-blend-mode: normal;   /* frames are cut out (transparent), so no blend; soft edge where the clip crops the strap */
-  -webkit-mask-image: radial-gradient(80% 75% at 50% 50%, #000 72%, transparent 100%); mask-image: radial-gradient(80% 75% at 50% 50%, #000 72%, transparent 100%); }
-@media (max-width: 760px) { .cin [data-seq] .seq-wrap { --h: min(54vh, calc(88vw / .863)); justify-self: center; align-self: start; margin: 8vh 0 0; } }
-@media (min-width: 2400px) { .cin [data-seq] .seq-wrap { --h: min(74vh, 1300px); } }
+.cin [data-seq] canvas { mix-blend-mode: normal; -webkit-mask-image: none; mask-image: none; }
+@media (max-width: 760px) { .cin [data-seq] .seq-wrap { --h: min(50vh, calc(92vw / 1.069)); justify-self: center; align-self: start; margin: 9vh 0 0; } }
+@media (min-width: 2400px) { .cin [data-seq] .seq-wrap { --h: min(72vh, 1300px); } }
 
 /* cases rise in under a night-blue glow */
 .rise { position: relative; z-index: 1; padding: 16vh 6vw 18vh; text-align: center;
@@ -217,3 +214,8 @@ html:not(.nx-loaded) .cin.is-in .in, html:not(.nx-loaded) .cin.is-in .giant-wrap
 .rise__item a { grid-template-columns: minmax(0, 1fr); }
 .rise__stage { min-width: 0; }
 .rise__stage img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
+/* phones: photos that sit right of centre for their whole scene (Redmi battery scene x16, H7 x14) would run
+   off the screen edge at the usual 70vw, so they are a little smaller there */
+@media (max-width: 760px) { .cin .prod--right { width: 56vw; } }
+/* counters never break inside the number ("1 500" stays on one line) */
+.cin .num { white-space: nowrap; }

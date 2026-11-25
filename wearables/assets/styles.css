@@ -225,3 +225,19 @@ body[data-page="product"] main { min-height: 100svh; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- Apple-style feel (.claude/skills/apple-design), 25 Nov 2026 ---------- */
+/* response: feedback on pointer-down, instant (100 ms), and no double-tap-zoom delay on touch */
+:is(.btn, .chip, .nx-burger, .pdp__thumb, .card__add, .line__rm, .nx-wa, [data-step], .opt) { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+body :is(.btn, .chip, .nx-burger, .pdp__thumb, .nx-wa, [data-step]):active { transform: scale(.97); transition: transform .1s ease-out; }
+/* size-specific tracking: big type is already tightened (h1 -.03em, h2 -.025em); small labels get a touch of air */
+.kicker, .small { letter-spacing: .01em; }
+.tag, .footer h2 { letter-spacing: .02em; }
+/* reduced transparency: the frosted menu button becomes solid; more contrast: give it a clear edge */
+@media (prefers-reduced-transparency: reduce) {
+  .nx-burger { background: #14141a; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .nx-burger { background: #000; box-shadow: inset 0 0 0 2px #fff; }
+  .chip { border-color: currentColor; }
+}

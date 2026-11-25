@@ -17,16 +17,12 @@
 <link rel="stylesheet" href="assets/home.css">
 <link rel="stylesheet" href="ui/nexera-ui.css">
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!document.documentElement.classList.contains('ready'))document.documentElement.classList.remove('js')},6000)</script>
-<script src="motion/nexera-loader.js" defer></script>
 <script src="config.js" defer></script>
 <script src="assets/card.js" defer></script>
 <script src="assets/app.js" defer></script>
 <script src="assets/home.js" defer></script>
 </head>
 <body class="home">
-<!-- NEXERA loader (motion/nexera-loader.js): letters rise, real loading progress, slogan, then the screen splits open.
-     First visit 1.6-2.4 s, never more than 3 s; later visits in the session about 0.5 s; none with reduced motion. -->
-<div class="nx-loader" data-loader aria-hidden="true"><div class="ld-inner"><div class="ld-word">NEXERA</div><div class="ld-bar"><i></i></div><p class="ld-slogan">Shop Smarter. Live Better.</p></div></div>
 <!-- NEXERA menu (ui/menu-snippet.html, links set for this store) -->
 <button class="nx-burger" aria-expanded="false" aria-controls="nx-menu" aria-label="Open menu">
   <span></span><span></span><span></span><b class="nx-count"></b>
@@ -62,13 +58,25 @@
   <h1 class="sr-only" id="cinTitle">NEXERA: fitness watches, smart rings and watch cases, delivered in South Africa</h1>
   <div class="cin-ambient" aria-hidden="true"></div>
 
+  <!-- BRAND INTRO: the original slow intro (NEXERA rises letter by letter, line, slogan, lifts away at 1.9 s),
+       made cinematic: Higgsfield light plate behind the word, focus pull, light sweep, grain, opening letterbox. -->
+  <div class="brand-intro" data-tone="ember" aria-hidden="true">
+    <div class="bi-beam"></div>
+    <video class="bi-plate" muted playsinline preload="none" poster="cinema/intro-poster.webp" data-src-webm="cinema/intro.webm" data-src-mp4="cinema/intro.mp4"></video>
+    <div class="bi-grain"></div>
+    <div class="bi-word"><span style="--i:0">N</span><span style="--i:1">E</span><span style="--i:2">X</span><span style="--i:3">E</span><span style="--i:4">R</span><span style="--i:5">A</span><i class="bi-sheen"></i></div>
+    <div class="bi-line"></div>
+    <!-- SLOGAN (owner, 2026-11-23) -->
+    <p class="bi-slogan">Shop Smarter. Live Better.</p>
+  </div>
+
   <!-- 1 · INTRO: plays on load, then scrubs out on scroll -->
   <div class="scene" style="--len:240" data-glow="#ff7a2b">
     <div class="stage">
       <div class="giant-wrap" aria-hidden="true">
         <p class="giant" data-k="0:o1 s1 | .55:o1 s1.05 | 1:o0 s1.14 b10">ACTIVE</p>
       </div>
-      <div class="in" style="--d:.15s">
+      <div class="in" style="--d:2s">
         <div class="prod-glow" data-k="0:o.7 | .6:o.7 | 1:o0"></div>
         <img class="prod"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
@@ -82,7 +90,7 @@
          fetchpriority="high"
          data-k="0:s1 | .5:s1.04 | 1:o.3 s.72 y-6 b8">
       </div>
-      <div class="in" style="--d:.5s">
+      <div class="in" style="--d:2.5s">
         <div class="copy l ghost" data-k="0:o1 | .3:o1 y0 b0 | .58:o0 y-9 b14">
           <span class="kick">NEXERA <i></i> 01 · Watches</span>
           <h2>Built for the days that test you.</h2>
@@ -98,7 +106,7 @@
   <div class="scene" style="--len:260" data-glow="#ffb648">
     <div class="stage">
       <div class="prod-glow" data-k="0:o0 x16 | .15:o.6 x16 | .85:o.6 | 1:o0"></div>
-      <img class="prod"
+      <img class="prod prod--right"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
          loading="lazy"
          src="images/cut/xiaomi-redmi-watch-5-active.png"
@@ -123,7 +131,7 @@
     <div class="stage">
       <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 y8 | .18:o1 y0 | .55:o1 | .7:o0 y-6">BAND 10</p></div>
       <div class="prod-glow" data-k="0:o0 | .2:o.6 | .45:o.6 x0 | .62:x16 | .9:o.6 | 1:o0 x16"></div>
-      <img class="prod"
+      <img class="prod prod--right"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
          loading="lazy"
          src="images/cut/xiaomi-smart-band-10.png"
@@ -149,7 +157,7 @@
     <div class="stage">
       <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 s.9 | .15:o1 s1 | .8:o1 | 1:o0 s1.1 b10">NO SCREEN</p></div>
       <div class="prod-glow" data-k="0:o0 x14 | .15:o.7 | .85:o.7 | 1:o0"></div>
-      <img class="prod"
+      <img class="prod prod--right"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
          loading="lazy"
          src="images/cut/spovan-h7.png"
@@ -174,7 +182,7 @@
     <div class="stage">
       <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 s.9 | .15:o1 s1 | .8:o1 | 1:o0 s1.1 b10">RING</p></div>
       <div class="prod-glow" data-k="0:o0 x14 | .15:o.7 | .85:o.7 | 1:o0"></div>
-      <img class="prod"
+      <img class="prod prod--right"
          onerror="if(this.hasAttribute('srcset')){this.removeAttribute('srcset');this.removeAttribute('sizes');this.src=this.getAttribute('src')}else if(!this.classList.contains('plate')){this.classList.add('plate');this.src=this.dataset.fallback}"
          loading="lazy"
          src="images/cut/colmi-r12.png"
@@ -202,7 +210,7 @@
       <div class="giant-wrap" aria-hidden="true"><p class="giant" data-k="0:o0 x-20 | .2:o1 x0 | .8:o1 | 1:o0 x20 b10">OUTDOOR</p></div>
       <div class="prod-glow" data-k="0:o0 x14 | .2:o.7 | .85:o.7 | 1:o0"></div>
       <div class="seq-wrap" data-k="0:o0 | .06:o1 | .95:o1 | 1:o.3">
-        <img class="seq-poster" src="images/cut/spovan-pr3.png" srcset="images/cut/spovan-pr3-960.webp 960w, images/cut/spovan-pr3-1440.webp 1440w" sizes="(max-width:760px) 86vw, 40vw" width="700" height="811" loading="lazy" decoding="async" alt="Spovan PR3 outdoor watch">
+        <img class="seq-poster" src="frames/pr3/1440/000.webp" srcset="frames/pr3/960/000.webp 892w, frames/pr3/1440/000.webp 1068w" sizes="(max-width:760px) 92vw, 50vw" width="1068" height="1000" loading="lazy" decoding="async" alt="Spovan PR3 outdoor watch">
         <canvas aria-hidden="true"></canvas>
       </div>
       <div class="copy l" data-at="0.62-1">
@@ -266,11 +274,6 @@
       <div class="ticks"><span>Delivery nationwide</span><span>7-day returns</span><span>Printable ring sizer</span></div>
     </div>
   </div>
-</section>
-</section>
-</section>
-</section>
-</section>
 </section>
 
   <!-- BENTO: one uneven row, straight to each range -->

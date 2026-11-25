@@ -145,7 +145,23 @@
     addEventListener('resize', kick);
     kick();
   };
-  /* the loader (motion/nexera-loader.js) adds nx-loaded; if it never ran, don't leave the first scene waiting */
-  setTimeout(() => document.documentElement.classList.add('nx-loaded'), 3500);
+  /* brand intro: start the Higgsfield light plate with the intro (phones get a small 720p file; skipped with
+     Save-Data, reduced motion or a weak CPU, where the CSS beam stands in),
+     then take the intro out of the page once it has lifted away, so it costs nothing while scrolling */
+  (() => {
+    const bi = document.querySelector('.brand-intro'); if (!bi) return;
+    const v = bi.querySelector('.bi-plate'), root = document.documentElement;
+    const skip = matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.hardwareConcurrency || 8) <= 4 ||
+      !!(navigator.connection && navigator.connection.saveData);
+    const small = matchMedia('(max-width: 760px)').matches;
+    if (v && !skip) {
+      const can = t => v.canPlayType(t);
+      const f = can('video/webm; codecs="vp9"') ? v.dataset.srcWebm : v.dataset.srcMp4;
+      v.src = small ? f.replace(/(\.\w+)$/, '-720$1') : f;
+      v.addEventListener('playing', () => v.classList.add('on'), { once: true });
+      v.play().catch(() => {});
+    }
+    bi.addEventListener('animationend', e => { if (e.target === bi && !e.pseudoElement && /^bi-out/.test(e.animationName)) { bi.classList.add('done'); if (v) { v.pause(); v.removeAttribute('src'); v.load(); } } });
+  })();
   if (window.Shop) go(); else document.addEventListener('DOMContentLoaded', go);
 })();
