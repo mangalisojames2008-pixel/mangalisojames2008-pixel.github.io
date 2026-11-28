@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NEXERA | Shop smarter. Live better.</title>
+  <meta name="description" content="NEXERA is a store for iPhone, AirPods, MacBook and Apple Watch. Choose your model, colour and storage, then send your order in one message.">
+  <meta name="theme-color" content="#0e0f13">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/logo-mark-1024.png">
+  <meta property="og:title" content="NEXERA | Shop smarter. Live better.">
+  <meta property="og:description" content="iPhone, AirPods, MacBook and Apple Watch in one place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@500&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    /* Content waits hidden for its animations only while the page script is running.
+       If that script fails to load, or is very slow, everything is shown as plain content. */
+    (function () {
+      var d = document.documentElement, plain = function () { if (!window.NEXERA_READY) d.classList.remove('js'); };
+      d.classList.add('js');
+      window.addEventListener('error', function (e) { if (e.target && e.target.tagName === 'SCRIPT') plain(); }, true);
+      setTimeout(plain, 6000);
+    })();
+  </script>
+</head>
+<body>
+  <!-- The logo, drawn once and reused across the page -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g-dawn" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ff9a4d"/>
+        <stop offset=".5" stop-color="#ff4f6e"/>
+        <stop offset="1" stop-color="#7c5cff"/>
+      </linearGradient>
+      <symbol id="mark" viewBox="0 0 64 64">
+        <rect x="2" y="2" width="60" height="60" rx="19" fill="#111218"/>
+        <rect x="2.5" y="2.5" width="59" height="59" rx="18.5" fill="none" stroke="#fff" stroke-opacity=".16"/>
+        <path d="M20.5 45V20.5L42.5 44.5V31" fill="none" stroke="#f4f2ed" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="42.5" cy="19.8" r="4.6" fill="url(#g-dawn)"/>
+      </symbol>
+      <symbol id="mark-glyph" viewBox="0 0 64 64">
+        <path d="M20.5 45V20.5L42.5 44.5V31" fill="none" stroke="currentColor" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="42.5" cy="19.8" r="4.6" fill="url(#g-dawn)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="top">
+    <div class="nav__inner">
+      <a class="brand" href="#top" aria-label="NEXERA home">
+        <svg class="brand__mark" aria-hidden="true"><use href="#mark"/></svg>
+        <span class="brand__word">NEXERA</span>
+      </a>
+      <nav class="nav__menu" id="navMenu" aria-label="Main">
+        <ul>
+          <li><a href="#shop" data-filter-link="iphone">iPhone</a></li>
+          <li><a href="#shop" data-filter-link="airpods">AirPods</a></li>
+          <li><a href="#shop" data-filter-link="mac">MacBook</a></li>
+          <li><a href="#shop" data-filter-link="watch">Apple Watch</a></li>
+          <li><a href="#compare">Compare</a></li>
+          <li><a href="#order">How to order</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="bag-btn" id="bagOpen" type="button" aria-controls="bag" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span class="bag-btn__label">Bag</span>
+          <span class="bag-btn__count" id="bagCount" aria-live="polite">0</span>
+        </button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-controls="navMenu" aria-expanded="false">
+          <span class="sr-only">Menu</span><i></i><i></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== HERO: scroll story ===================== -->
+    <section class="hero" id="hero" aria-labelledby="heroTitle">
+      <div class="hero__stage">
+        <div class="hero__glow" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="hero__grain" aria-hidden="true"></div>
+
+        <div class="hero__intro" aria-hidden="true">
+          <svg class="hero__mark"><use href="#mark-glyph"/></svg>
+          <span class="hero__word">NEXERA</span>
+        </div>
+
+        <div class="hero__copy">
+          <p class="label">NEXERA · Apple devices</p>
+          <h1 id="heroTitle" class="hero__title">
+            <span class="line" data-step="1"><span>Shop smarter.</span></span>
+            <span class="line" data-step="2"><span>Live better.</span></span>
+          </h1>
+          <div class="hero__more" data-step="3">
+            <p class="hero__lede">iPhone, AirPods, MacBook and Apple&nbsp;Watch in one place. Choose your model, colour and storage, then send your order in one message.</p>
+            <div class="hero__cta">
+              <a class="btn btn--light" href="#shop">Shop the range</a>
+              <a class="btn btn--ghost" href="#order">How ordering works</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__devices" aria-hidden="true">
+          <div class="dev dev--mac" data-dev="mac"></div>
+          <div class="dev dev--phone" data-dev="phone"></div>
+          <div class="dev dev--watch" data-dev="watch"></div>
+          <div class="dev dev--pods" data-dev="pods"></div>
+          <div class="hero__floor"></div>
+        </div>
+
+        <p class="corner corner--bl label" aria-hidden="true">iPhone / AirPods / MacBook / Apple Watch</p>
+        <div class="corner corner--br label" aria-hidden="true">
+          <span class="scroll-hint">Scroll</span>
+          <span class="progress"><i id="heroProgress"></i></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee">
+        <span>Shop smarter</span><b></b><span>Live better</span><b></b><span>iPhone</span><b></b><span>AirPods</span><b></b><span>MacBook</span><b></b><span>Apple Watch</span><b></b>
+      </div>
+    </div>
+
+    <!-- ===================== FAMILIES ===================== -->
+    <section class="section families" aria-labelledby="famTitle">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="label label--accent">The range</p>
+          <h2 id="famTitle">Four families.<br>One easy store.</h2>
+        </div>
+        <div class="families__grid" id="families"></div>
+      </div>
+    </section>
+
+    <!-- ===================== SPOTLIGHT ===================== -->
+    <section class="spotlight" id="spotlight" aria-labelledby="spotTitle">
+      <div class="wrap spotlight__inner">
+        <div class="spotlight__art reveal">
+          <span class="spotlight__ring" aria-hidden="true"></span>
+          <div class="spotlight__frame" id="spotArt" data-parallax="0.14"></div>
+        </div>
+        <div class="spotlight__copy reveal">
+          <p class="label label--accent" id="spotLabel">In the spotlight</p>
+          <h2 id="spotTitle">iPhone</h2>
+          <p class="spotlight__lede" id="spotLede"></p>
+          <ul class="spotlight__facts" id="spotFacts"></ul>
+          <div class="spotlight__swatches" id="spotSwatches" role="radiogroup" aria-label="Colour"></div>
+          <div class="hero__cta">
+            <button class="btn btn--light" type="button" id="spotCta">Watch it unfold in 3D</button>
+            <a class="btn btn--ghost" href="#shop" data-filter-link="iphone">Shop iPhone</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SHOP ===================== -->
+    <section class="section shop" id="shop" aria-labelledby="shopTitle">
+      <div class="wrap">
+        <div class="shop__head">
+          <div class="reveal">
+            <p class="label label--accent">Shop</p>
+            <h2 id="shopTitle">Pick yours.</h2>
+            <p class="section__lede">Tap a colour to see it. Choose your size or storage, then add it to your bag.</p>
+          </div>
+          <div class="filters" role="tablist" aria-label="Filter products" id="filters">
+            <button role="tab" aria-selected="true" class="is-active" data-filter="all">All</button>
+            <button role="tab" aria-selected="false" data-filter="iphone">iPhone</button>
+            <button role="tab" aria-selected="false" data-filter="airpods">AirPods</button>
+            <button role="tab" aria-selected="false" data-filter="mac">MacBook</button>
+            <button role="tab" aria-selected="false" data-filter="watch">Apple Watch</button>
+          </div>
+        </div>
+        <div class="grid" id="grid" aria-live="polite"></div>
+        <noscript><p class="noscript">Turn on JavaScript to see the products and prices, or email <a href="mailto:nexeracommerce@gmail.com">nexeracommerce@gmail.com</a>.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ===================== COMPARE ===================== -->
+    <section class="section compare" id="compare" aria-labelledby="cmpTitle">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="label label--accent">Shop smarter</p>
+          <h2 id="cmpTitle">Compare before you buy.</h2>
+          <p class="section__lede">Put two models side by side. Rows that differ are highlighted.</p>
+        </div>
+        <div class="compare__controls reveal">
+          <div class="seg" role="tablist" aria-label="Product family" id="cmpFamily">
+            <button role="tab" aria-selected="true" class="is-active" data-family="iphone">iPhone</button>
+            <button role="tab" aria-selected="false" data-family="airpods">AirPods</button>
+            <button role="tab" aria-selected="false" data-family="mac">MacBook</button>
+            <button role="tab" aria-selected="false" data-family="watch">Apple Watch</button>
+          </div>
+          <div class="compare__picks">
+            <label class="select"><span class="sr-only">First model</span><select id="cmpA"></select></label>
+            <span class="vs" aria-hidden="true">vs</span>
+            <label class="select"><span class="sr-only">Second model</span><select id="cmpB"></select></label>
+          </div>
+        </div>
+        <div class="compare__table reveal" id="cmpTable"></div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW TO ORDER ===================== -->
+    <section class="section order" id="order" aria-labelledby="orderTitle">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="label label--accent">How ordering works</p>
+          <h2 id="orderTitle">Three steps. No account needed.</h2>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__num">01</span>
+            <h3>Pick your device</h3>
+            <p>Choose the model, colour and storage or size. Add as many items as you like to your bag.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">02</span>
+            <h3>Send your bag</h3>
+            <p>One tap turns your bag into a ready-written message to NEXERA <span data-channels>on WhatsApp or by email</span>.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">03</span>
+            <h3>Get it confirmed</h3>
+            <p>NEXERA replies with the price and stock for your exact choice. Nothing is paid on this website.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="section faq" id="faq" aria-labelledby="faqTitle">
+      <div class="wrap faq__inner">
+        <div class="section__head reveal">
+          <p class="label label--accent">Good to know</p>
+          <h2 id="faqTitle">Questions, answered.</h2>
+        </div>
+        <div class="faq__list reveal">
+          <details>
+            <summary>How do I place an order?</summary>
+            <p>Add products to your bag, open the bag and tap <span data-send-buttons><strong>Send on WhatsApp</strong> or <strong>Send by email</strong></span>. Your list is written for you, so you only need to press send.</p>
+          </details>
+          <details>
+            <summary>Why does a product say "Price on request"?</summary>
+            <p>The price is confirmed when you send your order, so the reply you get is for your exact model, colour and storage.</p>
+          </details>
+          <details>
+            <summary>Can I order more than one device at once?</summary>
+            <p>Yes. Add everything you want to your bag and change the quantity there. It all goes in one message.</p>
+          </details>
+          <details>
+            <summary>Is NEXERA part of Apple?</summary>
+            <p>No. NEXERA is an independent store that sells Apple products. Apple, iPhone, AirPods, MacBook and Apple Watch are trademarks of Apple Inc.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="final" aria-labelledby="finalTitle">
+      <div class="final__glow" aria-hidden="true"></div>
+      <div class="wrap final__inner reveal">
+        <svg class="final__mark" aria-hidden="true"><use href="#mark-glyph"/></svg>
+        <h2 id="finalTitle">Shop smarter.<br><span>Live better.</span></h2>
+        <p>Your next iPhone, AirPods, MacBook or Apple&nbsp;Watch is a few taps away.</p>
+        <div class="hero__cta">
+          <a class="btn btn--light" href="#shop">Start shopping</a>
+          <button class="btn btn--ghost" type="button" data-open-bag>Open your bag</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <a class="brand brand--light" href="#top" aria-label="NEXERA, back to top">
+          <svg class="brand__mark" aria-hidden="true"><use href="#mark"/></svg>
+          <span class="brand__word">NEXERA</span>
+        </a>
+        <p class="footer__motto">Shop smarter. Live better.</p>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#shop" data-filter-link="iphone">iPhone</a>
+        <a href="#shop" data-filter-link="airpods">AirPods</a>
+        <a href="#shop" data-filter-link="mac">MacBook</a>
+        <a href="#shop" data-filter-link="watch">Apple Watch</a>
+        <a href="#compare">Compare</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="footer__contact" id="contact"></div>
+    </div>
+    <div class="wrap footer__legal">
+      <p>NEXERA is an independent store and is not affiliated with, endorsed or sponsored by Apple Inc. Apple, iPhone, AirPods, MacBook and Apple Watch are trademarks of Apple Inc., registered in the U.S. and other countries. Product images on this site are 3D renders made for NEXERA, not photographs.</p>
+      <p>&copy; <span id="year">2026</span> NEXERA</p>
+    </div>
+  </footer>
+
+  <!-- ===================== BAG DRAWER ===================== -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="bag" id="bag" aria-label="Your bag" aria-hidden="true" tabindex="-1">
+    <div class="bag__head">
+      <h2>Your bag</h2>
+      <button class="icon-btn" type="button" id="bagClose" aria-label="Close bag">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="bag__body">
+      <ul class="bag__list" id="bagList"></ul>
+      <div class="bag__empty" id="bagEmpty">
+        <svg aria-hidden="true"><use href="#mark-glyph"/></svg>
+        <p>Your bag is empty.</p>
+        <a class="btn btn--dark" href="#shop" data-close-bag>Browse the range</a>
+      </div>
+    </div>
+    <div class="bag__foot" id="bagFoot">
+      <div class="bag__total"><span>Total</span><strong id="bagTotal">Price on request</strong></div>
+      <button class="btn btn--wa" type="button" id="sendWa">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>
+          Send on WhatsApp
+        </button>
+      <div class="bag__row">
+        <button class="btn btn--line" type="button" id="sendMail">Send by email</button>
+        <button class="btn btn--line" type="button" id="copyList">Copy list</button>
+      </div>
+      <p class="bag__note" id="bagNote">Nothing is paid here. NEXERA replies to confirm price and stock.</p>
+    </div>
+  </aside>
+
+  <!-- ===================== PRODUCT VIEW (3D display) ===================== -->
+  <div class="pv" id="pv" role="dialog" aria-modal="true" aria-labelledby="pvName" data-lenis-prevent hidden>
+    <div class="pv__backdrop" id="pvBackdrop"></div>
+    <div class="pv__panel" id="pvPanel">
+      <!-- the 3D layer stays in view while the panel scrolls: glow, display word, product, labels -->
+      <div class="pv__layer" id="pvLayer">
+        <div class="pv__glow" id="pvGlow" aria-hidden="true"></div>
+        <div class="pv__word" id="pvWord" aria-hidden="true"></div>
+        <canvas class="pv__canvas" id="pvCanvas" tabindex="0" aria-label="3D view of the product. Drag, or use the arrow keys, to turn it."></canvas>
+        <svg class="pv__lines" id="pvLines" aria-hidden="true"></svg>
+        <div class="pv__labels" id="pvLabels"></div>
+      </div>
+      <div class="pv__hero">
+      <div class="pv__stage" id="pvStage">
+        <img class="pv__still" id="pvStill" alt="">
+        <p class="pv__loading" aria-hidden="true"><span></span>Loading 3D view</p>
+        <button class="pv__btn pv__load3d" type="button" id="pvLoad3d">Load the 3D view (about 1 MB)</button>
+        <p class="pv__hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Drag to turn</p>
+        <p class="pv__note">Illustration by NEXERA. Parts are simplified and not to scale. Tap a label for details.</p>
+        <div class="pv__part" id="pvPart" role="status" hidden><b></b><span></span><button type="button" class="pv__part-x" id="pvPartClose" aria-label="Close part details">×</button></div>
+        <div class="pv__tools" id="pvTools">
+          <div class="pv__views" id="pvViews" role="group" aria-label="Viewing angle">
+            <button type="button" data-angle="front" aria-pressed="false">Front</button><button type="button" data-angle="side" aria-pressed="false">Side</button><button type="button" data-angle="back" aria-pressed="false">Back</button><button type="button" data-angle="top" aria-pressed="false">Top</button>
+          </div>
+          <div class="pv__acts">
+            <button class="pv__btn" type="button" id="pvLid" aria-pressed="false" hidden>Close lid</button>
+            <button class="pv__btn pv__btn--inside" type="button" id="pvInside" aria-pressed="false">Look inside</button>
+            <button class="pv__btn pv__replay" type="button" id="pvReplay">Replay</button>
+          </div>
+        </div>
+      </div>
+      <div class="pv__info" id="pvInfo">
+        <button class="icon-btn pv__close" type="button" id="pvClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <p class="label label--accent" id="pvFamily"></p>
+        <h2 id="pvName"></h2>
+        <p class="pv__tag" id="pvTag"></p>
+        <ul class="pv__facts" id="pvFacts"></ul>
+        <div class="opt">
+          <span class="opt__label">Colour · <b id="pvColour"></b></span>
+          <div class="swatches" id="pvSwatches" role="radiogroup" aria-label="Colour"></div>
+        </div>
+        <div class="opt" id="pvOptWrap">
+          <span class="opt__label" id="pvOptLabel">Storage</span>
+          <div class="chips" id="pvChips" role="radiogroup"></div>
+        </div>
+        <div class="pv__buy">
+          <span class="price" id="pvPrice"></span>
+          <button class="btn btn--light add" type="button" id="pvAdd">Add to bag</button>
+        </div>
+        <button class="pv__cue" type="button" id="pvCue">Scroll for the full story<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      </div>
+      <div class="pv__story" id="pvStory"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="products.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

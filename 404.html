@@ -2,11 +2,13 @@
 <html lang="en-ZA">
 <head>
 <meta charset="utf-8">
+<script>/* the store moved from /wearables/ to the main address (28 Nov 2026): send old links to the same page there */
+(function () { var p = location.pathname; if (/^\/wearables(\/|$)/.test(p)) location.replace((p.replace(/^\/wearables/, '') || '/') + location.search + location.hash); })();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="ui/nexera-ui.css">
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/ui/nexera-ui.css">
 <style>
   body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: #f4f2ed; color: #15161a; font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; padding: 16px; }
   main a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; border-radius: 12px; background: #e8452c; color: #14100f; text-decoration: none; font-weight: 600; }
@@ -24,15 +26,15 @@
   <span></span><span></span><span></span><b class="nx-count"></b>
 </button>
 <div class="nx-menu" id="nx-menu">
-  <div class="nx-top"><img src="assets/mark.svg" alt="" width="28" height="28" decoding="async"><span>NEXERA</span></div>
+  <div class="nx-top"><img src="/assets/mark.svg" alt="" width="28" height="28" decoding="async"><span>NEXERA</span></div>
   <nav aria-label="Main">
-    <a href="index.html">Home</a>
-    <a href="shop.html?c=watches">Watches <small data-from-label="watches">from R599</small></a>
-    <a href="shop.html?c=rings">Smart rings <small data-from-label="rings">from R1 099</small></a>
-    <a href="shop.html?c=cases">Watch cases <small data-from-label="cases">from R249</small></a>
-    <a href="index.html#bundle">Build a bundle</a>
-    <a href="index.html#faq">Help &amp; FAQ</a>
-    <a href="cart.html">Cart</a>
+    <a href="/index.html">Home</a>
+    <a href="/shop.html?c=watches">Watches <small data-from-label="watches">from R599</small></a>
+    <a href="/shop.html?c=rings">Smart rings <small data-from-label="rings">from R1 099</small></a>
+    <a href="/shop.html?c=cases">Watch cases <small data-from-label="cases">from R249</small></a>
+    <a href="/index.html#bundle">Build a bundle</a>
+    <a href="/index.html#faq">Help &amp; FAQ</a>
+    <a href="/cart.html">Cart</a>
   </nav>
   <div class="nx-foot">
     <span>Delivered anywhere in South Africa · 7-day returns</span>
@@ -42,14 +44,10 @@
   <main>
     <h1 class="reveal">This page is not here</h1>
     <p>The link may be old. The shop is one tap away.</p>
-    <a href="./">Go to the shop</a>
+    <a href="/">Go to the shop</a>
   </main>
   <p class="nx-wordmark nx-wordmark--light" aria-hidden="true">NEXERA</p>
-  <script>
-    /* GitHub Pages serves this for any missing path; send visitors to the store folder home */
-    (function () { var base = location.pathname.split('/').filter(Boolean)[0]; if (base && !/\.html$/.test(base)) document.querySelector('main a').href = '/' + base + '/'; })();
-  </script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
-<script src="ui/nexera-ui.js" defer></script>
+<script src="/ui/nexera-ui.js" defer></script>
 </body>
 </html>

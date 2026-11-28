@@ -1,15 +1,9 @@
 # NEXERA
 
-The public website of NEXERA, a store for iPhone, AirPods, MacBook and Apple Watch. *Shop smarter. Live better.*
+The published NEXERA wearables store (fitness watches, smart rings and watch cases for South Africa), served by GitHub Pages at the main address. *Shop Smarter. Live Better.*
 
-This repository holds only the published store and is served by GitHub Pages. It is plain HTML, CSS and JS with no build step.
-
-- Store settings (WhatsApp number, email, address, currency) are in `CONFIG` at the top of `products.js`.
-- Products and prices are in `PRODUCTS` in the same file. `price: null` shows "Price on request".
-- Tapping a product opens the 3D showcase (`showcase/`). Real `.glb` models can be dropped into `models/` (see `models/README.md`).
-
-To preview it on a computer, serve the folder (the 3D view does not work when the file is opened directly):
-
-    npx serve .
+- The store's source lives in the private `websites` repository, folder `wearables/`. Change it there, then publish with `bash wearables/tools/publish.sh <this checkout>` and push. Do not edit the store files here by hand.
+- Old links under `/wearables/...` still work: `404.html` sends them to the same page at the main address.
+- `classic/` is the earlier NEXERA 3D showcase, kept but no longer linked.
 
 Every change pushed to `main` updates the live site after a minute or two.

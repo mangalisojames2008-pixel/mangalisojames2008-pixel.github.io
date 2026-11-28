@@ -17,7 +17,7 @@ window.NXH = {
   phone:          "074 659 2098",
   whatsapp:       "27746592098",                 // digits only, with country code, no + or spaces
   hours:          "Monday to Friday, 08:30–17:00 · Saturday, 09:00–13:00",
-  website:        "https://mangalisojames2008-pixel.github.io/wearables/",
+  website:        "https://mangalisojames2008-pixel.github.io/",
   infoOfficer:    "[Name of Information Officer: the owner, if a small business]",
   lastUpdated:    "23 November 2026",
 
